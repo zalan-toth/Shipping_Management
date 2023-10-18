@@ -21,7 +21,7 @@ public class CargoAPI {
 		test.add(9);
 		test.add(99);
 
-
+		test.remove(3);
 		System.out.println("For-each loop");
 		for (Object o : test) {
 			System.out.println(o);

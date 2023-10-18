@@ -28,35 +28,9 @@ public class CustomList<F> implements Iterable {
 		size++;
 	}
 
-	/*public boolean remove(int index) { //NOT FINISHED
-		if (isValidIndex(index)) {
-			CustomNode<F> position = first;
-			for (int i = 0; i < index; i++) {
-				position = position.next; //NOT FINISHED
-			}
-			CustomNode<F> skipToThisPosition = position.next;
-			position.setNext(skipToThisPosition);
-		}
-			while((temporary!=null)&& !temporary.next){
-				temporary=temporary.next;
-			}
-		return false;
-	}*/
-	/*public boolean remove(int position) {
-		CustomNode<F> temporary = first;
-		if (isValidIndex(position) && temporary != null && temporary.next != null) {
-			for (int i = 0; i < position; i++) {
-				temporary.next = temporary.next.next;
-			}
-			temporary.next = temporary.next.next;
-
-
-		}
-		return false;
-	}*/
 
 	public boolean remove(int position) {
-		int index = size - 1 - position; //calculating the index because of reverse order
+		int index = position; //It is here because previously the list was in reverse order!
 		if (!isValidIndex(index)) {
 			return false;
 		}
