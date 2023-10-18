@@ -66,7 +66,7 @@ public class CustomList<F> implements Iterable {
 	public int indexOf(Object o) {
 		int index = 0;
 		for (Object current : this) {
-			if (o == current) {
+			if (o.equals(current)) {
 				return index;
 			}
 			index++;

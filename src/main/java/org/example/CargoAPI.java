@@ -19,6 +19,7 @@ public class CargoAPI {
 		test.add(7);
 		test.add(8);
 		test.add(9);
+		test.add(912312331);
 		test.add(99);
 
 		test.remove(3);
@@ -31,6 +32,7 @@ public class CargoAPI {
 			// access elements by their index (position)
 			System.out.println(test.get(i));
 		}
+		System.out.println("Get indexOf: " + test.indexOf(4));
 	}
 
 
