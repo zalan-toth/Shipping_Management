@@ -1,8 +1,8 @@
 package org.example;
 
 public class CargoAPI {
-	private CustomList<ContainerShip> shipsOnSea;
-	private CustomList<Port> ports;
+	private final Sea sea = new Sea();
+	private CustomList<Port> ports = new CustomList<>();
 	private CustomList<Integer> test;
 
 	public CargoAPI(CustomList<Integer> test) {

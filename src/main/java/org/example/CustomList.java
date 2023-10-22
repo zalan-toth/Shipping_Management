@@ -10,9 +10,6 @@ public class CustomList<F> implements Iterable {
 		return size;
 	}
 
-	public void setSize(int size) {
-		this.size = size;
-	}
 
 	public void add(F element) {
 		CustomNode<F> data = new CustomNode<>();
@@ -79,6 +76,10 @@ public class CustomList<F> implements Iterable {
 	}
 
 	public void clear() {
+		first = null;
+	}
+
+	public void removeAll() {
 		first = null;
 	}
 
