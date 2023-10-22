@@ -1,7 +1,7 @@
 package org.example;
 
 public class CargoAPI {
-	private final Sea sea = new Sea();
+	private Sea sea = new Sea(null);
 	private CustomList<Port> ports = new CustomList<>();
 	private CustomList<Integer> test;
 
