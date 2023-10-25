@@ -1,4 +1,4 @@
-package org.example;
+package net.pyel;
 
 import javafx.fxml.FXML;
 

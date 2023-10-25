@@ -1,4 +1,4 @@
-package org.example;
+package net.pyel.utils;
 
 import java.util.Iterator;
 

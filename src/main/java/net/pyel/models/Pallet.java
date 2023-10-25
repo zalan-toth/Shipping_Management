@@ -1,4 +1,4 @@
-package org.example;
+package net.pyel.models;
 
 public class Pallet {
 	private String description;

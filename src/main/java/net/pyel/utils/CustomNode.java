@@ -1,4 +1,4 @@
-package org.example;
+package net.pyel.utils;
 
 public class CustomNode<N> {
 	public CustomNode<N> next = null;

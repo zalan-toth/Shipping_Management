@@ -1,4 +1,6 @@
-package org.example;
+package net.pyel.models;
+
+import net.pyel.utils.CustomList;
 
 public class ContainerShip {
 	private String name;

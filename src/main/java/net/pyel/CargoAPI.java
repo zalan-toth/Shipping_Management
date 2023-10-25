@@ -1,14 +1,29 @@
-package org.example;
+package net.pyel;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import net.pyel.utils.CustomList;
+
+import java.io.FileWriter;
+import java.io.ObjectOutputStream;
 
 public class CargoAPI {
-	private Sea sea = new Sea(null);
-	private CustomList<Port> ports = new CustomList<>();
+
+	Cargo cargo = new Cargo();
 	private CustomList<Integer> test;
 
-	public CargoAPI(CustomList<Integer> test) {
-		this.test = test;
+	public CargoAPI() {
+
 	}
 
+
+	public void save() throws Exception {
+		XStream xstream = new XStream(new DomDriver());
+		ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("filename"));
+		out.writeObject(cargo);
+		out.close();
+	}
+   /*
 	public void addElement() {
 		test.add(1);
 		test.add(2);
@@ -33,7 +48,7 @@ public class CargoAPI {
 			System.out.println(test.get(i));
 		}
 		System.out.println("Get indexOf: " + test.indexOf(4));
-	}
+	}*/
 
 
 }
