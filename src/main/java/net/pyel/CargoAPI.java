@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Objects;
 
 public class CargoAPI {
 
@@ -19,6 +20,20 @@ public class CargoAPI {
 	}
 
 
+	//██████╗░███████╗██████╗░░██████╗██╗░██████╗████████╗███████╗███╗░░██╗░█████╗░███████╗
+	//██╔══██╗██╔════╝██╔══██╗██╔════╝██║██╔════╝╚══██╔══╝██╔════╝████╗░██║██╔══██╗██╔════╝
+	//██████╔╝█████╗░░██████╔╝╚█████╗░██║╚█████╗░░░░██║░░░█████╗░░██╔██╗██║██║░░╚═╝█████╗░░
+	//██╔═══╝░██╔══╝░░██╔══██╗░╚═══██╗██║░╚═══██╗░░░██║░░░██╔══╝░░██║╚████║██║░░██╗██╔══╝░░
+	//██║░░░░░███████╗██║░░██║██████╔╝██║██████╔╝░░░██║░░░███████╗██║░╚███║╚█████╔╝███████╗
+	//╚═╝░░░░░╚══════╝╚═╝░░╚═╝╚═════╝░╚═╝╚═════╝░░░░╚═╝░░░╚══════╝╚═╝░░╚══╝░╚════╝░╚══════╝
+
+
+	/**
+	 * The save method uses the XStream component to write all the objects in the ArrayList
+	 * to the xml file stored on the hard disk.
+	 *
+	 * @throws Exception An exception is thrown if an error occurred during the save e.g. drive is full.
+	 */
 	public void save() throws Exception {
 		XStream xstream = new XStream(new DomDriver());
 		ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("cargo.xml"));
@@ -26,6 +41,12 @@ public class CargoAPI {
 		out.close();
 	}
 
+	/**
+	 * The load method uses the XStream component to read all the objects from the xml
+	 * file stored on the hard disk.
+	 *
+	 * @throws Exception An exception is thrown if an error occurred during the load e.g. a missing file.
+	 */
 	public void load() throws Exception {
 		//list of classes that you wish to include in the serialisation, separated by a comma
 		Class<?>[] classes = new Class[]{Cargo.class, Port.class, Sea.class, ContainerShip.class, Container.class, Pallet.class};
@@ -40,6 +61,31 @@ public class CargoAPI {
 		cargo = (Cargo) in.readObject();
 		in.close();
 	}
+
+	//███████╗░██████╗░██╗░░░██╗░█████╗░██╗░░░░░░██████╗
+	//██╔════╝██╔═══██╗██║░░░██║██╔══██╗██║░░░░░██╔════╝
+	//█████╗░░██║██╗██║██║░░░██║███████║██║░░░░░╚█████╗░
+	//██╔══╝░░╚██████╔╝██║░░░██║██╔══██║██║░░░░░░╚═══██╗
+	//███████╗░╚═██╔═╝░╚██████╔╝██║░░██║███████╗██████╔╝
+	//╚══════╝░░░╚═╝░░░░╚═════╝░╚═╝░░╚═╝╚══════╝╚═════╝░
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof CargoAPI)) return false;
+
+		CargoAPI cargoAPI = (CargoAPI) o;
+
+		return Objects.equals(cargo, cargoAPI.cargo);
+	}
+
+	@Override
+	public int hashCode() {
+		return cargo != null ? cargo.hashCode() : 0;
+	}
+
+
+
    /*
 	public void addElement() {
 		test.add(1);
