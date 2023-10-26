@@ -3,7 +3,8 @@ package net.pyel.utils;
 import java.util.Iterator;
 
 public class CustomList<F> implements Iterable {
-	public CustomNode<F> first = null, last;
+	public CustomNode<F> first = null;
+	public CustomNode<F> last = null;
 	public int size = 0;
 
 	public int getSize() {
@@ -91,12 +92,12 @@ public class CustomList<F> implements Iterable {
 		return ((index < size) && (index >= 0));
 	}
 
-	public Object get(int index) {
+	public F get(int index) {
 		if (isValidIndex(index)) {
 			int position = 0;
-			for (Object o : this) {
+			for (int i = 0; i < size; i++) { //Object o : this
 				if (position == index) {
-					return o;
+					return (F) this.get(i);
 				}
 				position++;
 			}

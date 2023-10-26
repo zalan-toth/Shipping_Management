@@ -37,4 +37,16 @@ public class Container {
 	public void setPallets(CustomList<Pallet> pallets) {
 		this.pallets = pallets;
 	}
+
+	public void addPallet(Pallet pallet) {
+		pallets.add(pallet);
+	}
+
+	public void removePalletByIndex(int index) {
+		pallets.remove(index);
+	}
+
+	public void updatePalletByIndex(int index) {
+		//pallets.update(index);
+	}
 }

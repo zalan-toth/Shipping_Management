@@ -48,4 +48,28 @@ public class Port {
 	public void setShips(CustomList<ContainerShip> ships) {
 		this.ships = ships;
 	}
+
+	public void addContainerShip(ContainerShip containerShip) {
+		ships.add(containerShip);
+	}
+
+	public void removeContainerShipByIndex(int index) {
+		ships.remove(index);
+	}
+
+	public void updateContainerShipByIndex(int index) {
+		//ships.update(index);
+	}
+
+	public void addContainer(Container container) {
+		containers.add(container);
+	}
+
+	public void removeContainerByIndex(int index) {
+		containers.remove(index);
+	}
+
+	public void updateContainerByIndex(int index) {
+		//containers.update(index);
+	}
 }

@@ -11,8 +11,28 @@ public class Cargo {
 		this.ports = ports;
 	}
 
-	private Sea sea = new Sea(new CustomList<>());
+	private Sea sea = null;
 	private CustomList<Port> ports = new CustomList<>();
+
+	public void addPort(Port port) {
+		ports.add(port);
+	}
+
+	public void removePort(int index) {
+		ports.remove(index);
+	}
+
+	public void updateContainerShipByIndex(int index) {
+		//ships.update(index);
+	}
+
+	public void addContainerShipToPort(int portIndex, ContainerShip containerShip) {
+		ports.get(portIndex).addContainerShip(containerShip);
+	}
+
+	public void removeContainerShipFromPort(int portIndex, int shipIndex) {
+		ports.get(portIndex).removeContainerShipByIndex(shipIndex);
+	}
 
 	//░██████╗░███████╗████████╗████████╗███████╗██████╗░░██████╗
 	//██╔════╝░██╔════╝╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗██╔════╝

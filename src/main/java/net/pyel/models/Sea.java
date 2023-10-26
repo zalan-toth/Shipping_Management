@@ -18,4 +18,15 @@ public class Sea {
 	}
 
 
+	public void addContainerShip(ContainerShip containerShip) {
+		ships.add(containerShip);
+	}
+
+	public void removeContainerShipByIndex(int index) {
+		ships.remove(index);
+	}
+
+	public void updateContainerShipByIndex(int index) {
+		//ships.update(index);
+	}
 }

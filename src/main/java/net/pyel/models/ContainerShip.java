@@ -57,4 +57,17 @@ public class ContainerShip {
 	public void setContainers(CustomList<Container> containers) {
 		this.containers = containers;
 	}
+
+
+	public void addContainer(Container container) {
+		containers.add(container);
+	}
+
+	public void removeContainerByIndex(int index) {
+		containers.remove(index);
+	}
+
+	public void updateContainerByIndex(int index) {
+		//containers.update(index);
+	}
 }
