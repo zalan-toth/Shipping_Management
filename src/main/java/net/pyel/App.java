@@ -13,35 +13,15 @@ import java.io.IOException;
  */
 public class App extends Application {
 
-	CargoAPI cargoAPI = new CargoAPI();
 	private static Scene scene;
 
 	@Override
 	public void start(Stage stage) throws IOException {
-		load();
-		save();
 		scene = new Scene(loadFXML("primary"), 640, 480);
 		stage.setScene(scene);
 		stage.show();
 	}
 
-
-	private void save() {
-
-		try {
-			cargoAPI.save();
-		} catch (Exception e) {
-			System.err.println("Error writing to file: " + e);
-		}
-	}
-
-	private void load() {
-		try {
-			cargoAPI.load();
-		} catch (Exception e) {
-			System.err.println("Error reading from file: " + e);
-		}
-	}
 
 	static void setRoot(String fxml) throws IOException {
 		scene.setRoot(loadFXML(fxml));

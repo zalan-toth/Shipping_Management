@@ -6,10 +6,33 @@ import java.io.IOException;
 
 public class PrimaryController {
 
+	private CargoAPI cargoAPI = new CargoAPI();
+
 	@FXML
 	private void switchToSecondary() throws IOException {
-		//.setRoot("secondary");
+		save();
+		App.setRoot("secondary");
 
+
+	}
+
+	private void save() {
+
+		try {
+			System.out.println("Data save attempted.");
+			cargoAPI.save();
+		} catch (Exception e) {
+			System.err.println("Error writing to file: " + e);
+		}
+	}
+
+	private void load() {
+		try {
+			System.out.println("Data load attempted.");
+			cargoAPI.load();
+		} catch (Exception e) {
+			System.err.println("Error reading from file: " + e);
+		}
 	}
 
 }
