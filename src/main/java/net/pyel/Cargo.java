@@ -1,5 +1,6 @@
 package net.pyel;
 
+import net.pyel.models.ContainerShip;
 import net.pyel.models.Port;
 import net.pyel.models.Sea;
 import net.pyel.utils.CustomList;
@@ -13,17 +14,35 @@ public class Cargo {
 	private Sea sea = new Sea(new CustomList<>());
 	private CustomList<Port> ports = new CustomList<>();
 
+	//░██████╗░███████╗████████╗████████╗███████╗██████╗░░██████╗
+	//██╔════╝░██╔════╝╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗██╔════╝
+	//██║░░██╗░█████╗░░░░░██║░░░░░░██║░░░█████╗░░██████╔╝╚█████╗░
+	//██║░░╚██╗██╔══╝░░░░░██║░░░░░░██║░░░██╔══╝░░██╔══██╗░╚═══██╗
+	//╚██████╔╝███████╗░░░██║░░░░░░██║░░░███████╗██║░░██║██████╔╝
+	//░╚═════╝░╚══════╝░░░╚═╝░░░░░░╚═╝░░░╚══════╝╚═╝░░╚═╝╚═════╝░
 	public Sea getSea() {
 		return sea;
-	}
-
-	public void setSea(Sea sea) {
-		this.sea = sea;
 	}
 
 	public CustomList<Port> getPorts() {
 		return ports;
 	}
+
+	public CustomList<ContainerShip> getAllContainerShips() {
+		return null;
+	}
+
+	//░██████╗███████╗████████╗████████╗███████╗██████╗░░██████╗
+	//██╔════╝██╔════╝╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗██╔════╝
+	//╚█████╗░█████╗░░░░░██║░░░░░░██║░░░█████╗░░██████╔╝╚█████╗░
+	//░╚═══██╗██╔══╝░░░░░██║░░░░░░██║░░░██╔══╝░░██╔══██╗░╚═══██╗
+	//██████╔╝███████╗░░░██║░░░░░░██║░░░███████╗██║░░██║██████╔╝
+	//╚═════╝░╚══════╝░░░╚═╝░░░░░░╚═╝░░░╚══════╝╚═╝░░╚═╝╚═════╝░
+
+	public void setSea(Sea sea) {
+		this.sea = sea;
+	}
+
 
 	public void setPorts(CustomList<Port> ports) {
 		this.ports = ports;
