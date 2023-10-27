@@ -13,10 +13,15 @@ import java.util.Objects;
 
 public class CargoAPI {
 
-	Cargo cargo = new Cargo(null, new CustomList<>());
+	Cargo cargo = new Cargo(null, new CustomList<>(), new CustomList<>()); //center of data
 	private CustomList<Integer> test;
 
 	public CargoAPI() {
+		Port port = new Port("Triest", 1, "IT", null);
+		cargo.addPort(port);
+
+		Port port2 = new Port("Balaton", 2, "HU", null);
+		cargo.addPort(port2);
 	}
 
 
@@ -53,7 +58,7 @@ public class CargoAPI {
 
 		//setting up the xstream object with default security and the above classes
 		XStream xstream = new XStream(new DomDriver());
-		XStream.setupDefaultSecurity(xstream);
+		//XStream.setupDefaultSecurity(xstream);
 		xstream.allowTypes(classes);
 
 		//doing the actual serialisation to an XML file

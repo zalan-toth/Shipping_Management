@@ -18,6 +18,7 @@ public class ContainerShip {
 		this.containers = containers;
 	}
 
+
 	public String getName() {
 		return name;
 	}
@@ -70,4 +71,13 @@ public class ContainerShip {
 	public void updateContainerByIndex(int index) {
 		//containers.update(index);
 	}
+
+	public void addPalletToContainers(int containerIndex, Pallet pallet) {
+		containers.get(containerIndex).addPallet(pallet);
+	}
+
+	public void removePalletToContainers(int containerIndex, int palletIndex) {
+		containers.get(containerIndex).removePalletByIndex(palletIndex);
+	}
+
 }

@@ -1,7 +1,31 @@
 <object-stream>
   <net.pyel.Cargo>
     <ports>
-      <size>0</size>
+      <first>
+        <next>
+          <contents class="net.pyel.models.Port">
+            <name>Balaton</name>
+            <code>2</code>
+            <country>HU</country>
+            <containers>
+              <size>0</size>
+            </containers>
+          </contents>
+        </next>
+        <contents class="net.pyel.models.Port">
+          <name>Triest</name>
+          <code>1</code>
+          <country>IT</country>
+          <containers>
+            <size>0</size>
+          </containers>
+        </contents>
+      </first>
+      <last reference="../first/next"/>
+      <size>2</size>
     </ports>
+    <countries>
+      <size>0</size>
+    </countries>
   </net.pyel.Cargo>
 </object-stream>
