@@ -1,8 +1,9 @@
 package net.pyel.utils;
 
-import java.util.Iterator;
+import java.util.*;
+import java.util.function.UnaryOperator;
 
-public class CustomList<F> implements Iterable {
+public class CustomList<F> implements Iterable, List {
 	public CustomNode<F> first = null;
 	public CustomNode<F> last = null;
 	public int size = 0;
@@ -12,9 +13,10 @@ public class CustomList<F> implements Iterable {
 	}
 
 
-	public void add(F element) {
+	@Override
+	public boolean add(Object element) {
 		CustomNode<F> data = new CustomNode<>();
-		data.setContents(element);
+		data.setContents((F) element);
 		//data.next = first;
 		//first = data;
 		if (first == null)
@@ -24,19 +26,21 @@ public class CustomList<F> implements Iterable {
 			last = data;
 		}
 		size++;
+		return false;
 	}
 
 
-	public boolean remove(int position) {
+	@Override
+	public F remove(int position) {
 		int index = position; //It is here because previously the list was in reverse order!
 		if (!isValidIndex(index)) {
-			return false;
+			return null;
 		}
 
 		if (index == 0) {
 			first = first.next;
 			size--;
-			return true;
+			return null;
 		}
 
 		CustomNode<F> current = first;
@@ -47,20 +51,27 @@ public class CustomList<F> implements Iterable {
 			if (currentIndex == index) { //found the node to delete
 				previous.next = current.next; // unlink the item
 				size--;
-				return true;
+				return current.getContents();
 			}
 			previous = current;
 			current = current.next;
 			currentIndex++;
 		}
 
-		return false;
+		return null;
 	}
 
+	@Override
 	public boolean isEmpty() {
 		return (first == null);
 	}
 
+	@Override
+	public boolean contains(Object o) {
+		return false;
+	}
+
+	@Override
 	public int indexOf(Object o) {
 		int index = 0;
 		for (Object current : this) {
@@ -72,10 +83,32 @@ public class CustomList<F> implements Iterable {
 		return -1;
 	}
 
+	@Override
+	public int lastIndexOf(Object o) {
+		return 0;
+	}
+
+	@Override
+	public ListIterator listIterator() {
+		return null;
+	}
+
+	@Override
+	public ListIterator listIterator(int index) {
+		return null;
+	}
+
+	@Override
+	public List subList(int fromIndex, int toIndex) {
+		return null;
+	}
+
+	@Override
 	public int size() {
 		return size;
 	}
 
+	@Override
 	public void clear() {
 		first = null;
 	}
@@ -92,6 +125,7 @@ public class CustomList<F> implements Iterable {
 		return ((index < size) && (index >= 0));
 	}
 
+	@Override
 	public F get(int index) {
 		if (isValidIndex(index)) {
 			int position = 0;
@@ -107,8 +141,98 @@ public class CustomList<F> implements Iterable {
 	}
 
 	@Override
+	public Object set(int index, Object element) {
+		return null;
+	}
+
+	@Override
+	public void add(int index, Object element) {
+
+	}
+
+	@Override
 	public Iterator<F> iterator() {
 		return new CustomIterator<F>(first);
 	}
 
+	@Override
+	public Object[] toArray() {
+		return new Object[0];
+	}
+
+	/*@Override
+	public boolean add(Object o) {
+		return false;
+	}*/
+
+	@Override
+	public boolean remove(Object o) {
+		return false;
+	}
+
+	@Override
+	public boolean addAll(Collection c) {
+		boolean modified = false;
+		for (Object item : c) {
+			if (add(item)) { // Using the add method
+				modified = true;
+			}
+		}
+		return modified;
+	}
+
+	@Override
+	public boolean addAll(int index, Collection c) {
+		return false;
+	}
+
+	@Override
+	public void replaceAll(UnaryOperator operator) {
+		List.super.replaceAll(operator);
+	}
+
+	@Override
+	public void sort(Comparator c) {
+		List.super.sort(c);
+	}
+
+	@Override
+	public boolean retainAll(Collection c) {
+		return false;
+	}
+
+	@Override
+	public boolean removeAll(Collection c) {
+		return false;
+	}
+
+	@Override
+	public boolean containsAll(Collection c) {
+		return false;
+	}
+
+	@Override
+	public Object[] toArray(Object[] a) {
+		return new Object[0];
+	}
+
+	/*@Override
+	public void forEach(Consumer action) {
+		Iterable.super.forEach(action);
+	}
+
+	@Override
+	public Spliterator spliterator() {
+		return Iterable.super.spliterator();
+	}
+
+	@Override
+	public void addListener(InvalidationListener listener) {
+
+	}
+
+	@Override
+	public void removeListener(InvalidationListener listener) {
+
+	}*/
 }

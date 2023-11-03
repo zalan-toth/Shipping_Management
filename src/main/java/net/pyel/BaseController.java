@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import net.pyel.models.Port;
+import net.pyel.utils.CustomList;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,6 +14,9 @@ import java.util.ResourceBundle;
 public class BaseController implements Initializable {
 
 	private CargoAPI cargoAPI = new CargoAPI();
+
+	CustomList<Port> ports = cargoAPI.cargo.getPorts();
+
 
 	@FXML
 	private void switchToSecondary() throws IOException {
@@ -46,6 +50,7 @@ public class BaseController implements Initializable {
 		} catch (Exception e) {
 			System.err.println("Error reading from file: " + e);
 		}
+
 	}
 
 	@FXML
@@ -57,7 +62,6 @@ public class BaseController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
-		portListView.getItems().addAll(cargoAPI.cargo.getPorts().get(0));
+		//portListView.getItems().addAll(ports);
 	}
 }
