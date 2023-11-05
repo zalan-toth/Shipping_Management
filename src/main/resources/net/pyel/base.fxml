@@ -71,12 +71,12 @@
                   <Font name="NATS" size="47.0" />
                </font>
             </Text>
-            <Button layoutX="697.0" layoutY="141.0" mnemonicParsing="false" onMouseClicked="#switchToSecondary" style="-fx-background-color: #8ad3ff;" stylesheets="@Shipping_Management/smp.css" text="New" textFill="#171414">
+            <Button layoutX="697.0" layoutY="141.0" mnemonicParsing="false" onMouseClicked="#newPanel" style="-fx-background-color: #8ad3ff;" stylesheets="@Shipping_Management/smp.css" text="New" textFill="#171414">
                <font>
                   <Font size="30.0" />
                </font>
             </Button>
-            <Button layoutX="694.0" layoutY="255.0" mnemonicParsing="false" onAction="#loadData" style="-fx-background-color: #8ad3ff;" text="Load">
+            <Button layoutX="694.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#loadPanel" style="-fx-background-color: #8ad3ff;" text="Load">
                <font>
                   <Font size="30.0" />
                </font>

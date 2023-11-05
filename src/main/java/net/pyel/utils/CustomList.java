@@ -3,7 +3,7 @@ package net.pyel.utils;
 import java.util.*;
 import java.util.function.UnaryOperator;
 
-public class CustomList<F> implements Iterable, List {
+public class CustomList<F> implements Iterable<F>, List<F> {
 	public CustomNode<F> first = null;
 	public CustomNode<F> last = null;
 	public int size = 0;
@@ -103,11 +103,30 @@ public class CustomList<F> implements Iterable, List {
 		return null;
 	}
 
+	//ModifiableObservableListBase methods begin
 	@Override
 	public int size() {
 		return size;
 	}
 
+	protected void doAdd(int index, F element) {
+		this.add(index, element);
+	}
+
+	protected F doSet(int index, F element) {
+		F oldVal = this.get(index);
+		// Implement set in CustomList if required.
+		// For now, this will just remove and add.
+		this.remove(index);
+		this.add(index, element);
+		return oldVal;
+	}
+
+	protected F doRemove(int index) {
+		return this.remove(index);
+	}
+
+	//ModifiableObservableListBase methods end
 	@Override
 	public void clear() {
 		first = null;
@@ -188,12 +207,12 @@ public class CustomList<F> implements Iterable, List {
 
 	@Override
 	public void replaceAll(UnaryOperator operator) {
-		List.super.replaceAll(operator);
+
 	}
 
 	@Override
 	public void sort(Comparator c) {
-		List.super.sort(c);
+
 	}
 
 	@Override
@@ -215,6 +234,56 @@ public class CustomList<F> implements Iterable, List {
 	public Object[] toArray(Object[] a) {
 		return new Object[0];
 	}
+/*
+	@Override
+	public void addListener(ListChangeListener<? super F> listener) {
+
+	}
+
+	@Override
+	public void removeListener(ListChangeListener<? super F> listener) {
+
+	}
+
+	@Override
+	public boolean addAll(F... elements) {
+		return false;
+	}
+
+	@Override
+	public boolean setAll(F... elements) {
+		return false;
+	}
+
+	@Override
+	public boolean setAll(Collection<? extends F> col) {
+		return false;
+	}
+
+	@Override
+	public boolean removeAll(F... elements) {
+		return false;
+	}
+
+	@Override
+	public boolean retainAll(F... elements) {
+		return false;
+	}
+
+	@Override
+	public void remove(int from, int to) {
+
+	}
+
+	@Override
+	public void addListener(InvalidationListener listener) {
+
+	}
+
+	@Override
+	public void removeListener(InvalidationListener listener) {
+
+	}
 
 	/*@Override
 	public void forEach(Consumer action) {
@@ -235,4 +304,6 @@ public class CustomList<F> implements Iterable, List {
 	public void removeListener(InvalidationListener listener) {
 
 	}*/
+
+
 }

@@ -1,5 +1,6 @@
 package net.pyel;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -19,15 +20,22 @@ public class BaseController implements Initializable {
 
 
 	@FXML
-	private void switchToSecondary() throws IOException {
-		save();
+	private void newPanel() throws IOException {
 		App.setRoot("ports");
 
 
 	}
 
 	@FXML
-	private void loadData() throws IOException {
+	private void loadPanel() throws IOException {
+		loadData();
+		App.setRoot("ports");
+
+
+	}
+
+	@FXML
+	private void loadData() {
 		load();
 
 
@@ -54,7 +62,7 @@ public class BaseController implements Initializable {
 	}
 
 	@FXML
-	private ListView<Port> portListView;
+	private ListView<Port> portListView = new ListView<>();
 
 	@FXML
 	private Label testLabel;
@@ -62,6 +70,7 @@ public class BaseController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		//portListView.getItems().addAll(ports);
+		loadData();
+		portListView.setItems(FXCollections.observableList(ports));
 	}
 }

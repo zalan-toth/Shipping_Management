@@ -72,4 +72,9 @@ public class Port {
 	public void updateContainerByIndex(int index) {
 		//containers.update(index);
 	}
+
+	@Override
+	public String toString() {
+		return getCountry() + getCode() + " - " + getName();
+	}
 }
