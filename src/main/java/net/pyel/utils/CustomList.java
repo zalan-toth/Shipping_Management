@@ -90,12 +90,16 @@ public class CustomList<F> implements Iterable<F>, List<F> {
 
 	@Override
 	public ListIterator listIterator() {
-		return null;
+		return new CustomListIterator<>(first);
 	}
 
 	@Override
 	public ListIterator<F> listIterator(int index) {
-		return new ListIterator<>() {
+
+		for (int i = 0; i < index; i++) {
+
+		}
+		/*return new ListIterator<>() {
 			@Override
 			public boolean hasNext() {
 				return false;
@@ -140,7 +144,8 @@ public class CustomList<F> implements Iterable<F>, List<F> {
 			public void add(F f) {
 
 			}
-		};
+		};*/
+		return new CustomListIterator<>(first);
 	}
 
 	@Override

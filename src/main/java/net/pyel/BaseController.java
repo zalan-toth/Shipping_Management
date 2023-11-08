@@ -70,7 +70,7 @@ public class BaseController implements Initializable {
 
 	@FXML
 	private void addAPort() {
-		portListView.getItems().add(new Port("Waterford", 67, "IE", null));
+		ports.add(new Port("Waterford", 67, "IE", null));
 	}
 
 	@Override

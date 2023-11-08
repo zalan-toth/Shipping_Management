@@ -3,15 +3,20 @@ package net.pyel.utils;
 import java.util.ListIterator;
 
 public class CustomListIterator<F> implements ListIterator<F> {
+	private CustomNode<F> position;
+
+	public CustomListIterator(CustomNode<F> node) {
+		position = node;
+	}
 
 	@Override
 	public boolean hasNext() {
-		return false;
+		return position != null;
 	}
 
 	@Override
 	public F next() {
-		return null;
+		return position.next.getContents();
 	}
 
 	@Override
