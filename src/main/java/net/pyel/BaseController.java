@@ -68,9 +68,14 @@ public class BaseController implements Initializable {
 	private Label testLabel;
 	private Port selectedPort;
 
+	@FXML
+	private void addAPort() {
+		portListView.getItems().add(new Port("Waterford", 67, "IE", null));
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		loadData();
-		portListView.setItems(FXCollections.observableList(ports));
+		//portListView.getItems().addAll(ports);
+		portListView.setItems(FXCollections.observableList(ports)); //Yay!
 	}
 }

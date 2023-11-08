@@ -22,6 +22,10 @@ public class CargoAPI {
 
 		Port port2 = new Port("Balaton", 2, "HU", null);
 		cargo.addPort(port2);
+		Port port3 = new Port("Yes", 3, "IE", null);
+		cargo.addPort(port3);
+		Port port4 = new Port("No", 4, "HU", null);
+		cargo.addPort(port4);
 	}
 
 
