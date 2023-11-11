@@ -17,7 +17,7 @@ public class CargoAPI {
 	private CustomList<Integer> test;
 
 	public CargoAPI() {
-		Port port = new Port("Triest", 1, "IT", null);
+		/*Port port = new Port("Triest", 1, "IT", null);
 		cargo.addPort(port);
 
 		Port port2 = new Port("Balaton", 2, "HU", null);
@@ -25,7 +25,7 @@ public class CargoAPI {
 		Port port3 = new Port("Yes", 3, "IE", null);
 		cargo.addPort(port3);
 		Port port4 = new Port("No", 4, "HU", null);
-		cargo.addPort(port4);
+		cargo.addPort(port4);*/
 	}
 
 

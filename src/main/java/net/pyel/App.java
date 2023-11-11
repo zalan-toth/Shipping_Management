@@ -14,14 +14,22 @@ import java.io.IOException;
 public class App extends Application {
 
 	private static Scene scene;
+	private static Stage stageInfo;
 
 	@Override
 	public void start(Stage stage) throws IOException {
+
 		scene = new Scene(loadFXML("base"));
 		stage.setScene(scene);
+		stage.setResizable(false);
+		stage.setTitle("Shipping Management Panel | Welcome");
 		stage.show();
+		stageInfo = stage;
 	}
 
+	public static Stage getStageInfo() {
+		return stageInfo;
+	}
 
 	static void setRoot(String fxml) throws IOException {
 		scene.setRoot(loadFXML(fxml));
@@ -33,9 +41,9 @@ public class App extends Application {
 	}
 
 	public static void main(String[] args) {
-		//cargo.addElement();
 		launch();
 
 	}
+
 
 }

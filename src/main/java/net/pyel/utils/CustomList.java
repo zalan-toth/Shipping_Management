@@ -89,67 +89,17 @@ public class CustomList<F> implements Iterable<F>, List<F> {
 	}
 
 	@Override
-	public ListIterator listIterator() {
-		return new CustomListIterator<>(first);
+	public ListIterator<F> listIterator() {
+		return new CustomListIterator<>(first, 0);
 	}
 
 	@Override
 	public ListIterator<F> listIterator(int index) {
-
-		for (int i = 0; i < index; i++) {
-
-		}
-		/*return new ListIterator<>() {
-			@Override
-			public boolean hasNext() {
-				return false;
-			}
-
-			@Override
-			public F next() {
-				return null;
-			}
-
-			@Override
-			public boolean hasPrevious() {
-				return false;
-			}
-
-			@Override
-			public F previous() {
-				return null;
-			}
-
-			@Override
-			public int nextIndex() {
-				return 0;
-			}
-
-			@Override
-			public int previousIndex() {
-				return 0;
-			}
-
-			@Override
-			public void remove() {
-
-			}
-
-			@Override
-			public void set(F f) {
-
-			}
-
-			@Override
-			public void add(F f) {
-
-			}
-		};*/
-		return new CustomListIterator<>(first);
+		return new CustomListIterator<>(first, index);
 	}
 
 	@Override
-	public List subList(int fromIndex, int toIndex) {
+	public List<F> subList(int fromIndex, int toIndex) {
 		return null;
 	}
 
@@ -229,10 +179,6 @@ public class CustomList<F> implements Iterable<F>, List<F> {
 		return new Object[0];
 	}
 
-	/*@Override
-	public boolean add(Object o) {
-		return false;
-	}*/
 
 	@Override
 	public boolean remove(Object o) {
@@ -284,76 +230,6 @@ public class CustomList<F> implements Iterable<F>, List<F> {
 	public Object[] toArray(Object[] a) {
 		return new Object[0];
 	}
-/*
-	@Override
-	public void addListener(ListChangeListener<? super F> listener) {
-
-	}
-
-	@Override
-	public void removeListener(ListChangeListener<? super F> listener) {
-
-	}
-
-	@Override
-	public boolean addAll(F... elements) {
-		return false;
-	}
-
-	@Override
-	public boolean setAll(F... elements) {
-		return false;
-	}
-
-	@Override
-	public boolean setAll(Collection<? extends F> col) {
-		return false;
-	}
-
-	@Override
-	public boolean removeAll(F... elements) {
-		return false;
-	}
-
-	@Override
-	public boolean retainAll(F... elements) {
-		return false;
-	}
-
-	@Override
-	public void remove(int from, int to) {
-
-	}
-
-	@Override
-	public void addListener(InvalidationListener listener) {
-
-	}
-
-	@Override
-	public void removeListener(InvalidationListener listener) {
-
-	}
-
-	/*@Override
-	public void forEach(Consumer action) {
-		Iterable.super.forEach(action);
-	}
-
-	@Override
-	public Spliterator spliterator() {
-		return Iterable.super.spliterator();
-	}
-
-	@Override
-	public void addListener(InvalidationListener listener) {
-
-	}
-
-	@Override
-	public void removeListener(InvalidationListener listener) {
-
-	}*/
 
 
 }

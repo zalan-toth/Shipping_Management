@@ -2,6 +2,7 @@ module net.pyel {
 	requires javafx.controls;
 	requires javafx.fxml;
 	requires xstream;
+	requires java.desktop;
 
 	opens net.pyel to javafx.fxml, xstream;
 	exports net.pyel;
