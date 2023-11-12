@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class CargoAPI {
 
-	Cargo cargo = new Cargo(null, new CustomList<>(), new CustomList<>()); //center of data
+	Cargo cargo = new Cargo(new Sea(new CustomList<>()), new CustomList<>(), new CustomList<>()); //center of data
 	private CustomList<Integer> test;
 
 	public CargoAPI() {

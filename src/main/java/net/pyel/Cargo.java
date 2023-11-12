@@ -10,7 +10,12 @@ public class Cargo {
 		this.countries = countries;
 	}
 
-	private Sea sea = null;
+	private Sea sea;
+
+	{
+		new Sea(new CustomList<>());
+	}
+
 	private CustomList<Port> ports = new CustomList<>();
 	private CustomList<String> countries = new CustomList<>();
 

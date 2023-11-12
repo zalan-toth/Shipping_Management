@@ -32,16 +32,19 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -50,7 +53,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="720.0" prefWidth="1200.0" style="-fx-background-color: #11182b;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.pyel.BaseController">
+<VBox prefHeight="720.0" prefWidth="1400.0" style="-fx-background-color: #11182b;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.pyel.BaseController">
   <children>
     <MenuBar style="-fx-background-color: #8ad3ff;" VBox.vgrow="NEVER">
       <menus>
@@ -72,143 +75,316 @@
         </Menu>
       </menus>
     </MenuBar>
-      <AnchorPane prefWidth="960.0" stylesheets="@Shipping_Management/smp.css">
+      <AnchorPane minHeight="860.0" prefWidth="1100.0" stylesheets="@Shipping_Management/smp.css">
          <children>
-            <SplitPane dividerPositions="0.4240400667779633, 0.6176961602671118, 0.8071786310517529" layoutX="273.0" layoutY="255.0" prefHeight="2160.0" prefWidth="1200.0" style="-fx-background-color: #11182b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <items>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="691.0" prefWidth="835.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="860.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane layoutX="318.0" layoutY="560.0" prefHeight="860.0" prefWidth="461.0" style="-fx-background-color: #1c2640;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button layoutX="43.0" layoutY="334.0" mnemonicParsing="false" onKeyPressed="#addAPort" onKeyReleased="#addAPort" onMouseClicked="#addAPort" text="Add Port" />
-                        <Button layoutX="350.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#refresh" text="Refresh" />
-                        <Button fx:id="popUpAddAddButton" layoutX="326.0" layoutY="376.0" mnemonicParsing="false" onMouseClicked="#addPort" style="-fx-background-color: #8ad3ff;" text="Add">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Button>
-                        <ImageView fitHeight="200.0" fitWidth="230.0" layoutX="2.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                        <ListView fx:id="dockedShipListView" layoutX="241.0" layoutY="237.0" prefHeight="475.0" prefWidth="210.0" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="241.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="385.0" />
+                        <ImageView fitHeight="137.0" fitWidth="99.0" layoutX="243.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/transparent_ondark.png" />
+                              <Image url="@img/cargo-ship.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="popUpAddPortName" layoutX="25.0" layoutY="488.0" prefHeight="0.0" prefWidth="280.0" promptText="Port name" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
-                           <font>
-                              <Font name="Monospaced Regular" size="18.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="popUpAddPortID" layoutX="29.0" layoutY="541.0" prefHeight="20.0" prefWidth="195.0" promptText="Port ID" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: orange;">
-                           <font>
-                              <Font name="Monospaced Regular" size="18.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="popUpAddPortCountry" layoutX="25.0" layoutY="426.0" prefHeight="20.0" prefWidth="280.0" promptText="Country" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
-                           <font>
-                              <Font name="Monospaced Regular" size="18.0" />
-                           </font>
-                        </TextField>
-                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="29.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adding a new port to the system">
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="333.0" layoutY="352.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Docked ships" textAlignment="RIGHT" wrappingWidth="116.0">
                            <font>
                               <Font name="Monospaced Regular" size="22.0" />
                            </font>
                         </Text>
-                        <CheckBox fx:id="popUpAddKeepMeOpen" layoutX="253.0" layoutY="612.0" mnemonicParsing="false" text="Keep data in fields" textFill="#82cbff">
+                        <ImageView fitHeight="99.0" fitWidth="99.0" layoutX="14.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/shipping.png" />
+                           </image>
+                        </ImageView>
+                        <ListView fx:id="shipListView" layoutX="14.0" layoutY="385.0" prefHeight="475.0" prefWidth="210.0" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="237.0" AnchorPane.topAnchor="385.0" />
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="125.0" layoutY="352.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ships on sea" textAlignment="RIGHT" wrappingWidth="99.0">
                            <font>
-                              <Font name="Chilanka Regular" size="14.0" />
+                              <Font name="Monospaced Regular" size="22.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="23.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ship">
+                           <font>
+                              <Font name="Monospaced Regular" size="34.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="23.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AT121212">
+                           <font>
+                              <Font name="Monospaced Regular" size="18.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="popUpAddPortName11" layoutX="16.0" layoutY="102.0" prefHeight="35.0" prefWidth="195.0" promptText="Ship name" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
+                           <font>
+                              <Font name="Monospaced Regular" size="18.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="popUpAddPortID11" layoutX="16.0" layoutY="148.0" prefHeight="35.0" prefWidth="195.0" promptText="Ship ID" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: orange;">
+                           <font>
+                              <Font name="Monospaced Regular" size="18.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="popUpAddAddButton112" layoutX="101.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="popUpAddAddButton211" layoutX="358.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
+                           <font>
+                              <Font name="Monospaced Regular" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="popUpAddAddButton1111" layoutX="16.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff;" text="Add">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Button>
+                        <SplitMenuButton layoutX="16.0" layoutY="195.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="195.0" text="Country">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Action 1" />
+                              <MenuItem mnemonicParsing="false" text="Action 2" />
+                           </items>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </SplitMenuButton>
+                        <TextField fx:id="popUpAddPortName111" layoutX="241.0" layoutY="102.0" prefHeight="0.0" prefWidth="210.0" promptText="Photo URL" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
+                           <font>
+                              <Font name="Monospaced Regular" size="12.0" />
+                           </font>
+                        </TextField>
+                        <Pane layoutX="241.0" layoutY="126.0">
+                           <children>
+                              <ImageView fitHeight="177.0" fitWidth="210.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/listviewbg.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <SplitMenuButton layoutX="245.0" layoutY="49.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="195.0" text="Port">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Action 1" />
+                              <MenuItem mnemonicParsing="false" text="Action 2" />
+                           </items>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </SplitMenuButton>
+                        <CheckBox layoutX="128.0" layoutY="310.0" mnemonicParsing="false" selected="true" text="SETSELECT" textFill="WHITE">
+                           <font>
+                              <Font name="Monospaced Regular" size="13.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="366.0" layoutY="310.0" mnemonicParsing="false" text="SETSELECT" textFill="WHITE">
+                           <font>
+                              <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </CheckBox>
                      </children>
                   </AnchorPane>
-                <AnchorPane maxWidth="600.0" minHeight="0.0" minWidth="0.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
+                  <Button layoutX="60.0" layoutY="290.0" mnemonicParsing="false" onKeyPressed="#addAPort" onKeyReleased="#addAPort" onMouseClicked="#addAPort" text="Add Port" />
+                  <Button layoutX="156.0" layoutY="822.0" mnemonicParsing="false" onMouseClicked="#refresh" text="Refresh" />
+                  <Button fx:id="popUpAddAddButton" layoutX="48.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#addPort" style="-fx-background-color: #8ad3ff;" text="Add">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="200.0" fitWidth="230.0" layoutX="2.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/transparent_ondark.png" />
+                     </image>
+                  </ImageView>
+                  <CheckBox fx:id="popUpAddKeepMeOpen" layoutX="61.0" layoutY="447.0" mnemonicParsing="false" text="Keep data in fields" textFill="#82cbff">
+                     <font>
+                        <Font name="Chilanka Regular" size="14.0" />
+                     </font>
+                  </CheckBox>
+                  <AnchorPane layoutX="1170.0" layoutY="92.0" prefHeight="860.0" prefWidth="230.0" style="-fx-background-color: #253357;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1170.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Text layoutX="4.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no ports in this list. It's time to add one!" wrappingWidth="277.34765625">
+                        <ListView fx:id="portListView" layoutX="-9.0" layoutY="385.0" prefHeight="475.0" prefWidth="210.0" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="10.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ports" textAlignment="RIGHT" wrappingWidth="210.0">
+                           <font>
+                              <Font name="Monospaced Regular" size="22.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="137.0" fitWidth="99.0" layoutX="10.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/crane.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Port">
+                           <font>
+                              <Font name="Monospaced Regular" size="34.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="91.0" fitWidth="74.0" layoutX="146.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/flags/aq.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AT121212">
                            <font>
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
                         </Text>
-                        <ListView fx:id="shipsOnSeaListView" editable="true" layoutX="-43.0" layoutY="57.0" maxWidth="1000.0" minWidth="286.0" prefHeight="634.0" prefWidth="213.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0">
-                           <contextMenu>
-                              <ContextMenu>
-                                <items>
-                                    <MenuItem mnemonicParsing="false" text="Open" />
-                                    <MenuItem mnemonicParsing="false" text="Delete" />
-                                    <SeparatorMenuItem mnemonicParsing="false" />
-                                    <MenuItem mnemonicParsing="false" onAction="#openPopupForPortAdd" text="Add new" />
-                                </items>
-                              </ContextMenu>
-                           </contextMenu></ListView>
-                        <Pane layoutX="59.0" layoutY="-64.0" prefHeight="56.0" prefWidth="286.0" AnchorPane.bottomAnchor="635.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <Text fill="WHITE" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" SHIPS on sea" wrappingWidth="286.0">
-                                 <font>
-                                    <Font size="28.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </Pane>
+                        <TextField fx:id="popUpAddPortName" layoutX="18.0" layoutY="95.0" prefHeight="35.0" prefWidth="195.0" promptText="Port name" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
+                           <font>
+                              <Font name="Monospaced Regular" size="18.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="popUpAddPortID" layoutX="18.0" layoutY="140.0" prefHeight="35.0" prefWidth="195.0" promptText="Port ID" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: orange;">
+                           <font>
+                              <Font name="Monospaced Regular" size="18.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="popUpAddAddButton1" layoutX="96.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="popUpAddAddButton2" layoutX="130.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#deselectPort" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
+                           <font>
+                              <Font name="Monospaced Regular" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="popUpAddAddButton11" layoutX="18.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff;" text="Add">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Button>
+                        <SplitMenuButton layoutX="18.0" layoutY="186.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="195.0" text="Country">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                          </items>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </SplitMenuButton>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="10.0" layoutY="10.0" maxWidth="600.0" minHeight="0.0" minWidth="0.0" prefHeight="691.0" prefWidth="102.0">
+                  <ToggleButton layoutX="39.0" layoutY="242.0" mnemonicParsing="false" text="ToggleButton" />
+                  <AnchorPane layoutX="480.0" prefHeight="860.0" prefWidth="230.0" style="-fx-background-color: #182036;">
                      <children>
-                        <Text layoutX="4.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no ports in this list. It's time to add one!" wrappingWidth="277.34765625">
+                        <ListView fx:id="containerListView" layoutX="-9.0" layoutY="385.0" prefHeight="475.0" prefWidth="210.0" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="10.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Containers" textAlignment="RIGHT" wrappingWidth="210.0">
+                           <font>
+                              <Font name="Monospaced Regular" size="20.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="137.0" fitWidth="99.0" layoutX="10.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/containers.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Container">
+                           <font>
+                              <Font name="Monospaced Regular" size="34.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AT121212">
                            <font>
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
                         </Text>
-                        <ListView fx:id="shipsInPortListView" editable="true" layoutX="28.0" layoutY="57.0" maxWidth="1000.0" minWidth="286.0" prefHeight="634.0" prefWidth="286.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0">
-                           <contextMenu>
-                              <ContextMenu>
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="Open" />
-                                    <MenuItem mnemonicParsing="false" text="Delete" />
-                                    <SeparatorMenuItem mnemonicParsing="false" />
-                                    <MenuItem mnemonicParsing="false" onAction="#openPopupForPortAdd" text="Add new" />
-                                 </items>
-                              </ContextMenu>
-                           </contextMenu>
-                        </ListView>
-                        <Pane layoutX="59.0" layoutY="-64.0" prefHeight="56.0" prefWidth="286.0" AnchorPane.bottomAnchor="635.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <Text fill="WHITE" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SHIPS in port" wrappingWidth="286.0">
-                                 <font>
-                                    <Font size="28.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </Pane>
+                        <TextField fx:id="popUpAddPortName1" layoutX="18.0" layoutY="148.0" prefHeight="35.0" prefWidth="195.0" promptText="Container ID" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
+                           <font>
+                              <Font name="Monospaced Regular" size="18.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="popUpAddAddButton11" layoutX="96.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="popUpAddAddButton21" layoutX="130.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
+                           <font>
+                              <Font name="Monospaced Regular" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="popUpAddAddButton111" layoutX="18.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff;" text="Add">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Button>
+                        <SplitMenuButton layoutX="18.0" layoutY="192.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="195.0" text="Size">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Action 1" />
+                              <MenuItem mnemonicParsing="false" text="Action 2" />
+                           </items>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </SplitMenuButton>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="10.0" layoutY="10.0" maxWidth="600.0" minHeight="0.0" minWidth="0.0" prefHeight="691.0" prefWidth="102.0">
+                  <AnchorPane layoutX="250.0" prefHeight="860.0" prefWidth="230.0" style="-fx-background-color: #111726;">
                      <children>
-                        <Text layoutX="4.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no ports in this list. It's time to add one!" wrappingWidth="277.34765625">
+                        <ListView fx:id="palletListView" layoutX="-9.0" layoutY="385.0" prefHeight="475.0" prefWidth="210.0" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="10.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pallets" textAlignment="RIGHT" wrappingWidth="210.0">
+                           <font>
+                              <Font name="Monospaced Regular" size="20.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="137.0" fitWidth="99.0" layoutX="10.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/container.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pallet">
+                           <font>
+                              <Font name="Monospaced Regular" size="34.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AT121212">
                            <font>
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
                         </Text>
-                        <ListView fx:id="portListView" editable="true" layoutX="28.0" layoutY="57.0" maxWidth="1000.0" minWidth="286.0" prefHeight="634.0" prefWidth="286.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0">
-                           <contextMenu>
-                              <ContextMenu>
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="Open" />
-                                    <MenuItem mnemonicParsing="false" text="Delete" />
-                                    <SeparatorMenuItem mnemonicParsing="false" />
-                                    <MenuItem mnemonicParsing="false" onAction="#openPopupForPortAdd" text="Add new" />
-                                 </items>
-                              </ContextMenu>
-                           </contextMenu>
-                        </ListView>
-                        <Pane layoutX="59.0" layoutY="-64.0" prefHeight="56.0" prefWidth="286.0" AnchorPane.bottomAnchor="635.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <Text fill="WHITE" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" PORTS" wrappingWidth="286.0">
-                                 <font>
-                                    <Font size="28.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </Pane>
+                        <TextField fx:id="popUpAddPortName12" layoutX="18.0" layoutY="148.0" prefHeight="35.0" prefWidth="195.0" promptText="Quantity" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
+                           <font>
+                              <Font name="Monospaced Regular" size="18.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="popUpAddAddButton111" layoutX="96.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="popUpAddAddButton212" layoutX="130.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
+                           <font>
+                              <Font name="Monospaced Regular" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="popUpAddAddButton1112" layoutX="18.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff;" text="Add">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Button>
+                        <SplitMenuButton layoutX="18.0" layoutY="192.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="195.0" text="Size">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Action 1" />
+                              <MenuItem mnemonicParsing="false" text="Action 2" />
+                           </items>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </SplitMenuButton>
+                        <TextField fx:id="popUpAddPortName121" layoutX="18.0" layoutY="106.0" prefHeight="35.0" prefWidth="195.0" promptText="Unit Value" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
+                           <font>
+                              <Font name="Monospaced Regular" size="18.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </AnchorPane>
-              </items>
-            </SplitPane>
+                  <TextArea layoutX="17.0" layoutY="563.0" prefHeight="200.0" prefWidth="200.0" promptText="Pallet Description" />
+                  <Spinner layoutX="62.0" layoutY="206.0" />
+               </children>
+            </AnchorPane>
          </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </AnchorPane>
   </children>
 </VBox>
