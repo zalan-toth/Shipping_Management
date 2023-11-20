@@ -1,20 +1,23 @@
 package net.pyel;
 
-import net.pyel.models.*;
+import net.pyel.models.Container;
+import net.pyel.models.ContainerShip;
+import net.pyel.models.Pallet;
+import net.pyel.models.Port;
 import net.pyel.utils.CustomList;
 
 public class Cargo {
-	public Cargo(Sea sea, CustomList<Port> ports, CustomList<String> countries) {
-		this.sea = sea;
+	public Cargo(CustomList<ContainerShip> shipsOnSea, CustomList<Port> ports, CustomList<String> countries) {
+		if (shipsOnSea == null) {
+			this.shipsOnSea = new CustomList<>();
+		} else {
+			this.shipsOnSea = shipsOnSea;
+		}
 		this.ports = ports;
 		this.countries = countries;
 	}
 
-	private Sea sea;
-
-	{
-		new Sea(new CustomList<>());
-	}
+	private CustomList<ContainerShip> shipsOnSea = new CustomList<>();
 
 	private CustomList<Port> ports = new CustomList<>();
 	private CustomList<String> countries = new CustomList<>();
@@ -40,11 +43,11 @@ public class Cargo {
 	}
 
 	public void addShipToSea(ContainerShip containerShip) {
-		sea.addContainerShip(containerShip);
+		shipsOnSea.add(containerShip);
 	}
 
 	public void removeShipFromSea(int shipIndex) {
-		sea.removeContainerShipByIndex(shipIndex);
+		shipsOnSea.remove(shipIndex);
 	}
 
 	public void addContainerToPort(int portIndex, Container container) {
@@ -74,8 +77,8 @@ public class Cargo {
 	//██║░░╚██╗██╔══╝░░░░░██║░░░░░░██║░░░██╔══╝░░██╔══██╗░╚═══██╗
 	//╚██████╔╝███████╗░░░██║░░░░░░██║░░░███████╗██║░░██║██████╔╝
 	//░╚═════╝░╚══════╝░░░╚═╝░░░░░░╚═╝░░░╚══════╝╚═╝░░╚═╝╚═════╝░
-	public Sea getSea() {
-		return sea;
+	public CustomList<ContainerShip> getShipsOnSea() {
+		return shipsOnSea;
 	}
 
 	public CustomList<Port> getPorts() {
@@ -93,10 +96,10 @@ public class Cargo {
 	//██████╔╝███████╗░░░██║░░░░░░██║░░░███████╗██║░░██║██████╔╝
 	//╚═════╝░╚══════╝░░░╚═╝░░░░░░╚═╝░░░╚══════╝╚═╝░░╚═╝╚═════╝░
 
-	public void setSea(Sea sea) {
-		this.sea = sea;
-	}
 
+	public void setShipsOnSea(CustomList<ContainerShip> shipsOnSea) {
+		this.shipsOnSea = shipsOnSea;
+	}
 
 	public void setPorts(CustomList<Port> ports) {
 		this.ports = ports;

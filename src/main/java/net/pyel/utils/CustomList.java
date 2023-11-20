@@ -160,7 +160,7 @@ public class CustomList<F> implements Iterable<F>, List<F> {
 	}
 
 	@Override
-	public Object set(int index, Object element) {
+	public F set(int index, F element) {
 		return null;
 	}
 

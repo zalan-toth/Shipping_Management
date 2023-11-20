@@ -33,16 +33,14 @@
 -->
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.SplitMenuButton?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
@@ -81,8 +79,8 @@
                <children>
                   <AnchorPane layoutX="318.0" layoutY="560.0" prefHeight="860.0" prefWidth="461.0" style="-fx-background-color: #1c2640;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ListView fx:id="dockedShipListView" layoutX="241.0" layoutY="237.0" prefHeight="475.0" prefWidth="210.0" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="241.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="385.0" />
-                        <ImageView fitHeight="137.0" fitWidth="99.0" layoutX="243.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
+                        <ListView fx:id="dockedShipListView" layoutX="241.0" layoutY="237.0" prefHeight="458.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="241.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="385.0" />
+                        <ImageView fx:id="imgShipDocked" fitHeight="137.0" fitWidth="99.0" layoutX="243.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@img/cargo-ship.png" />
                            </image>
@@ -92,12 +90,12 @@
                               <Font name="Monospaced Regular" size="22.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="99.0" fitWidth="99.0" layoutX="14.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgShipOnSea" fitHeight="99.0" fitWidth="99.0" layoutX="14.0" layoutY="294.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@img/shipping.png" />
                            </image>
                         </ImageView>
-                        <ListView fx:id="shipListView" layoutX="14.0" layoutY="385.0" prefHeight="475.0" prefWidth="210.0" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="237.0" AnchorPane.topAnchor="385.0" />
+                        <ListView fx:id="shipListView" disable="true" layoutX="14.0" layoutY="385.0" prefHeight="458.0" prefWidth="214.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="237.0" AnchorPane.topAnchor="385.0" />
                         <Text fill="WHITE" fontSmoothingType="LCD" layoutX="125.0" layoutY="352.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ships on sea" textAlignment="RIGHT" wrappingWidth="99.0">
                            <font>
                               <Font name="Monospaced Regular" size="22.0" />
@@ -108,17 +106,17 @@
                               <Font name="Monospaced Regular" size="34.0" />
                            </font>
                         </Text>
-                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="23.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AT121212">
+                        <Text fill="#ff9d57" fontSmoothingType="LCD" layoutX="23.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AT121212">
                            <font>
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="popUpAddPortName11" layoutX="16.0" layoutY="102.0" prefHeight="35.0" prefWidth="195.0" promptText="Ship name" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
+                        <TextField fx:id="shipNameBox" layoutX="16.0" layoutY="102.0" prefHeight="35.0" prefWidth="195.0" promptText="Ship name" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
                            <font>
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="popUpAddPortID11" layoutX="16.0" layoutY="148.0" prefHeight="35.0" prefWidth="195.0" promptText="Ship ID" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: orange;">
+                        <TextField fx:id="shipIDBox" layoutX="16.0" layoutY="148.0" prefHeight="35.0" prefWidth="195.0" promptText="Ship ID" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: orange;">
                            <font>
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
@@ -128,12 +126,12 @@
                               <Font size="21.0" />
                            </font>
                         </Button>
-                        <Button fx:id="popUpAddAddButton211" layoutX="358.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
+                        <Button layoutX="358.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="popUpAddAddButton1111" layoutX="16.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff;" text="Add">
+                        <Button fx:id="popUpAddAddButton1111" layoutX="16.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addShip" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff;" text="Add">
                            <font>
                               <Font size="21.0" />
                            </font>
@@ -147,7 +145,7 @@
                               <Font size="18.0" />
                            </font>
                         </SplitMenuButton>
-                        <TextField fx:id="popUpAddPortName111" layoutX="241.0" layoutY="102.0" prefHeight="0.0" prefWidth="210.0" promptText="Photo URL" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
+                        <TextField fx:id="shipURLBox" layoutX="241.0" layoutY="102.0" prefHeight="0.0" prefWidth="210.0" promptText="Photo URL" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
                            <font>
                               <Font name="Monospaced Regular" size="12.0" />
                            </font>
@@ -158,6 +156,9 @@
                                  <image>
                                     <Image url="@img/listviewbg.png" />
                                  </image>
+                                 <viewport>
+                                    <Rectangle2D />
+                                 </viewport>
                               </ImageView>
                            </children>
                         </Pane>
@@ -170,38 +171,16 @@
                               <Font size="18.0" />
                            </font>
                         </SplitMenuButton>
-                        <CheckBox layoutX="128.0" layoutY="310.0" mnemonicParsing="false" selected="true" text="SETSELECT" textFill="WHITE">
+                        <ToggleButton fx:id="toggleShipButton" layoutX="245.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#toggleShip" style="-fx-background-color: #ff4d02;" text="Selected mode: PORT" textFill="WHITE">
                            <font>
-                              <Font name="Monospaced Regular" size="13.0" />
+                              <Font name="Ubuntu Mono" size="15.0" />
                            </font>
-                        </CheckBox>
-                        <CheckBox layoutX="366.0" layoutY="310.0" mnemonicParsing="false" text="SETSELECT" textFill="WHITE">
-                           <font>
-                              <Font name="Monospaced Regular" size="13.0" />
-                           </font>
-                        </CheckBox>
+                        </ToggleButton>
                      </children>
                   </AnchorPane>
-                  <Button layoutX="60.0" layoutY="290.0" mnemonicParsing="false" onKeyPressed="#addAPort" onKeyReleased="#addAPort" onMouseClicked="#addAPort" text="Add Port" />
-                  <Button layoutX="156.0" layoutY="822.0" mnemonicParsing="false" onMouseClicked="#refresh" text="Refresh" />
-                  <Button fx:id="popUpAddAddButton" layoutX="48.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#addPort" style="-fx-background-color: #8ad3ff;" text="Add">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="200.0" fitWidth="230.0" layoutX="2.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@img/transparent_ondark.png" />
-                     </image>
-                  </ImageView>
-                  <CheckBox fx:id="popUpAddKeepMeOpen" layoutX="61.0" layoutY="447.0" mnemonicParsing="false" text="Keep data in fields" textFill="#82cbff">
-                     <font>
-                        <Font name="Chilanka Regular" size="14.0" />
-                     </font>
-                  </CheckBox>
                   <AnchorPane layoutX="1170.0" layoutY="92.0" prefHeight="860.0" prefWidth="230.0" style="-fx-background-color: #253357;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1170.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ListView fx:id="portListView" layoutX="-9.0" layoutY="385.0" prefHeight="475.0" prefWidth="210.0" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <ListView fx:id="portListView" layoutX="-9.0" layoutY="385.0" prefHeight="458.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Text fill="WHITE" fontSmoothingType="LCD" layoutX="10.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ports" textAlignment="RIGHT" wrappingWidth="210.0">
                            <font>
                               <Font name="Monospaced Regular" size="22.0" />
@@ -217,32 +196,32 @@
                               <Font name="Monospaced Regular" size="34.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="91.0" fitWidth="74.0" layoutX="146.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="portFlag" fitHeight="91.0" fitWidth="74.0" layoutX="146.0" layoutY="13.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/flags/aq.png" />
+                              <Image url="@img/flags/hu.png" />
                            </image>
                         </ImageView>
-                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AT121212">
+                        <Text fx:id="portIDInfo" fill="#ffb92b" fontSmoothingType="LCD" layoutX="16.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-">
                            <font>
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="popUpAddPortName" layoutX="18.0" layoutY="95.0" prefHeight="35.0" prefWidth="195.0" promptText="Port name" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
+                        <TextField fx:id="portNameBox" layoutX="18.0" layoutY="93.0" prefHeight="24.0" prefWidth="195.0" promptText="Port name" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
                            <font>
-                              <Font name="Monospaced Regular" size="18.0" />
+                              <Font name="Monospaced Regular" size="15.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="popUpAddPortID" layoutX="18.0" layoutY="140.0" prefHeight="35.0" prefWidth="195.0" promptText="Port ID" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: orange;">
+                        <TextField fx:id="portIDBox" layoutX="18.0" layoutY="145.0" prefHeight="3.0" prefWidth="195.0" promptText="Port code" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: orange;">
                            <font>
-                              <Font name="Monospaced Regular" size="18.0" />
+                              <Font name="Monospaced Regular" size="15.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="popUpAddAddButton1" layoutX="96.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
+                        <Button fx:id="popUpAddAddButton1" layoutX="96.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#updatePort" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
                            <font>
                               <Font size="21.0" />
                            </font>
                         </Button>
-                        <Button fx:id="popUpAddAddButton2" layoutX="130.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#deselectPort" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
+                        <Button layoutX="130.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#deselectPort" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
@@ -252,27 +231,31 @@
                               <Font size="21.0" />
                            </font>
                         </Button>
-                        <SplitMenuButton layoutX="18.0" layoutY="186.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="195.0" text="Country">
-                          <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                            <MenuItem mnemonicParsing="false" text="Action 2" />
-                          </items>
+                        <Text fill="WHITE" layoutX="18.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Port name*" />
+                        <Text fill="WHITE" layoutX="18.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Port code*" />
+                        <TextField fx:id="portCountryBox" layoutX="18.0" layoutY="198.0" prefHeight="31.0" prefWidth="95.0" promptText="Alpha-2" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: yellow;">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="Monospaced Regular" size="15.0" />
                            </font>
-                        </SplitMenuButton>
+                        </TextField>
+                        <Text fill="WHITE" layoutX="18.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Port country code*" />
+                        <Text fx:id="alpha2error" fill="RED" layoutX="119.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <ImageView fitHeight="134.0" fitWidth="106.0" layoutX="118.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/transparent_ondark.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
-                  <ToggleButton layoutX="39.0" layoutY="242.0" mnemonicParsing="false" text="ToggleButton" />
-                  <AnchorPane layoutX="480.0" prefHeight="860.0" prefWidth="230.0" style="-fx-background-color: #182036;">
+                  <AnchorPane layoutX="249.0" prefHeight="860.0" prefWidth="461.0" style="-fx-background-color: #182036;">
                      <children>
-                        <ListView fx:id="containerListView" layoutX="-9.0" layoutY="385.0" prefHeight="475.0" prefWidth="210.0" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="10.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Containers" textAlignment="RIGHT" wrappingWidth="210.0">
+                        <ListView fx:id="containerListView" disable="true" layoutX="-9.0" layoutY="385.0" prefHeight="458.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="241.0" />
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="88.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Containers on ship" textAlignment="RIGHT" wrappingWidth="132.0">
                            <font>
                               <Font name="Monospaced Regular" size="20.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="137.0" fitWidth="99.0" layoutX="10.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgContainersOnShip" fitHeight="80.0" fitWidth="82.0" layoutX="10.0" layoutY="305.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@img/containers.png" />
                            </image>
@@ -282,7 +265,7 @@
                               <Font name="Monospaced Regular" size="34.0" />
                            </font>
                         </Text>
-                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AT121212">
+                        <Text fill="#ffb92b" fontSmoothingType="LCD" layoutX="14.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AT121212">
                            <font>
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
@@ -292,7 +275,7 @@
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="popUpAddAddButton11" layoutX="96.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
+                        <Button fx:id="popUpAddAddButton11" layoutX="247.0" layoutY="183.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
                            <font>
                               <Font size="21.0" />
                            </font>
@@ -302,7 +285,7 @@
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="popUpAddAddButton111" layoutX="18.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff;" text="Add">
+                        <Button fx:id="popUpAddAddButton111" layoutX="18.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addContainer" prefHeight="40.0" prefWidth="184.0" style="-fx-background-color: #8ad3ff;" text="Add to Ship">
                            <font>
                               <Font size="21.0" />
                            </font>
@@ -316,17 +299,38 @@
                               <Font size="18.0" />
                            </font>
                         </SplitMenuButton>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="250.0" prefHeight="860.0" prefWidth="230.0" style="-fx-background-color: #111726;">
-                     <children>
-                        <ListView fx:id="palletListView" layoutX="-9.0" layoutY="385.0" prefHeight="475.0" prefWidth="210.0" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="10.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pallets" textAlignment="RIGHT" wrappingWidth="210.0">
+                        <ListView fx:id="dockedContainerListView" layoutX="237.0" layoutY="385.0" prefHeight="458.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" />
+                        <ImageView fx:id="imgContainersOnShore" fitHeight="80.0" fitWidth="95.0" layoutX="237.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/cargo-on-shore.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="315.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Containers on shore" textAlignment="RIGHT" wrappingWidth="132.0">
                            <font>
                               <Font name="Monospaced Regular" size="20.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="137.0" fitWidth="99.0" layoutX="10.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
+                        <Button fx:id="popUpAddAddButton1113" layoutX="282.0" layoutY="257.0" mnemonicParsing="false" onMouseClicked="#addContainerOnShore" prefHeight="40.0" prefWidth="162.0" style="-fx-background-color: #8ad3ff;" text="Add to Port">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Button>
+                        <ToggleButton fx:id="toggleContainerButton" layoutX="247.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#toggleContainer" style="-fx-background-color: #ff4d02;" text="Selected mode: PORT" textFill="WHITE">
+                           <font>
+                              <Font name="Ubuntu Mono" size="15.0" />
+                           </font>
+                        </ToggleButton>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="860.0" prefWidth="249.0" style="-fx-background-color: #111726;">
+                     <children>
+                        <ListView fx:id="palletListView" layoutX="-9.0" layoutY="385.0" prefHeight="328.0" prefWidth="229.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="25.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pallets" textAlignment="RIGHT" wrappingWidth="210.0">
+                           <font>
+                              <Font name="Monospaced Regular" size="20.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="137.0" fitWidth="99.0" layoutX="8.0" layoutY="416.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@img/container.png" />
                            </image>
@@ -375,10 +379,9 @@
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
                         </TextField>
+                        <Button layoutX="164.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#refresh" text="Refresh" />
                      </children>
                   </AnchorPane>
-                  <TextArea layoutX="17.0" layoutY="563.0" prefHeight="200.0" prefWidth="200.0" promptText="Pallet Description" />
-                  <Spinner layoutX="62.0" layoutY="206.0" />
                </children>
             </AnchorPane>
          </children>

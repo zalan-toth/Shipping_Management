@@ -9,13 +9,34 @@ public class Port {
 	private CustomList<Container> containers = new CustomList<>();
 	private CustomList<ContainerShip> ships = new CustomList<>();
 
-	public Port(String name, int code, String country, CustomList<ContainerShip> ships) {
+	public Port(String name, int code, String country, CustomList<ContainerShip> ships, CustomList<Container> containers) {
 		this.name = name;
 		this.code = code;
 		this.country = country;
 		this.ships = ships;
+		this.containers = containers;
 	}
 
+	public CustomList<Container> getContainers() {
+		return containers;
+	}
+
+	public void setContainers(CustomList<Container> containers) {
+		this.containers = containers;
+	}
+
+	public void update(String name, int code, String country) {
+		setName(name);
+		setCode(code);
+		setCountry(country);
+	}
+
+	public void update(String name, int code, String country, CustomList<ContainerShip> ships) {
+		setName(name);
+		setCode(code);
+		setCountry(country);
+		setShips(ships);
+	}
 
 	public String getName() {
 		return name;
@@ -57,8 +78,8 @@ public class Port {
 		ships.remove(index);
 	}
 
-	public void updateContainerShipByIndex(int index) {
-		//ships.update(index);
+	public void updateContainerShipByIndex(int index, ContainerShip updatedShip) {
+		ships.set(index, updatedShip);
 	}
 
 	public void addContainer(Container container) {

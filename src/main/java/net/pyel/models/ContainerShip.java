@@ -80,4 +80,8 @@ public class ContainerShip {
 		containers.get(containerIndex).removePalletByIndex(palletIndex);
 	}
 
+	@Override
+	public String toString() {
+		return getCountry() + getID() + " - " + getName();
+	}
 }

@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class CargoAPI {
 
-	Cargo cargo = new Cargo(new Sea(new CustomList<>()), new CustomList<>(), new CustomList<>()); //center of data
+	Cargo cargo = new Cargo(new CustomList<>(), new CustomList<>(), new CustomList<>()); //center of data
 	private CustomList<Integer> test;
 
 	public CargoAPI() {
@@ -69,6 +69,9 @@ public class CargoAPI {
 		ObjectInputStream in = xstream.createObjectInputStream(new FileReader("cargo.xml"));
 		cargo = (Cargo) in.readObject();
 		in.close();
+		if (cargo.getShipsOnSea() == null) {
+			cargo.setShipsOnSea(new CustomList<>());
+		}
 	}
 
 	//███████╗░██████╗░██╗░░░██╗░█████╗░██╗░░░░░░██████╗

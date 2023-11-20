@@ -6,7 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import net.pyel.models.Container;
@@ -22,16 +27,22 @@ import java.util.ResourceBundle;
 public class BaseController implements Initializable {
 	private static CargoAPI cargoAPI = new CargoAPI();
 	private CustomList<Port> ports;
+	private CustomList<ContainerShip> shipsOnSea;
 	Stage popupstage = new Stage();
 	Parent popuproot;
 	Scene popupScene;
+	boolean setRun = true;
 
 	public BaseController() {
 		cargoAPI = BackgroundController.getCargoAPI();
 		ports = cargoAPI.cargo.getPorts();
+		shipsOnSea = cargoAPI.cargo.getShipsOnSea();
 		popupstage.initModality(Modality.WINDOW_MODAL);
 		popupstage.setResizable(false);
 		popupstage.close();
+		/*if (shipsOnSea == null) {
+			shipsOnSea = new CustomList<>();
+		}*/
 	}
 
 	@FXML
@@ -71,6 +82,10 @@ public class BaseController implements Initializable {
 		cargoAPI = BackgroundController.getCargoAPI();
 		loadData();
 		ports = cargoAPI.cargo.getPorts();
+		shipsOnSea = cargoAPI.cargo.getShipsOnSea();
+		/*if (shipsOnSea == null) {
+			shipsOnSea = new CustomList<>();
+		}*/
 		initialize(null, null);
 		App.setRoot("ports");
 		App.getStageInfo().setHeight(900);
@@ -103,7 +118,9 @@ public class BaseController implements Initializable {
 	private void loadData() {
 		BackgroundController.loadData();
 		BackgroundController.setCargoAPI(cargoAPI);
+		deselectPort();
 		ports = cargoAPI.cargo.getPorts();
+		shipsOnSea = cargoAPI.cargo.getShipsOnSea();
 		initialize(null, null);
 	}
 
@@ -116,6 +133,8 @@ public class BaseController implements Initializable {
 	@FXML
 	private ListView<Pallet> palletListView = new ListView<>();
 	@FXML
+	private ListView<Container> dockedContainerListView = new ListView<>();
+	@FXML
 	private ListView<Container> containerListView = new ListView<>();
 	@FXML
 	private ListView<ContainerShip> dockedShipListView = new ListView<>();
@@ -124,24 +143,104 @@ public class BaseController implements Initializable {
 	@FXML
 	private ListView<Port> portListView = new ListView<>();
 	@FXML
-	private TextField popUpAddPortName = new TextField();
+	private TextField portNameBox = new TextField();
 	@FXML
-	private TextField popUpAddPortID = new TextField();
+	private TextField portIDBox = new TextField();
 	@FXML
-	private TextField popUpAddPortCountry = new TextField();
+	private TextField portCountryBox = new TextField();
 	@FXML
-	private CheckBox popUpAddKeepMeOpen = new CheckBox();
+	private TextField shipIDBox = new TextField();
 	@FXML
-	private Button popUpAddAddButton = new Button();
+	private TextField shipNameBox = new TextField();
+	@FXML
+	private TextField shipURLBox = new TextField();
+	@FXML
+	private Text portIDInfo = new Text();
+	@FXML
+	private ImageView portFlag = new ImageView();
+	@FXML
+	private ImageView imgShipOnSea = new ImageView();
+	@FXML
+	private ImageView imgShipDocked = new ImageView();
+	@FXML
+	private ImageView imgContainersOnShore = new ImageView();
+	@FXML
+	private ImageView imgContainersOnShip = new ImageView();
+	@FXML
+	private ToggleButton toggleContainerButton = new ToggleButton();
+	@FXML
+	private ToggleButton toggleShipButton = new ToggleButton();
 
 	@FXML
 	private Label testLabel;
 	private Port selectedPort;
+	private ContainerShip selectedShip;
 
 	@FXML
 	private void deselectPort() {
 		portListView.getSelectionModel().clearSelection();
+		portIDInfo.setText("-");
+		portIDBox.setText("");
+		portNameBox.setText("");
+		portCountryBox.setText("");
+		containerListView.setItems(null);
+		dockedContainerListView.setItems(null);
+		palletListView.setItems(null);
 		initialize(null, null);
+	}
+
+	@FXML
+	private void deselectContainer() {
+		containerListView.getSelectionModel().clearSelection();
+		dockedContainerListView.getSelectionModel().clearSelection();
+		palletListView.setItems(null);
+	}
+
+	@FXML
+	private void toggleContainer() {
+		if (toggleContainerButton.isSelected()) {
+			toggleContainerButton.setStyle("-fx-background-color: #991cff;");
+			toggleContainerButton.setText("Selected mode: SHIP");
+			imgContainersOnShore.setOpacity(0.2);
+			imgContainersOnShip.setOpacity(1);
+			containerListView.setDisable(false);
+			dockedContainerListView.setDisable(true);
+		} else {
+			toggleContainerButton.setStyle("-fx-background-color: #ff4d02;");
+			toggleContainerButton.setText("Selected mode: PORT");
+			imgContainersOnShore.setOpacity(1);
+			imgContainersOnShip.setOpacity(0.2);
+			containerListView.setDisable(true);
+			dockedContainerListView.setDisable(false);
+		}
+		deselectContainer();
+	}
+
+	@FXML
+	private void deselectShip() {
+		shipListView.getSelectionModel().clearSelection();
+		dockedShipListView.getSelectionModel().clearSelection();
+		deselectContainer();
+	}
+
+	@FXML
+	private void toggleShip() {
+		if (toggleShipButton.isSelected()) {
+			toggleShipButton.setStyle("-fx-background-color: #1143b8;");
+			toggleShipButton.setText("Selected mode: SEA");
+			imgShipOnSea.setOpacity(1);
+			imgShipDocked.setOpacity(0.2);
+			shipListView.setDisable(false);
+			dockedShipListView.setDisable(true);
+		} else {
+			toggleShipButton.setStyle("-fx-background-color: #ff4d02;");
+			toggleShipButton.setText("Selected mode: PORT");
+			imgShipOnSea.setOpacity(0.2);
+			imgShipDocked.setOpacity(1);
+			shipListView.setDisable(true);
+			dockedShipListView.setDisable(false);
+		}
+		deselectShip();
 	}
 
 	@FXML
@@ -149,54 +248,181 @@ public class BaseController implements Initializable {
 		ContainerShip newShip = new ContainerShip("name", "11", "HU", "http:sadads", null);
 		CustomList<ContainerShip> newList = new CustomList<>();
 		newList.add(newShip);
-		ports.add(new Port("Waterford", 67, "IE", newList));
-		cargoAPI.cargo.getSea().addContainerShip(newShip);
-		cargoAPI.cargo.getSea().addContainerShip(newShip);
-		cargoAPI.cargo.getSea().addContainerShip(newShip);
+		ports.add(new Port("Waterford", 67, "IE", newList, null));
+
+		shipsOnSea.add(newShip);
+		shipsOnSea.add(newShip);
+		shipsOnSea.add(newShip);
 		initialize(null, null);
 	}
 
 	@FXML
 	private void addPort() {
-		if (!popUpAddPortName.getText().isEmpty() && !popUpAddPortID.getText().isEmpty() && !popUpAddPortCountry.getText().isEmpty()) {
-			Port newPort = new Port(popUpAddPortName.getText(), Integer.parseInt(popUpAddPortID.getText()), popUpAddPortCountry.getText(), null);
+		if (!portNameBox.getText().isEmpty() && !portIDBox.getText().isEmpty()) {
+			Port newPort = new Port(portNameBox.getText(), Integer.parseInt(portIDBox.getText()), portCountryBox.getText(), null, null);
 			ports.add(newPort);
-			initialize(null, null);
-			if (!popUpAddKeepMeOpen.isSelected()) {
-				popupstage.getOnCloseRequest();
-			}
-			popUpAddPortCountry.setText("");
-			popUpAddPortName.setText("");
-			popUpAddPortID.setText("");
 			System.out.println(newPort + " added.");
-
+			refresh();
 		}
-		initialize(null, null);
+	}
+
+	@FXML
+	private void addShip() {
+		if (selectedPort != null && !shipNameBox.getText().isEmpty() && !shipIDBox.getText().isEmpty() && !shipURLBox.getText().isEmpty()) {
+			ContainerShip newShip = new ContainerShip(shipNameBox.getText(), shipIDBox.getText(), null, null, null);
+			if (selectedPort.getShips() == null) {
+				selectedPort.setShips(new CustomList<>());
+			}
+			selectedPort.addContainerShip(newShip);
+			System.out.println(newShip + " added.");
+			refresh();
+		}
+	}
+
+	@FXML
+	private void addContainer() {
+
+		Container newContainer = new Container(55, 5, null);
+		if (selectedShip.getContainers() == null) {
+			selectedShip.setContainers(new CustomList<>());
+		}
+		selectedShip.addContainer(newContainer);
+		System.out.println(newContainer + " added.");
+		updateOnlyFromShipLevel();
+
+	}
+
+	@FXML
+	private void addContainerOnShore() {
+
+		Container newContainer = new Container(55, 5, null);
+		if (selectedPort.getContainers() == null) {
+			selectedPort.setContainers(new CustomList<>());
+		}
+		selectedPort.addContainer(newContainer);
+		System.out.println(newContainer + " added.");
+		updateData();
+
+	}
+
+	@FXML
+	private void updateShip() {
+	}
+
+	@FXML
+	private void updatePort() {
+		if (selectedPort != null && !portNameBox.getText().isEmpty() && !portIDBox.getText().isEmpty() && !portCountryBox.getText().isEmpty()) {
+			selectedPort.update(portNameBox.getText(), Integer.parseInt(portIDBox.getText()), portCountryBox.getText());
+			System.out.println(selectedPort + " updated.");
+			refresh();
+		}
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+		if (setRun) {
+			setupPortListViewListener();
+			setRun = false;
+		}
 		//portListView.getItems().addAll(ports);
 		portListView.setItems(FXCollections.observableList(ports)); //Yay!
-		Port selectedPort = portListView.getSelectionModel().getSelectedItem();
-		ContainerShip selectedShip = shipListView.getSelectionModel().getSelectedItem();
-		Container selectedContainer = containerListView.getSelectionModel().getSelectedItem();
-		Pallet selectedPallet = palletListView.getSelectionModel().getSelectedItem();
-		if (cargoAPI.cargo.getSea() != null) {
-			shipListView.setItems(FXCollections.observableList(cargoAPI.cargo.getSea().getShips()));
-		}
-		if (selectedPort != null) {
-			dockedShipListView.setItems(FXCollections.observableList(selectedPort.getShips()));
-		}
-		if (selectedShip != null) {
-			containerListView.setItems(FXCollections.observableList(selectedShip.getContainers()));
-		}
-		if (selectedContainer != null) {
-			palletListView.setItems(FXCollections.observableList(selectedContainer.getPallets()));
-		}
+		updateData();
+		//selectedPort = portListView.getSelectionModel().getSelectedItem();
+		//ContainerShip selectedShip = shipListView.getSelectionModel().getSelectedItem();
+		//Container selectedContainer = containerListView.getSelectionModel().getSelectedItem();
+		//Pallet selectedPallet = palletListView.getSelectionModel().getSelectedItem();
+		//if (shipsOnSea != null) {
+		//	shipListView.setItems(FXCollections.observableList(shipsOnSea));
+		//}
+		/*if ((this.selectedPort != null)) {
+			if (selectedPort.getShips() == null) {
+				dockedShipListView.setItems(null);
+			} else {
+				dockedShipListView.setItems(FXCollections.observableList(selectedPort.getShips()));
+			}
+		} else {
+			dockedShipListView.setItems(null);
+		}*/
+		//if (selectedShip != null) {
+		//	containerListView.setItems(FXCollections.observableList(selectedShip.getContainers()));
+		//}
+		//if (selectedContainer != null) {
+		//	palletListView.setItems(FXCollections.observableList(selectedContainer.getPallets()));
+		//}
 
 
 	}
 
+	private void setupPortListViewListener() {
+		portListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			// This will be called whenever the user selects a different item in the list
+			if (newValue != null) {
+				// Call initialize or any specific update method
+				//refresh();
+				updateData();
+			}
+		});
+		dockedShipListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			// This will be called whenever the user selects a different item in the list
+			if (newValue != null) {
+				// Call initialize or any specific update method
+				//refresh();
+				updateOnlyFromShipLevel();
+			}
+		});
+	}
+
+
+	private void updateData() {
+		selectedPort = portListView.getSelectionModel().getSelectedItem();
+		System.out.println(selectedShip);
+		if ((this.selectedPort != null)) {
+
+
+			//CONTAINERS SECTION
+			if (selectedPort.getContainers() == null) {
+				dockedContainerListView.setItems(null);
+			} else {
+				dockedContainerListView.setItems(FXCollections.observableList(selectedPort.getContainers()));
+			}
+			//CONTAINERS END
+
+
+			if (selectedPort.getShips() == null) {
+				dockedShipListView.setItems(null);
+				containerListView.setItems(null);
+			} else {
+				containerListView.setItems(null);
+				dockedShipListView.setItems(FXCollections.observableList(selectedPort.getShips()));
+
+				//SHIP BEGIN
+				updateOnlyFromShipLevel();
+				//SHIP END
+			}
+			portIDBox.setText("" + selectedPort.getCode());
+			portNameBox.setText(selectedPort.getName());
+			portIDInfo.setText(selectedPort.getCountry() + selectedPort.getCode());
+			portCountryBox.setText(selectedPort.getCountry());
+			//Image image = new Image(("@img/flags/") + selectedPort.getCountry().toLowerCase() + ".png");
+			//portFlag.setImage(image);
+
+		} else {
+			dockedShipListView.setItems(null);
+		}
+	}
+
+	private void updateOnlyFromShipLevel() {
+		selectedShip = dockedShipListView.getSelectionModel().getSelectedItem();
+		if (selectedShip != null) {
+			if (selectedShip.getContainers() == null) {
+				containerListView.setItems(null);
+				System.out.println("Hello!");
+			} else {
+				containerListView.setItems(FXCollections.observableList(selectedShip.getContainers()));
+				System.out.println("No!");
+			}
+		}
+	}
 
 }
