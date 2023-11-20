@@ -124,7 +124,7 @@
                                 </next>
                                 <contents class="net.pyel.models.Port">
                                   <name>Waterford</name>
-                                  <code>67</code>
+                                  <code>2354</code>
                                   <country>IE</country>
                                   <containers>
                                     <size>0</size>
@@ -165,7 +165,7 @@
                               </contents>
                             </next>
                             <contents class="net.pyel.models.Port">
-                              <name>Kyle</name>
+                              <name>Sealand</name>
                               <code>12</code>
                               <country>SL</country>
                               <containers>
@@ -270,7 +270,7 @@
                         </next>
                         <contents class="net.pyel.models.Port">
                           <name>Waterford</name>
-                          <code>67</code>
+                          <code>123</code>
                           <country>IE</country>
                           <containers>
                             <size>0</size>
@@ -451,7 +451,7 @@
                 </next>
                 <contents class="net.pyel.models.Port">
                   <name>Waterford</name>
-                  <code>67</code>
+                  <code>66</code>
                   <country>IE</country>
                   <containers>
                     <size>0</size>

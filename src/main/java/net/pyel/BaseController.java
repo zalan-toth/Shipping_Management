@@ -153,6 +153,8 @@ public class BaseController implements Initializable {
 	@FXML
 	private TextField shipNameBox = new TextField();
 	@FXML
+	private TextField shipCountryBox = new TextField();
+	@FXML
 	private TextField shipURLBox = new TextField();
 	@FXML
 	private Text portIDInfo = new Text();

@@ -111,14 +111,14 @@
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="shipNameBox" layoutX="16.0" layoutY="102.0" prefHeight="35.0" prefWidth="195.0" promptText="Ship name" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
+                        <TextField fx:id="shipNameBox" layoutX="16.0" layoutY="95.0" prefHeight="0.0" prefWidth="195.0" promptText="Ship name" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
                            <font>
-                              <Font name="Monospaced Regular" size="18.0" />
+                              <Font name="Monospaced Regular" size="15.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="shipIDBox" layoutX="16.0" layoutY="148.0" prefHeight="35.0" prefWidth="195.0" promptText="Ship ID" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: orange;">
+                        <TextField fx:id="shipIDBox" layoutX="16.0" layoutY="148.0" prefHeight="0.0" prefWidth="195.0" promptText="Ship code" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: orange;">
                            <font>
-                              <Font name="Monospaced Regular" size="18.0" />
+                              <Font name="Monospaced Regular" size="15.0" />
                            </font>
                         </TextField>
                         <Button fx:id="popUpAddAddButton112" layoutX="101.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
@@ -136,15 +136,6 @@
                               <Font size="21.0" />
                            </font>
                         </Button>
-                        <SplitMenuButton layoutX="16.0" layoutY="195.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="195.0" text="Country">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Action 1" />
-                              <MenuItem mnemonicParsing="false" text="Action 2" />
-                           </items>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </SplitMenuButton>
                         <TextField fx:id="shipURLBox" layoutX="241.0" layoutY="102.0" prefHeight="0.0" prefWidth="210.0" promptText="Photo URL" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
                            <font>
                               <Font name="Monospaced Regular" size="12.0" />
@@ -176,6 +167,15 @@
                               <Font name="Ubuntu Mono" size="15.0" />
                            </font>
                         </ToggleButton>
+                        <TextField fx:id="shipCountryBox" layoutX="16.0" layoutY="195.0" prefHeight="31.0" prefWidth="95.0" promptText="Alpha-2" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: yellow;">
+                           <font>
+                              <Font name="Monospaced Regular" size="15.0" />
+                           </font>
+                        </TextField>
+                        <Text fill="WHITE" layoutX="16.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ship country code*" />
+                        <Text fill="WHITE" layoutX="16.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ship code*" />
+                        <Text fill="WHITE" layoutX="16.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ship name*" />
+                        <Text fill="WHITE" layoutX="241.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ship photo URL" />
                      </children>
                   </AnchorPane>
                   <AnchorPane layoutX="1170.0" layoutY="92.0" prefHeight="860.0" prefWidth="230.0" style="-fx-background-color: #253357;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1170.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
