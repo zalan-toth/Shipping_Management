@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,12 +26,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class BaseController implements Initializable {
-	private static CargoAPI cargoAPI = new CargoAPI();
+	private static CargoAPI cargoAPI = new CargoAPI(null);
 	private CustomList<Port> ports;
 	private CustomList<ContainerShip> shipsOnSea;
 	Stage popupstage = new Stage();
 	Parent popuproot;
 	Scene popupScene;
+	Stage terminalStage = new Stage();
+	Parent terminalRoot;
+	Scene terminalScene;
 	boolean setRun = true;
 
 	public BaseController() {
@@ -46,8 +50,47 @@ public class BaseController implements Initializable {
 	}
 
 	@FXML
+	private void logTerminal() throws IOException {
+		terminalRoot = FXMLLoader.load(getClass().getResource("log.fxml"));
+		terminalScene = new Scene(terminalRoot);
+		terminalStage.setScene(terminalScene);
+		terminalStage.setResizable(true);
+		terminalStage.show();
+	}
+
+	@FXML
+	TextField logInput = new TextField();
+
+	@FXML
+	ListView<String> log = new ListView<>();
+	@FXML
+	TextField handler = new TextField();
+
+
+	@FXML
+	private void logPrompt() {
+		String input = logInput.getText();
+		logInput.clear();
+		if (input.length() < 4) {
+			log.getItems().add("(!) Invalid command in log prompt.");
+			return;
+		}
+		if (input.toLowerCase().substring(0, 4).equals("log ")) {
+			if (input.length() > 4) {
+				String message = cargoAPI.currentHandler + " > " + input.substring(3);
+				System.out.println(message);
+				log.getItems().add(message);
+			} else {
+				log.getItems().add("(!) Not enough charachters to log in log prompt.");
+			}
+		} else {
+			log.getItems().add("(!) Invalid command in log prompt.");
+		}
+	}
+
+	@FXML
 	private void newPanel() throws IOException {
-		BackgroundController.setCargoAPI(new CargoAPI());
+		BackgroundController.setCargoAPI(new CargoAPI(handler.getText()));
 		App.setRoot("ports");
 		App.getStageInfo().setTitle("Shipping Management Panel | Ports");
 		App.getStageInfo().setHeight(900);
@@ -59,7 +102,7 @@ public class BaseController implements Initializable {
 
 	@FXML
 	private void basePanel() throws IOException {
-		BackgroundController.setCargoAPI(new CargoAPI());
+		BackgroundController.setCargoAPI(new CargoAPI(handler.getText()));
 		App.getStageInfo().setFullScreen(false);
 		App.getStageInfo().setHeight(647);
 		App.getStageInfo().setWidth(1024);
@@ -371,6 +414,11 @@ public class BaseController implements Initializable {
 				// Call initialize or any specific update method
 				//refresh();
 				updateOnlyFromShipLevel();
+			}
+		});
+		logInput.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.ENTER) {
+				logPrompt();
 			}
 		});
 	}

@@ -63,6 +63,8 @@
             <MenuItem mnemonicParsing="false" onAction="#basePanel" text="Close" />
             <MenuItem mnemonicParsing="false" onAction="#saveData" text="Save" />
             <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#logTerminal" text="Log" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>

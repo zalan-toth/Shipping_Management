@@ -4,7 +4,7 @@ import net.pyel.models.Port;
 import net.pyel.utils.CustomList;
 
 public class BackgroundController {
-	private static CargoAPI cargoAPI = new CargoAPI();
+	private static CargoAPI cargoAPI = new CargoAPI(null);
 	private CustomList<Port> ports = cargoAPI.cargo.getPorts();
 
 	public static CargoAPI getCargoAPI() {

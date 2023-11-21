@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class PrimaryController {
 
-	private CargoAPI cargoAPI = new CargoAPI();
+	private CargoAPI cargoAPI = new CargoAPI(null);
 
 	@FXML
 	private void switchToSecondary() throws IOException {

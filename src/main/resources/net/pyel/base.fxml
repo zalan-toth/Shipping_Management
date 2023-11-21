@@ -88,7 +88,7 @@
                   <Image url="@img/portssmall.png" />
                </image>
             </ImageView>
-            <TextField fx:id="popUpAddPortName" layoutX="732.0" layoutY="329.0" prefHeight="47.0" prefWidth="201.0" promptText="Handler name" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
+            <TextField fx:id="handler" layoutX="732.0" layoutY="329.0" prefHeight="47.0" prefWidth="201.0" promptText="Handler name" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
                <font>
                   <Font name="Monospaced Regular" size="18.0" />
                </font>

@@ -16,7 +16,11 @@ public class CargoAPI {
 	Cargo cargo = new Cargo(new CustomList<>(), new CustomList<>(), new CustomList<>()); //center of data
 	private CustomList<Integer> test;
 
-	public CargoAPI() {
+	public String currentHandler = "";
+	
+
+	public CargoAPI(String handler) {
+		currentHandler = handler;
 		/*Port port = new Port("Triest", 1, "IT", null);
 		cargo.addPort(port);
 
