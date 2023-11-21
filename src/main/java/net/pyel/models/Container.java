@@ -4,10 +4,10 @@ import net.pyel.utils.CustomList;
 
 public class Container {
 	private int ID;
-	private float size; //container size (10, 20 or 40 feet long; assume 8 feet width and height).
+	private int size; //container size (10, 20 or 40 feet long; assume 8 feet width and height).
 	private CustomList<Pallet> pallets = new CustomList<>();
 
-	public Container(int ID, float size, CustomList<Pallet> pallets) {
+	public Container(int ID, int size, CustomList<Pallet> pallets) {
 		this.ID = ID;
 		this.size = size;
 		this.pallets = pallets;
@@ -26,7 +26,7 @@ public class Container {
 		return size;
 	}
 
-	public void setSize(float size) {
+	public void setSize(int size) {
 		this.size = size;
 	}
 
@@ -48,5 +48,10 @@ public class Container {
 
 	public void updatePalletByIndex(int index) {
 		//pallets.update(index);
+	}
+
+	@Override
+	public String toString() {
+		return ID + " [" + size + "]";
 	}
 }

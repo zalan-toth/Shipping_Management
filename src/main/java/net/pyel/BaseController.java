@@ -55,6 +55,7 @@ public class BaseController implements Initializable {
 		terminalScene = new Scene(terminalRoot);
 		terminalStage.setScene(terminalScene);
 		terminalStage.setResizable(true);
+		terminalStage.setTitle("Shipping Management Panel | Experimental Log Terminal");
 		terminalStage.show();
 	}
 
@@ -71,21 +72,76 @@ public class BaseController implements Initializable {
 	private void logPrompt() {
 		String input = logInput.getText();
 		logInput.clear();
+		if (input.length() == 3) {
+			if (input.toLowerCase().substring(0, 3).equals("log")) {
+				terminalOutError("Usage: log [message]");
+				return;
+			}
+		}
 		if (input.length() < 4) {
-			log.getItems().add("(!) Invalid command in log prompt.");
+			terminalOutError("Invalid command in log prompt.");
 			return;
 		}
+		if (input.length() == 4) {
+			if (input.toLowerCase().substring(0, 4).equals("help")) {
+				terminalOut("HELP executed");
+				terminalOutHelp("help - Help page");
+				terminalOutHelp("log [message] - Log a message");
+				terminalOutHelp("handler [name] - Change handler");
+				terminalOutHelp("clear - Clear terminal");
+				return;
+			}
+		}
+		if (input.length() == 5) {
+			if (input.toLowerCase().substring(0, 5).equals("clear")) {
+				terminalOut("CLEAR executed");
+				log.getItems().clear();
+				return;
+			}
+		}
+		if (input.length() == 7) {
+			if (input.toLowerCase().substring(0, 7).equals("handler")) {
+				terminalOutError("Usage: handler [name]");
+				return;
+			}
+		}
+		if (input.length() > 7) {
+			if (input.toLowerCase().substring(0, 8).equals("handler ")) {
+				String name = input.substring(8);
+				cargoAPI.currentHandler = name;
+				terminalOut("Look at me! I'm Mr. Meeseeks!");
+				return;
+			}
+		}
 		if (input.toLowerCase().substring(0, 4).equals("log ")) {
+
 			if (input.length() > 4) {
-				String message = cargoAPI.currentHandler + " > " + input.substring(3);
-				System.out.println(message);
-				log.getItems().add(message);
+				String message = input.substring(4);
+				terminalOut(message);
 			} else {
-				log.getItems().add("(!) Not enough charachters to log in log prompt.");
+				terminalOutError("Usage: log [message]");
 			}
 		} else {
-			log.getItems().add("(!) Invalid command in log prompt.");
+			terminalOutError("Invalid command in log prompt.");
 		}
+	}
+
+	public void terminalOut(String out) {
+		String message = "[" + cargoAPI.currentHandler + "]" + " > " + out;
+		System.out.println(message);
+		log.getItems().add(message);
+	}
+
+	public void terminalOutError(String out) {
+		String message = "(!) " + out;
+		System.out.println(message);
+		log.getItems().add(message);
+	}
+
+	public void terminalOutHelp(String out) {
+		String message = "| " + out;
+		//System.out.println(message);
+		log.getItems().add(message);
 	}
 
 	@FXML
@@ -122,6 +178,7 @@ public class BaseController implements Initializable {
 
 	@FXML
 	private void loadPanel() throws IOException {
+		BackgroundController.setCargoAPI(new CargoAPI(handler.getText()));
 		cargoAPI = BackgroundController.getCargoAPI();
 		loadData();
 		ports = cargoAPI.cargo.getPorts();
@@ -202,6 +259,8 @@ public class BaseController implements Initializable {
 	@FXML
 	private Text portIDInfo = new Text();
 	@FXML
+	private Text shipIDInfo = new Text();
+	@FXML
 	private ImageView portFlag = new ImageView();
 	@FXML
 	private ImageView imgShipOnSea = new ImageView();
@@ -212,14 +271,22 @@ public class BaseController implements Initializable {
 	@FXML
 	private ImageView imgContainersOnShip = new ImageView();
 	@FXML
+	private ImageView shipImage = new ImageView();
+	@FXML
 	private ToggleButton toggleContainerButton = new ToggleButton();
 	@FXML
 	private ToggleButton toggleShipButton = new ToggleButton();
-
+	@FXML
+	private ToggleButton length10toggle, length20toggle, length40toggle = new ToggleButton();
+	private int containerLengthValue;
 	@FXML
 	private Label testLabel;
 	private Port selectedPort;
 	private ContainerShip selectedShip;
+	private ContainerShip selectedShipOnSea;
+	private Container selectedContainer;
+	private Container selectedContainerOnShip;
+	private Pallet selectedPallet;
 
 	@FXML
 	private void deselectPort() {
@@ -231,7 +298,20 @@ public class BaseController implements Initializable {
 		containerListView.setItems(null);
 		dockedContainerListView.setItems(null);
 		palletListView.setItems(null);
+		deselectShip();
 		initialize(null, null);
+	}
+
+	@FXML
+	private void deselectShip() {
+		shipListView.getSelectionModel().clearSelection();
+		dockedShipListView.getSelectionModel().clearSelection();
+		shipIDInfo.setText("-");
+		shipURLBox.setText("");
+		shipNameBox.setText("");
+		shipCountryBox.setText("");
+		shipIDBox.setText("");
+		deselectContainer();
 	}
 
 	@FXML
@@ -239,6 +319,30 @@ public class BaseController implements Initializable {
 		containerListView.getSelectionModel().clearSelection();
 		dockedContainerListView.getSelectionModel().clearSelection();
 		palletListView.setItems(null);
+	}
+
+	@FXML
+	private void length10Toggle() {
+		length10toggle.setSelected(true);
+		length20toggle.setSelected(false);
+		length40toggle.setSelected(false);
+		containerLengthValue = 10;
+	}
+
+	@FXML
+	private void length20Toggle() {
+		length10toggle.setSelected(false);
+		length20toggle.setSelected(true);
+		length40toggle.setSelected(false);
+		containerLengthValue = 20;
+	}
+
+	@FXML
+	private void length40Toggle() {
+		length10toggle.setSelected(false);
+		length20toggle.setSelected(false);
+		length40toggle.setSelected(true);
+		containerLengthValue = 40;
 	}
 
 	@FXML
@@ -261,12 +365,6 @@ public class BaseController implements Initializable {
 		deselectContainer();
 	}
 
-	@FXML
-	private void deselectShip() {
-		shipListView.getSelectionModel().clearSelection();
-		dockedShipListView.getSelectionModel().clearSelection();
-		deselectContainer();
-	}
 
 	@FXML
 	private void toggleShip() {
@@ -306,20 +404,20 @@ public class BaseController implements Initializable {
 		if (!portNameBox.getText().isEmpty() && !portIDBox.getText().isEmpty()) {
 			Port newPort = new Port(portNameBox.getText(), Integer.parseInt(portIDBox.getText()), portCountryBox.getText(), null, null);
 			ports.add(newPort);
-			System.out.println(newPort + " added.");
+			terminalOut(newPort + " added.");
 			refresh();
 		}
 	}
 
 	@FXML
 	private void addShip() {
-		if (selectedPort != null && !shipNameBox.getText().isEmpty() && !shipIDBox.getText().isEmpty() && !shipURLBox.getText().isEmpty()) {
-			ContainerShip newShip = new ContainerShip(shipNameBox.getText(), shipIDBox.getText(), null, null, null);
+		if (selectedPort != null && !shipNameBox.getText().isEmpty() && !shipIDBox.getText().isEmpty() && !shipCountryBox.getText().isEmpty()) {
+			ContainerShip newShip = new ContainerShip(shipNameBox.getText(), shipIDBox.getText(), shipCountryBox.getText(), shipURLBox.getText(), new CustomList<>());
 			if (selectedPort.getShips() == null) {
 				selectedPort.setShips(new CustomList<>());
 			}
 			selectedPort.addContainerShip(newShip);
-			System.out.println(newShip + " added.");
+			terminalOut(newShip + " added.");
 			refresh();
 		}
 	}
@@ -332,7 +430,7 @@ public class BaseController implements Initializable {
 			selectedShip.setContainers(new CustomList<>());
 		}
 		selectedShip.addContainer(newContainer);
-		System.out.println(newContainer + " added.");
+		terminalOut(newContainer + " added.");
 		updateOnlyFromShipLevel();
 
 	}
@@ -345,7 +443,7 @@ public class BaseController implements Initializable {
 			selectedPort.setContainers(new CustomList<>());
 		}
 		selectedPort.addContainer(newContainer);
-		System.out.println(newContainer + " added.");
+		terminalOut(newContainer + " added.");
 		updateData();
 
 	}
@@ -358,7 +456,7 @@ public class BaseController implements Initializable {
 	private void updatePort() {
 		if (selectedPort != null && !portNameBox.getText().isEmpty() && !portIDBox.getText().isEmpty() && !portCountryBox.getText().isEmpty()) {
 			selectedPort.update(portNameBox.getText(), Integer.parseInt(portIDBox.getText()), portCountryBox.getText());
-			System.out.println(selectedPort + " updated.");
+			terminalOut(selectedPort + " updated.");
 			refresh();
 		}
 	}
@@ -409,11 +507,24 @@ public class BaseController implements Initializable {
 			}
 		});
 		dockedShipListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				updateOnlyFromShipLevel();
+			}
+		});
+		containerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				//updateOnlyFromContainerLevel();
+			}
+		});
+		dockedContainerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				//updateOnlyFromContainerLevel();
+			}
+		});
+		log.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			// This will be called whenever the user selects a different item in the list
 			if (newValue != null) {
-				// Call initialize or any specific update method
-				//refresh();
-				updateOnlyFromShipLevel();
+				updateData();
 			}
 		});
 		logInput.setOnKeyPressed(event -> {
@@ -426,17 +537,21 @@ public class BaseController implements Initializable {
 
 	private void updateData() {
 		selectedPort = portListView.getSelectionModel().getSelectedItem();
-		System.out.println(selectedShip);
+		selectedShipOnSea = shipListView.getSelectionModel().getSelectedItem();
+		if (this.selectedShipOnSea != null) {
+
+		}
+		//terminalOut(selectedShip);
 		if ((this.selectedPort != null)) {
 
 
-			//CONTAINERS SECTION
+			//dockedCONTAINERS SECTION
 			if (selectedPort.getContainers() == null) {
 				dockedContainerListView.setItems(null);
 			} else {
 				dockedContainerListView.setItems(FXCollections.observableList(selectedPort.getContainers()));
 			}
-			//CONTAINERS END
+			//dockedCONTAINERS END
 
 
 			if (selectedPort.getShips() == null) {
@@ -467,11 +582,19 @@ public class BaseController implements Initializable {
 		if (selectedShip != null) {
 			if (selectedShip.getContainers() == null) {
 				containerListView.setItems(null);
-				System.out.println("Hello!");
 			} else {
 				containerListView.setItems(FXCollections.observableList(selectedShip.getContainers()));
-				System.out.println("No!");
 			}
+
+			shipIDInfo.setText(selectedShip.getCountry() + selectedShip.getID());
+			shipIDBox.setText("" + selectedShip.getID());
+			shipNameBox.setText(selectedShip.getName());
+			shipCountryBox.setText(selectedShip.getCountry());
+			shipURLBox.setText(selectedShip.getPhotoURL());
+			/*if (selectedShip.getPhotoURL() != null) {
+				Image image = new Image(selectedShip.getPhotoURL());
+				shipImage = new ImageView(image);
+			}*/
 		}
 	}
 

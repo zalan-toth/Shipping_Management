@@ -108,7 +108,7 @@
                               <Font name="Monospaced Regular" size="34.0" />
                            </font>
                         </Text>
-                        <Text fill="#ff9d57" fontSmoothingType="LCD" layoutX="23.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AT121212">
+                        <Text fx:id="shipIDInfo" fill="#ff9d57" fontSmoothingType="LCD" layoutX="23.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AT121212">
                            <font>
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
@@ -145,25 +145,13 @@
                         </TextField>
                         <Pane layoutX="241.0" layoutY="126.0">
                            <children>
-                              <ImageView fitHeight="177.0" fitWidth="210.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/listviewbg.png" />
-                                 </image>
+                              <ImageView fx:id="shipImage" fitHeight="177.0" fitWidth="210.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                  <viewport>
                                     <Rectangle2D />
                                  </viewport>
                               </ImageView>
                            </children>
                         </Pane>
-                        <SplitMenuButton layoutX="245.0" layoutY="49.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="195.0" text="Port">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Action 1" />
-                              <MenuItem mnemonicParsing="false" text="Action 2" />
-                           </items>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </SplitMenuButton>
                         <ToggleButton fx:id="toggleShipButton" layoutX="245.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#toggleShip" style="-fx-background-color: #ff4d02;" text="Selected mode: PORT" textFill="WHITE">
                            <font>
                               <Font name="Ubuntu Mono" size="15.0" />
@@ -272,12 +260,7 @@
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="popUpAddPortName1" layoutX="18.0" layoutY="148.0" prefHeight="35.0" prefWidth="195.0" promptText="Container ID" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
-                           <font>
-                              <Font name="Monospaced Regular" size="18.0" />
-                           </font>
-                        </TextField>
-                        <Button fx:id="popUpAddAddButton11" layoutX="247.0" layoutY="183.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
+                        <Button fx:id="popUpAddAddButton11" layoutX="247.0" layoutY="182.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
                            <font>
                               <Font size="21.0" />
                            </font>
@@ -292,15 +275,6 @@
                               <Font size="21.0" />
                            </font>
                         </Button>
-                        <SplitMenuButton layoutX="18.0" layoutY="192.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="195.0" text="Size">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Action 1" />
-                              <MenuItem mnemonicParsing="false" text="Action 2" />
-                           </items>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </SplitMenuButton>
                         <ListView fx:id="dockedContainerListView" layoutX="237.0" layoutY="385.0" prefHeight="458.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" />
                         <ImageView fx:id="imgContainersOnShore" fitHeight="80.0" fitWidth="95.0" layoutX="237.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -322,6 +296,20 @@
                               <Font name="Ubuntu Mono" size="15.0" />
                            </font>
                         </ToggleButton>
+                        <TextField fx:id="containerIDBox" layoutX="18.0" layoutY="104.0" prefHeight="0.0" prefWidth="195.0" promptText="Container ID" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
+                           <font>
+                              <Font name="Monospaced Regular" size="15.0" />
+                           </font>
+                        </TextField>
+                        <Text fill="WHITE" layoutX="18.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Container ID*" />
+                        <Text fill="WHITE" layoutX="18.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Length" />
+                        <ToggleButton fx:id="length10toggle" layoutX="18.0" layoutY="157.0" mnemonicParsing="false" onMouseClicked="#length10Toggle" stylesheets="@css/toggle.css" text="10" textFill="WHITE" />
+                        <ToggleButton fx:id="length20toggle" layoutX="54.0" layoutY="157.0" mnemonicParsing="false" onMouseClicked="#length20Toggle" selected="true" stylesheets="@css/toggle.css" text="20" textFill="WHITE" />
+                        <ToggleButton fx:id="length40toggle" layoutX="90.0" layoutY="157.0" mnemonicParsing="false" onMouseClicked="#length40Toggle" stylesheets="@css/toggle.css" text="40" textFill="WHITE" />
+                        <Text fill="WHITE" layoutX="17.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Width" />
+                        <ToggleButton disable="true" layoutX="17.0" layoutY="202.0" mnemonicParsing="false" selected="true" stylesheets="@css/toggle.css" text="8" textFill="WHITE" />
+                        <Text fill="WHITE" layoutX="70.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Height" />
+                        <ToggleButton disable="true" layoutX="70.0" layoutY="202.0" mnemonicParsing="false" selected="true" stylesheets="@css/toggle.css" text="8" textFill="WHITE" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="860.0" prefWidth="249.0" style="-fx-background-color: #111726;">
