@@ -22,6 +22,14 @@ public class Pallet {
 		this.internationalMark = internationalMark;
 	}
 
+	public String getInternationalMark() {
+		return internationalMark;
+	}
+
+	public void setInternationalMark(String internationalMark) {
+		this.internationalMark = internationalMark;
+	}
+
 	public String getDescription() {
 		return description;
 	}

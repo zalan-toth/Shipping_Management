@@ -22,7 +22,7 @@ public class Container {
 		this.ID = ID;
 	}
 
-	public float getSize() {
+	public int getSize() {
 		return size;
 	}
 

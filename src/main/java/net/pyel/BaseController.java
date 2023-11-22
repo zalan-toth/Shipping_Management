@@ -6,10 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
@@ -286,6 +283,10 @@ public class BaseController implements Initializable {
 	@FXML
 	private Text shipIDInfo = new Text();
 	@FXML
+	private Text containerIDInfo = new Text();
+	@FXML
+	private Text palletIDInfo = new Text();
+	@FXML
 	private ImageView portFlag = new ImageView();
 	@FXML
 	private ImageView imgShipOnSea = new ImageView();
@@ -303,6 +304,22 @@ public class BaseController implements Initializable {
 	private ToggleButton toggleShipButton = new ToggleButton();
 	@FXML
 	private ToggleButton length10toggle, length20toggle, length40toggle = new ToggleButton();
+	@FXML
+	private TextField containerIDBox = new TextField();
+	@FXML
+	private TextField containerCapacityBox = new TextField();
+	@FXML
+	private TextField palletIDBox = new TextField();
+	@FXML
+	private TextField palletSizeBox = new TextField();
+	@FXML
+	private TextField palletWeightBox = new TextField();
+	@FXML
+	private TextField palletValueBox = new TextField();
+	@FXML
+	private TextField palletAmountBox = new TextField();
+	@FXML
+	private TextArea palletDescBox = new TextArea();
 	private int containerLengthValue;
 	@FXML
 	private Label testLabel;
@@ -340,9 +357,25 @@ public class BaseController implements Initializable {
 	}
 
 	@FXML
+	private void deselectPallet() {
+		palletListView.getSelectionModel().clearSelection();
+		palletIDInfo.setText("-");
+		palletIDBox.setText("");
+		palletAmountBox.setText("");
+		palletValueBox.setText("");
+		palletWeightBox.setText("");
+		palletSizeBox.setText("");
+		palletDescBox.setText("");
+	}
+
+	@FXML
 	private void deselectContainer() {
+
+		deselectPallet();
 		deselectDockedContainer();
 		deselectShipContainer();
+		containerIDBox.setText("");
+		lengthInvalid();
 	}
 
 	@FXML
@@ -355,6 +388,15 @@ public class BaseController implements Initializable {
 	private void deselectDockedContainer() {
 		dockedContainerListView.getSelectionModel().clearSelection();
 		palletListView.setItems(null);
+	}
+
+	@FXML
+	private void lengthInvalid() {
+		if (length10toggle != null && length20toggle != null && length40toggle != null) {
+			length10toggle.setSelected(false);
+			length20toggle.setSelected(false);
+			length40toggle.setSelected(false);
+		}
 	}
 
 	@FXML
@@ -491,7 +533,7 @@ public class BaseController implements Initializable {
 
 	@FXML
 	private void addContainer() {
-		Container newContainer = new Container(55, 5, null);
+		Container newContainer = new Container(55, 10, null);
 		if (!toggleShipButton.isSelected()) {
 			if (selectedShip.getContainers() == null) {
 				selectedShip.setContainers(new CustomList<>());
@@ -512,7 +554,7 @@ public class BaseController implements Initializable {
 	@FXML
 	private void addContainerOnShore() {
 
-		Container newContainer = new Container(55, 5, null);
+		Container newContainer = new Container(55, 20, null);
 		if (selectedPort.getContainers() == null) {
 			selectedPort.setContainers(new CustomList<>());
 		}
@@ -528,6 +570,10 @@ public class BaseController implements Initializable {
 
 	@FXML
 	private void updateShip() {
+	}
+
+	@FXML
+	private void updatePallet() {
 	}
 
 	@FXML
@@ -638,6 +684,7 @@ public class BaseController implements Initializable {
 					containerListView.refresh();
 					updateOnlyFromContainerOnShipLevel();
 				}
+
 			}
 
 			shipIDInfo.setText(selectedShipOnSea.getCountry() + selectedShipOnSea.getID());
@@ -715,8 +762,20 @@ public class BaseController implements Initializable {
 					palletListView.setItems(FXCollections.observableList(selectedContainer.getPallets()));
 					updateOnlyFromPalletLevel();
 				}
+				containerIDBox.setText(selectedContainer.getID() + "");
+				int contSize = selectedContainer.getSize();
+				if (contSize == 10) {
+					length10Toggle();
+				} else if (contSize == 20) {
+					length20Toggle();
+				} else if (contSize == 40) {
+					length40Toggle();
+				} else {
+					lengthInvalid();
+				}
+				containerCapacityBox.setText(contSize * 8 * 8 + "");
+
 			}
-			//containerIDBox
 		}
 	}
 
@@ -731,8 +790,20 @@ public class BaseController implements Initializable {
 					palletListView.setItems(FXCollections.observableList(selectedContainerOnShip.getPallets()));
 					updateOnlyFromPalletLevel();
 				}
+				containerIDInfo.setText(selectedContainerOnShip.getID() + "");
+				containerIDBox.setText(selectedContainerOnShip.getID() + "");
+				int contSize = selectedContainerOnShip.getSize();
+				if (contSize == 10) {
+					length10Toggle();
+				} else if (contSize == 20) {
+					length20Toggle();
+				} else if (contSize == 40) {
+					length40Toggle();
+				} else {
+					lengthInvalid();
+				}
+				containerCapacityBox.setText(contSize * 8 * 8 + "");
 			}
-			//containerIDBox
 		}
 	}
 
@@ -740,7 +811,13 @@ public class BaseController implements Initializable {
 		selectedPallet = palletListView.getSelectionModel().getSelectedItem();
 
 		if (selectedPallet != null) {
-			//palletIDBox
+			palletIDInfo.setText(selectedPallet.getInternationalMark() + "");
+			palletIDBox.setText(selectedPallet.getInternationalMark() + "");
+			palletAmountBox.setText(selectedPallet.getQuantity() + "");
+			palletValueBox.setText(selectedPallet.getUnitValue() + "");
+			palletWeightBox.setText(selectedPallet.getTotalWeight() + "");
+			palletSizeBox.setText(selectedPallet.getSize() + "");
+			palletDescBox.setText(selectedPallet.getDescription());
 		}
 	}
 }

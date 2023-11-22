@@ -40,7 +40,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
@@ -312,6 +312,12 @@
                         <ToggleButton disable="true" layoutX="17.0" layoutY="202.0" mnemonicParsing="false" selected="true" stylesheets="@css/toggle.css" text="8" textFill="WHITE" />
                         <Text fill="WHITE" layoutX="70.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Height" />
                         <ToggleButton disable="true" layoutX="70.0" layoutY="202.0" mnemonicParsing="false" selected="true" stylesheets="@css/toggle.css" text="8" textFill="WHITE" />
+                        <Text fill="WHITE" layoutX="231.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity" />
+                        <TextField fx:id="containerCapacityBox" disable="true" editable="false" layoutX="231.0" layoutY="103.0" prefHeight="16.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff; -fx-border-color: #8ad3ff; -fx-text-fill: black;" text="640">
+                           <font>
+                              <Font name="Monospaced Regular" size="15.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="860.0" prefWidth="249.0" style="-fx-background-color: #111726;">
@@ -332,46 +338,59 @@
                               <Font name="Monospaced Regular" size="34.0" />
                            </font>
                         </Text>
-                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AT121212">
+                        <Text fx:id="palletIDInfo" fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-">
                            <font>
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="popUpAddPortName12" layoutX="18.0" layoutY="148.0" prefHeight="35.0" prefWidth="195.0" promptText="Quantity" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
-                           <font>
-                              <Font name="Monospaced Regular" size="18.0" />
-                           </font>
-                        </TextField>
-                        <Button fx:id="popUpAddAddButton111" layoutX="96.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
+                        <Button layoutX="116.0" layoutY="371.0" mnemonicParsing="false" onMouseClicked="#updatePallet" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
                            <font>
                               <Font size="21.0" />
                            </font>
                         </Button>
-                        <Button fx:id="popUpAddAddButton212" layoutX="130.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
+                        <Button layoutX="150.0" layoutY="420.0" mnemonicParsing="false" onMouseClicked="#deselectPallet" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="popUpAddAddButton1112" layoutX="18.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPallet" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff;" text="Add">
+                        <Button layoutX="14.0" layoutY="371.0" mnemonicParsing="false" onMouseClicked="#addPallet" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff;" text="Add">
                            <font>
                               <Font size="21.0" />
                            </font>
                         </Button>
-                        <SplitMenuButton layoutX="18.0" layoutY="192.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="195.0" text="Size">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Action 1" />
-                              <MenuItem mnemonicParsing="false" text="Action 2" />
-                           </items>
+                        <Button layoutX="164.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#refresh" text="Refresh" />
+                        <TextArea fx:id="palletDescBox" layoutX="19.0" layoutY="262.0" prefHeight="80.0" prefWidth="195.0" promptText="Description of Goods" style="-fx-text-fill: white; -fx-background-color: black; -fx-border-color: white;" stylesheets="@css/textarea.css" />
+                        <Text fill="WHITE" layoutX="20.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                        <TextField fx:id="palletValueBox" layoutX="19.0" layoutY="208.0" prefHeight="31.0" prefWidth="87.0" promptText="Value" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
                            <font>
-                              <Font size="18.0" />
-                           </font>
-                        </SplitMenuButton>
-                        <TextField fx:id="popUpAddPortName121" layoutX="18.0" layoutY="106.0" prefHeight="35.0" prefWidth="195.0" promptText="Unit Value" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
-                           <font>
-                              <Font name="Monospaced Regular" size="18.0" />
+                              <Font name="Monospaced Regular" size="15.0" />
                            </font>
                         </TextField>
-                        <Button layoutX="164.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#refresh" text="Refresh" />
+                        <Text fill="WHITE" layoutX="19.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unit Value" />
+                        <TextField fx:id="palletSizeBox" layoutX="19.0" layoutY="155.0" prefHeight="31.0" prefWidth="87.0" promptText="Size" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
+                           <font>
+                              <Font name="Monospaced Regular" size="15.0" />
+                           </font>
+                        </TextField>
+                        <Text fill="WHITE" layoutX="19.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Size" />
+                        <TextField fx:id="palletIDBox" layoutX="19.0" layoutY="101.0" prefHeight="0.0" prefWidth="195.0" promptText="Pallet Mark" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: orange;">
+                           <font>
+                              <Font name="Monospaced Regular" size="15.0" />
+                           </font>
+                        </TextField>
+                        <Text fill="WHITE" layoutX="19.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="International Mark*" />
+                        <TextField fx:id="palletAmountBox" layoutX="121.0" layoutY="207.0" prefHeight="31.0" prefWidth="87.0" promptText="Amount" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
+                           <font>
+                              <Font name="Monospaced Regular" size="15.0" />
+                           </font>
+                        </TextField>
+                        <Text fill="WHITE" layoutX="121.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity" />
+                        <TextField fx:id="palletWeightBox" layoutX="121.0" layoutY="156.0" prefHeight="31.0" prefWidth="87.0" promptText="Weight" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
+                           <font>
+                              <Font name="Monospaced Regular" size="15.0" />
+                           </font>
+                        </TextField>
+                        <Text fill="WHITE" layoutX="121.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight" />
                      </children>
                   </AnchorPane>
                </children>
