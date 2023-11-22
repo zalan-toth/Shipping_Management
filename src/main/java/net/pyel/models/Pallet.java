@@ -5,6 +5,7 @@ public class Pallet {
 	private int quantity;
 	private float unitValue;
 	private float totalWeight;
+	private String internationalMark;
 	private int size; //in cubic feet
 
 	/*TODO Note that you should not allow more pallets in a container than it could hold based
@@ -12,12 +13,13 @@ public class Pallet {
 	cubic feet in total, so don’t allow a combination of pallets that exceeds this (ignore
 	the shape, etc. of goods/cargo).*/
 
-	public Pallet(String description, int quantity, float unitValue, float totalWeight, int size) {
+	public Pallet(String description, String internationalMark, int quantity, float unitValue, float totalWeight, int size) {
 		this.description = description;
 		this.quantity = quantity;
 		this.unitValue = unitValue;
 		this.totalWeight = totalWeight;
 		this.size = size;
+		this.internationalMark = internationalMark;
 	}
 
 	public String getDescription() {
@@ -58,5 +60,10 @@ public class Pallet {
 
 	public void setSize(int size) {
 		this.size = size;
+	}
+
+	@Override
+	public String toString() {
+		return internationalMark + " [" + size + "]";
 	}
 }

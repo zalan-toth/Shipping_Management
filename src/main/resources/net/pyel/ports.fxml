@@ -108,7 +108,7 @@
                               <Font name="Monospaced Regular" size="34.0" />
                            </font>
                         </Text>
-                        <Text fx:id="shipIDInfo" fill="#ff9d57" fontSmoothingType="LCD" layoutX="23.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AT121212">
+                        <Text fx:id="shipIDInfo" fill="#ff9d57" fontSmoothingType="LCD" layoutX="23.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-">
                            <font>
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
@@ -123,17 +123,12 @@
                               <Font name="Monospaced Regular" size="15.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="popUpAddAddButton112" layoutX="101.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
-                           <font>
-                              <Font size="21.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="358.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
+                        <Button layoutX="367.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#deselectShip" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="popUpAddAddButton1111" layoutX="16.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addShip" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff;" text="Add">
+                        <Button layoutX="295.0" layoutY="233.0" mnemonicParsing="false" onMouseClicked="#addShip" prefHeight="40.0" prefWidth="156.0" style="-fx-background-color: #8ad3ff;" text="Add to Port">
                            <font>
                               <Font size="21.0" />
                            </font>
@@ -143,15 +138,7 @@
                               <Font name="Monospaced Regular" size="12.0" />
                            </font>
                         </TextField>
-                        <Pane layoutX="241.0" layoutY="126.0">
-                           <children>
-                              <ImageView fx:id="shipImage" fitHeight="177.0" fitWidth="210.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                                 <viewport>
-                                    <Rectangle2D />
-                                 </viewport>
-                              </ImageView>
-                           </children>
-                        </Pane>
+                        <Pane layoutX="241.0" layoutY="126.0" />
                         <ToggleButton fx:id="toggleShipButton" layoutX="245.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#toggleShip" style="-fx-background-color: #ff4d02;" text="Selected mode: PORT" textFill="WHITE">
                            <font>
                               <Font name="Ubuntu Mono" size="15.0" />
@@ -166,6 +153,21 @@
                         <Text fill="WHITE" layoutX="16.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ship code*" />
                         <Text fill="WHITE" layoutX="16.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ship name*" />
                         <Text fill="WHITE" layoutX="241.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ship photo URL" />
+                        <Button layoutX="14.0" layoutY="233.0" mnemonicParsing="false" onMouseClicked="#addShipToSea" prefHeight="40.0" prefWidth="156.0" style="-fx-background-color: #8ad3ff;" text="Add to Sea">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="333.0" layoutY="179.0" mnemonicParsing="false" onMouseClicked="#updateShip" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Button>
+                        <ImageView fx:id="shipImage" fitHeight="47.0" fitWidth="68.0" layoutX="143.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                   <AnchorPane layoutX="1170.0" layoutY="92.0" prefHeight="860.0" prefWidth="230.0" style="-fx-background-color: #253357;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1170.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -255,22 +257,22 @@
                               <Font name="Monospaced Regular" size="34.0" />
                            </font>
                         </Text>
-                        <Text fill="#ffb92b" fontSmoothingType="LCD" layoutX="14.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AT121212">
+                        <Text fx:id="containerIDInfo" fill="#ffb92b" fontSmoothingType="LCD" layoutX="14.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-">
                            <font>
                               <Font name="Monospaced Regular" size="18.0" />
                            </font>
                         </Text>
-                        <Button fx:id="popUpAddAddButton11" layoutX="247.0" layoutY="182.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
+                        <Button fx:id="popUpAddAddutton11" layoutX="329.0" layoutY="182.0" mnemonicParsing="false" onMouseClicked="#updateContainer" prefHeight="12.0" prefWidth="116.0" style="-fx-background-color: #8ad3ff;" text="Update">
                            <font>
                               <Font size="21.0" />
                            </font>
                         </Button>
-                        <Button fx:id="popUpAddAddButton21" layoutX="130.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
+                        <Button layoutX="363.0" layoutY="287.0" mnemonicParsing="false" onMouseClicked="#deselectContainer" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="popUpAddAddButton111" layoutX="18.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addContainer" prefHeight="40.0" prefWidth="184.0" style="-fx-background-color: #8ad3ff;" text="Add to Ship">
+                        <Button layoutX="18.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addContainer" prefHeight="40.0" prefWidth="156.0" style="-fx-background-color: #8ad3ff;" text="Add to Ship">
                            <font>
                               <Font size="21.0" />
                            </font>
@@ -286,7 +288,7 @@
                               <Font name="Monospaced Regular" size="20.0" />
                            </font>
                         </Text>
-                        <Button fx:id="popUpAddAddButton1113" layoutX="282.0" layoutY="257.0" mnemonicParsing="false" onMouseClicked="#addContainerOnShore" prefHeight="40.0" prefWidth="162.0" style="-fx-background-color: #8ad3ff;" text="Add to Port">
+                        <Button layoutX="282.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addContainerOnShore" prefHeight="40.0" prefWidth="162.0" style="-fx-background-color: #8ad3ff;" text="Add to Port">
                            <font>
                               <Font size="21.0" />
                            </font>
@@ -350,7 +352,7 @@
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="popUpAddAddButton1112" layoutX="18.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff;" text="Add">
+                        <Button fx:id="popUpAddAddButton1112" layoutX="18.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPallet" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff;" text="Add">
                            <font>
                               <Font size="21.0" />
                            </font>

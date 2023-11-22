@@ -23,12 +23,13 @@ import net.pyel.utils.CustomList;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class BaseController implements Initializable {
 	private static CargoAPI cargoAPI = new CargoAPI(null);
 	private CustomList<Port> ports;
-	private CustomList<ContainerShip> shipsOnSea;
+	private CustomList<ContainerShip> shipsOnSea = new CustomList<>();
 	Stage popupstage = new Stage();
 	Parent popuproot;
 	Scene popupScene;
@@ -66,6 +67,7 @@ public class BaseController implements Initializable {
 	ListView<String> log = new ListView<>();
 	@FXML
 	TextField handler = new TextField();
+	String previousCommand = "";
 
 
 	@FXML
@@ -84,11 +86,12 @@ public class BaseController implements Initializable {
 		}
 		if (input.length() == 4) {
 			if (input.toLowerCase().substring(0, 4).equals("help")) {
-				terminalOut("HELP executed");
-				terminalOutHelp("help - Help page");
-				terminalOutHelp("log [message] - Log a message");
-				terminalOutHelp("handler [name] - Change handler");
 				terminalOutHelp("clear - Clear terminal");
+				terminalOutHelp("bogosort - Bogo");
+				terminalOutHelp("handler [name] - Change handler");
+				terminalOutHelp("log [message] - Log a message");
+				terminalOutHelp("help - Help page");
+				terminalOut("HELP executed");
 				return;
 			}
 		}
@@ -113,6 +116,25 @@ public class BaseController implements Initializable {
 				return;
 			}
 		}
+
+		if (input.length() == 8) {
+			if (input.toLowerCase().substring(0, 8).equals("bogosort")) {
+
+				Random random = new Random();
+				int variable = random.nextInt(30001);
+				int numero = 69;
+				int count = 0;
+				while (variable != numero) {
+					variable = random.nextInt(30001);
+					terminalOutHelp("" + variable);
+					log.getItems().clear();
+					count++;
+				}
+				terminalOut("Your public static void main String args[" + numero + "] quantum bogo is found in " + count + " attempt(s).");
+
+				return;
+			}
+		}
 		if (input.toLowerCase().substring(0, 4).equals("log ")) {
 
 			if (input.length() > 4) {
@@ -128,20 +150,23 @@ public class BaseController implements Initializable {
 
 	public void terminalOut(String out) {
 		String message = "[" + cargoAPI.currentHandler + "]" + " > " + out;
+		if (cargoAPI.currentHandler.isEmpty()) {
+			message = " > " + out;
+		}
 		System.out.println(message);
-		log.getItems().add(message);
+		log.getItems().add(0, message);
 	}
 
 	public void terminalOutError(String out) {
 		String message = "(!) " + out;
 		System.out.println(message);
-		log.getItems().add(message);
+		log.getItems().add(0, message);
 	}
 
 	public void terminalOutHelp(String out) {
 		String message = "| " + out;
 		//System.out.println(message);
-		log.getItems().add(message);
+		log.getItems().add(0, message);
 	}
 
 	@FXML
@@ -316,7 +341,18 @@ public class BaseController implements Initializable {
 
 	@FXML
 	private void deselectContainer() {
+		deselectDockedContainer();
+		deselectShipContainer();
+	}
+
+	@FXML
+	private void deselectShipContainer() {
 		containerListView.getSelectionModel().clearSelection();
+		palletListView.setItems(null);
+	}
+
+	@FXML
+	private void deselectDockedContainer() {
 		dockedContainerListView.getSelectionModel().clearSelection();
 		palletListView.setItems(null);
 	}
@@ -423,15 +459,53 @@ public class BaseController implements Initializable {
 	}
 
 	@FXML
-	private void addContainer() {
-
-		Container newContainer = new Container(55, 5, null);
-		if (selectedShip.getContainers() == null) {
-			selectedShip.setContainers(new CustomList<>());
+	private void addShipToSea() {
+		if (!shipNameBox.getText().isEmpty() && !shipIDBox.getText().isEmpty() && !shipCountryBox.getText().isEmpty()) {
+			ContainerShip newShip = new ContainerShip(shipNameBox.getText(), shipIDBox.getText(), shipCountryBox.getText(), shipURLBox.getText(), new CustomList<>());
+			shipsOnSea.add(newShip);
+			terminalOut(newShip + " added to sea.");
+			//updateOnlyFromContainerLevel();
+			refresh();
 		}
-		selectedShip.addContainer(newContainer);
+	}
+
+	@FXML
+	private void addPallet() {
+		Pallet newPallet = new Pallet("desc", "GB-FC0001", 5, 0, 0, 0);
+		if (!toggleContainerButton.isSelected()) {
+			if (selectedContainer.getPallets() == null) {
+				selectedContainer.setPallets(new CustomList<>());
+			}
+			selectedContainer.addPallet(newPallet);
+		} else if (toggleContainerButton.isSelected()) {
+
+			if (selectedContainerOnShip.getPallets() == null) {
+				selectedContainerOnShip.setPallets(new CustomList<>());
+			}
+			selectedContainerOnShip.addPallet(newPallet);
+		}
+		terminalOut(newPallet + " added.");
+		refresh();
+
+	}
+
+	@FXML
+	private void addContainer() {
+		Container newContainer = new Container(55, 5, null);
+		if (!toggleShipButton.isSelected()) {
+			if (selectedShip.getContainers() == null) {
+				selectedShip.setContainers(new CustomList<>());
+			}
+			selectedShip.addContainer(newContainer);
+		} else if (toggleShipButton.isSelected()) {
+
+			if (selectedShipOnSea.getContainers() == null) {
+				selectedShipOnSea.setContainers(new CustomList<>());
+			}
+			selectedShipOnSea.addContainer(newContainer);
+		}
 		terminalOut(newContainer + " added.");
-		updateOnlyFromShipLevel();
+		refresh();
 
 	}
 
@@ -446,6 +520,10 @@ public class BaseController implements Initializable {
 		terminalOut(newContainer + " added.");
 		updateData();
 
+	}
+
+	@FXML
+	private void updateContainer() {
 	}
 
 	@FXML
@@ -469,6 +547,7 @@ public class BaseController implements Initializable {
 			setRun = false;
 		}
 		//portListView.getItems().addAll(ports);
+		shipListView.setItems(FXCollections.observableList(shipsOnSea)); //Yay!
 		portListView.setItems(FXCollections.observableList(ports)); //Yay!
 		updateData();
 		//selectedPort = portListView.getSelectionModel().getSelectedItem();
@@ -511,14 +590,24 @@ public class BaseController implements Initializable {
 				updateOnlyFromShipLevel();
 			}
 		});
+		shipListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				updateData();
+			}
+		});
 		containerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
-				//updateOnlyFromContainerLevel();
+				updateOnlyFromContainerOnShipLevel();
 			}
 		});
 		dockedContainerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
-				//updateOnlyFromContainerLevel();
+				updateOnlyFromContainerLevel();
+			}
+		});
+		palletListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				updateOnlyFromPalletLevel();
 			}
 		});
 		log.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -530,7 +619,9 @@ public class BaseController implements Initializable {
 		logInput.setOnKeyPressed(event -> {
 			if (event.getCode() == KeyCode.ENTER) {
 				logPrompt();
+				previousCommand = logInput.getText();
 			}
+
 		});
 	}
 
@@ -538,8 +629,22 @@ public class BaseController implements Initializable {
 	private void updateData() {
 		selectedPort = portListView.getSelectionModel().getSelectedItem();
 		selectedShipOnSea = shipListView.getSelectionModel().getSelectedItem();
-		if (this.selectedShipOnSea != null) {
+		if (selectedShipOnSea != null && toggleShipButton.isSelected()) {
+			if (true) {
+				if (selectedShipOnSea.getContainers() == null) {
+					containerListView.setItems(null);
+				} else {
+					containerListView.setItems(FXCollections.observableList(selectedShipOnSea.getContainers()));
+					containerListView.refresh();
+					updateOnlyFromContainerOnShipLevel();
+				}
+			}
 
+			shipIDInfo.setText(selectedShipOnSea.getCountry() + selectedShipOnSea.getID());
+			shipIDBox.setText("" + selectedShipOnSea.getID());
+			shipNameBox.setText(selectedShipOnSea.getName());
+			shipCountryBox.setText(selectedShipOnSea.getCountry());
+			shipURLBox.setText(selectedShipOnSea.getPhotoURL());
 		}
 		//terminalOut(selectedShip);
 		if ((this.selectedPort != null)) {
@@ -556,9 +661,7 @@ public class BaseController implements Initializable {
 
 			if (selectedPort.getShips() == null) {
 				dockedShipListView.setItems(null);
-				containerListView.setItems(null);
 			} else {
-				containerListView.setItems(null);
 				dockedShipListView.setItems(FXCollections.observableList(selectedPort.getShips()));
 
 				//SHIP BEGIN
@@ -575,15 +678,19 @@ public class BaseController implements Initializable {
 		} else {
 			dockedShipListView.setItems(null);
 		}
+
 	}
 
 	private void updateOnlyFromShipLevel() {
 		selectedShip = dockedShipListView.getSelectionModel().getSelectedItem();
-		if (selectedShip != null) {
-			if (selectedShip.getContainers() == null) {
-				containerListView.setItems(null);
-			} else {
-				containerListView.setItems(FXCollections.observableList(selectedShip.getContainers()));
+		if (selectedShip != null && !toggleShipButton.isSelected()) {
+			if (true) {
+				if (selectedShip.getContainers() == null) {
+					containerListView.setItems(null);
+				} else {
+					containerListView.setItems(FXCollections.observableList(selectedShip.getContainers()));
+					updateOnlyFromContainerOnShipLevel();
+				}
 			}
 
 			shipIDInfo.setText(selectedShip.getCountry() + selectedShip.getID());
@@ -598,4 +705,42 @@ public class BaseController implements Initializable {
 		}
 	}
 
+	private void updateOnlyFromContainerLevel() {
+		selectedContainer = dockedContainerListView.getSelectionModel().getSelectedItem();
+		if (selectedContainer != null) {
+			if (!toggleContainerButton.isSelected()) {
+				if (selectedContainer.getPallets() == null) {
+					palletListView.setItems(null);
+				} else {
+					palletListView.setItems(FXCollections.observableList(selectedContainer.getPallets()));
+					updateOnlyFromPalletLevel();
+				}
+			}
+			//containerIDBox
+		}
+	}
+
+	private void updateOnlyFromContainerOnShipLevel() {
+		selectedContainerOnShip = containerListView.getSelectionModel().getSelectedItem();
+
+		if (selectedContainerOnShip != null) {
+			if (toggleContainerButton.isSelected()) {
+				if (selectedContainerOnShip.getPallets() == null) {
+					palletListView.setItems(null);
+				} else {
+					palletListView.setItems(FXCollections.observableList(selectedContainerOnShip.getPallets()));
+					updateOnlyFromPalletLevel();
+				}
+			}
+			//containerIDBox
+		}
+	}
+
+	private void updateOnlyFromPalletLevel() {
+		selectedPallet = palletListView.getSelectionModel().getSelectedItem();
+
+		if (selectedPallet != null) {
+			//palletIDBox
+		}
+	}
 }
