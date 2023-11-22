@@ -182,7 +182,37 @@ public class CustomList<F> implements Iterable<F>, List<F> {
 
 	@Override
 	public boolean remove(Object o) {
-		return false;
+		if (first == null) {
+			return false;
+		}
+
+		// If the object to be removed is at the beginning of the list
+		if (o.equals(first.getContents())) {
+			first = first.next;
+			if (first == null) { // If list becomes empty
+				last = null;
+			}
+			size--;
+			return true;
+		}
+
+		CustomNode<F> current = first;
+		CustomNode<F> previous = null;
+
+		while (current != null) {
+			if (o.equals(current.getContents())) {
+				previous.next = current.next;
+				if (current == last) { // If the removed node is the last node
+					last = previous;
+				}
+				size--;
+				return true;
+			}
+			previous = current;
+			current = current.next;
+		}
+
+		return false; // Element not found
 	}
 
 	@Override

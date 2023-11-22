@@ -11,11 +11,26 @@ public class ContainerShip {
 	private CustomList<Container> containers = new CustomList<>();
 
 	public ContainerShip(String name, String ID, String country, String photoURL, CustomList<Container> containers) {
-		this.name = name;
-		this.ID = ID;
-		this.country = country;
-		this.photoURL = photoURL;
-		this.containers = containers;
+		if (country.length() > 2) {
+			this.country = country.substring(0, 2);
+		} else {
+			this.country = country;
+		}
+
+		if (country.length() > 60) {
+			this.name = name.substring(0, 60);
+		} else {
+			this.name = name;
+		}
+
+
+		if (ID.length() > 20) {
+			this.ID = ID.substring(0, 20);
+		} else {
+			this.ID = ID;
+		}
+		setPhotoURL(photoURL);
+		setContainers(containers);
 	}
 
 
@@ -24,7 +39,9 @@ public class ContainerShip {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		if (name.length() <= 60) {
+			this.name = name;
+		}
 	}
 
 	public String getID() {
@@ -32,7 +49,9 @@ public class ContainerShip {
 	}
 
 	public void setID(String ID) {
-		this.ID = ID;
+		if (ID.length() <= 20) {
+			this.ID = ID;
+		}
 	}
 
 	public String getCountry() {
@@ -40,7 +59,9 @@ public class ContainerShip {
 	}
 
 	public void setCountry(String country) {
-		this.country = country;
+		if (country.length() <= 2) {
+			this.country = country;
+		}
 	}
 
 	public String getPhotoURL() {

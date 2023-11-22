@@ -8,8 +8,8 @@ public class Container {
 	private CustomList<Pallet> pallets = new CustomList<>();
 
 	public Container(int ID, int size, CustomList<Pallet> pallets) {
-		this.ID = ID;
-		this.size = size;
+		setID(ID);
+		setSize(size);
 		this.pallets = pallets;
 	}
 
@@ -19,7 +19,9 @@ public class Container {
 	}
 
 	public void setID(int ID) {
-		this.ID = ID;
+		if (ID > 0 && ID < 100000000) {
+			this.ID = ID;
+		}
 	}
 
 	public int getSize() {
@@ -27,7 +29,9 @@ public class Container {
 	}
 
 	public void setSize(int size) {
-		this.size = size;
+		if (size == 10 || size == 20 || size == 40) {
+			this.size = size;
+		}
 	}
 
 	public CustomList<Pallet> getPallets() {
@@ -52,6 +56,6 @@ public class Container {
 
 	@Override
 	public String toString() {
-		return ID + " [" + size + "]";
+		return "#" + ID + " [" + size + "]";
 	}
 }

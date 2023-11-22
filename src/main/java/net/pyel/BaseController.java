@@ -488,6 +488,30 @@ public class BaseController implements Initializable {
 	}
 
 	@FXML
+	private void removePort() {
+		ports.remove(selectedPort);
+		selectedPort = null;
+		deselectShip();
+		refresh();
+	}
+
+	@FXML
+	private void removeShipFromPort() {
+		selectedPort.getShips().remove(selectedShip);
+		selectedShip = null;
+		deselectContainer();
+		refresh();
+	}
+
+	@FXML
+	private void removeShipFromSea() {
+		shipsOnSea.remove(selectedShipOnSea);
+		selectedShipOnSea = null;
+		deselectContainer();
+		refresh();
+	}
+
+	@FXML
 	private void addShip() {
 		if (selectedPort != null && !shipNameBox.getText().isEmpty() && !shipIDBox.getText().isEmpty() && !shipCountryBox.getText().isEmpty()) {
 			ContainerShip newShip = new ContainerShip(shipNameBox.getText(), shipIDBox.getText(), shipCountryBox.getText(), shipURLBox.getText(), new CustomList<>());
@@ -533,22 +557,23 @@ public class BaseController implements Initializable {
 
 	@FXML
 	private void addContainer() {
-		Container newContainer = new Container(55, 10, null);
-		if (!toggleShipButton.isSelected()) {
-			if (selectedShip.getContainers() == null) {
-				selectedShip.setContainers(new CustomList<>());
-			}
-			selectedShip.addContainer(newContainer);
-		} else if (toggleShipButton.isSelected()) {
+		if (!containerIDBox.getText().isEmpty()) {
+			Container newContainer = new Container(Integer.parseInt(containerIDBox.getText()), containerLengthValue, null);
+			if (!toggleShipButton.isSelected()) {
+				if (selectedShip.getContainers() == null) {
+					selectedShip.setContainers(new CustomList<>());
+				}
+				selectedShip.addContainer(newContainer);
+			} else if (toggleShipButton.isSelected()) {
 
-			if (selectedShipOnSea.getContainers() == null) {
-				selectedShipOnSea.setContainers(new CustomList<>());
+				if (selectedShipOnSea.getContainers() == null) {
+					selectedShipOnSea.setContainers(new CustomList<>());
+				}
+				selectedShipOnSea.addContainer(newContainer);
 			}
-			selectedShipOnSea.addContainer(newContainer);
+			terminalOut(newContainer + " added.");
+			refresh();
 		}
-		terminalOut(newContainer + " added.");
-		refresh();
-
 	}
 
 	@FXML

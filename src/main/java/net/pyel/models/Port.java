@@ -10,11 +10,19 @@ public class Port {
 	private CustomList<ContainerShip> ships = new CustomList<>();
 
 	public Port(String name, int code, String country, CustomList<ContainerShip> ships, CustomList<Container> containers) {
-		this.name = name;
-		this.code = code;
-		this.country = country;
-		this.ships = ships;
-		this.containers = containers;
+		if (name.length() > 160) {
+			this.name = name.substring(0, 160);
+		} else {
+			this.name = name;
+		}
+		setCode(code);
+		if (country.length() > 2) {
+			this.country = country.substring(0, 2);
+		} else {
+			this.country = country;
+		}
+		setShips(ships);
+		setContainers(containers);
 	}
 
 	public CustomList<Container> getContainers() {
@@ -43,7 +51,9 @@ public class Port {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		if (country.length() <= 160) {
+			this.country = country;
+		}
 	}
 
 	public int getCode() {
@@ -51,7 +61,9 @@ public class Port {
 	}
 
 	public void setCode(int code) {
-		this.code = code;
+		if (code > 0 && code <= 100000000) {
+			this.code = code;
+		}
 	}
 
 	public String getCountry() {
@@ -59,7 +71,9 @@ public class Port {
 	}
 
 	public void setCountry(String country) {
-		this.country = country;
+		if (country.length() <= 2) {
+			this.country = country;
+		}
 	}
 
 	public CustomList<ContainerShip> getShips() {
