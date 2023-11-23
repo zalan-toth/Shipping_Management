@@ -89,6 +89,10 @@ public class ContainerShip {
 		containers.remove(index);
 	}
 
+	public void removeContainer(Container c) {
+		containers.remove(c);
+	}
+
 	public void updateContainerByIndex(int index) {
 		//containers.update(index);
 	}

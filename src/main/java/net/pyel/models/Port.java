@@ -104,6 +104,14 @@ public class Port {
 		containers.remove(index);
 	}
 
+	public void removeContainer(Container c) {
+		containers.remove(c);
+	}
+
+	public void removeShip(ContainerShip s) {
+		ships.remove(s);
+	}
+
 	public void updateContainerByIndex(int index) {
 		//containers.update(index);
 	}

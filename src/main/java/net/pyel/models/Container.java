@@ -50,6 +50,10 @@ public class Container {
 		pallets.remove(index);
 	}
 
+	public void removePallet(Pallet p) {
+		pallets.remove(p);
+	}
+
 	public void updatePalletByIndex(int index) {
 		//pallets.update(index);
 	}

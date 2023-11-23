@@ -74,6 +74,17 @@
             <MenuItem mnemonicParsing="false" onAction="#openHelpMenu" text="About SMP (Shipping Management Panel)" />
           </items>
         </Menu>
+            <Menu mnemonicParsing="false" text="Facilities">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#logTerminal" text="Terminal" />
+                  <MenuItem mnemonicParsing="false" onAction="#newPanel" text="Reset" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Debug">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#refresh" text="Refresh" />
+               </items>
+            </Menu>
       </menus>
     </MenuBar>
       <AnchorPane minHeight="860.0" prefWidth="1100.0" stylesheets="@Shipping_Management/smp.css">
@@ -86,7 +97,9 @@
                            <contextMenu>
                               <ContextMenu>
                                 <items>
-                                  <MenuItem mnemonicParsing="false" onAction="#removeShipFromPort" text="Remove" />
+                                    <MenuItem mnemonicParsing="false" onAction="#removeShipFromPort" text="Delete Ship" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem mnemonicParsing="false" onAction="#unDockShipFromPort" text="Undock Ship" />
                                 </items>
                               </ContextMenu>
                            </contextMenu></ListView>
@@ -109,7 +122,9 @@
                            <contextMenu>
                               <ContextMenu>
                                 <items>
-                                  <MenuItem mnemonicParsing="false" onAction="#removeShipFromSea" text="Remove" />
+                                    <MenuItem mnemonicParsing="false" onAction="#removeShipFromSea" text="Delete Ship" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem mnemonicParsing="false" onAction="#dockShipToPort" text="Dock Ship" />
                                 </items>
                               </ContextMenu>
                            </contextMenu></ListView>
@@ -191,7 +206,7 @@
                            <contextMenu>
                               <ContextMenu>
                                 <items>
-                                  <MenuItem mnemonicParsing="false" onAction="#removePort" text="Delete" />
+                                  <MenuItem mnemonicParsing="false" onAction="#removePort" text="Delete Port" />
                                 </items>
                               </ContextMenu>
                            </contextMenu></ListView>
@@ -263,7 +278,16 @@
                   </AnchorPane>
                   <AnchorPane layoutX="249.0" prefHeight="860.0" prefWidth="461.0" style="-fx-background-color: #182036;">
                      <children>
-                        <ListView fx:id="containerListView" disable="true" layoutX="-9.0" layoutY="385.0" prefHeight="458.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="241.0" />
+                        <ListView fx:id="containerListView" disable="true" layoutX="-9.0" layoutY="385.0" prefHeight="458.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="241.0">
+                           <contextMenu>
+                              <ContextMenu>
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#removeContainerFromShip" text="Delete Container" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem mnemonicParsing="false" onAction="#unloadContainerFromShip" text="Unload Container" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu></ListView>
                         <Text fill="WHITE" fontSmoothingType="LCD" layoutX="88.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Containers on ship" textAlignment="RIGHT" wrappingWidth="132.0">
                            <font>
                               <Font name="Monospaced Regular" size="20.0" />
@@ -299,7 +323,16 @@
                               <Font size="21.0" />
                            </font>
                         </Button>
-                        <ListView fx:id="dockedContainerListView" layoutX="237.0" layoutY="385.0" prefHeight="458.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" />
+                        <ListView fx:id="dockedContainerListView" layoutX="237.0" layoutY="385.0" prefHeight="458.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css">
+                           <contextMenu>
+                              <ContextMenu>
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#removeContainerFromPort" text="Delete Container" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem mnemonicParsing="false" onAction="#loadContainerToShip" text="Load Container" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu></ListView>
                         <ImageView fx:id="imgContainersOnShore" fitHeight="80.0" fitWidth="95.0" layoutX="237.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@img/cargo-on-shore.png" />
@@ -335,16 +368,29 @@
                         <Text fill="WHITE" layoutX="70.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Height" />
                         <ToggleButton disable="true" layoutX="70.0" layoutY="202.0" mnemonicParsing="false" selected="true" stylesheets="@css/toggle.css" text="8" textFill="WHITE" />
                         <Text fill="WHITE" layoutX="231.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity" />
-                        <TextField fx:id="containerCapacityBox" disable="true" editable="false" layoutX="231.0" layoutY="103.0" prefHeight="16.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff; -fx-border-color: #8ad3ff; -fx-text-fill: black;" text="640">
+                        <TextField fx:id="containerCapacityBox" editable="false" layoutX="231.0" layoutY="103.0" prefHeight="31.0" prefWidth="76.0" style="-fx-background-color: #8ad3ff; -fx-border-color: #8ad3ff; -fx-text-fill: black;" text="1280">
                            <font>
                               <Font name="Monospaced Regular" size="15.0" />
                            </font>
                         </TextField>
+                        <TextField fx:id="containerSizeBox" editable="false" layoutX="307.0" layoutY="103.0" prefHeight="31.0" prefWidth="79.0" style="-fx-background-color: #9580ff; -fx-border-color: #9580ff; -fx-text-fill: white;" text="0">
+                           <font>
+                              <Font name="Monospaced Regular" size="15.0" />
+                           </font>
+                        </TextField>
+                        <Text fill="WHITE" layoutX="307.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current size" textAlignment="RIGHT" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="860.0" prefWidth="249.0" style="-fx-background-color: #111726;">
                      <children>
-                        <ListView fx:id="palletListView" layoutX="-9.0" layoutY="385.0" prefHeight="328.0" prefWidth="229.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <ListView fx:id="palletListView" layoutX="-9.0" layoutY="385.0" prefHeight="328.0" prefWidth="229.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                           <contextMenu>
+                              <ContextMenu>
+                                <items>
+                                  <MenuItem mnemonicParsing="false" onAction="#removePallet" text="Delete Pallet" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu></ListView>
                         <Text fill="WHITE" fontSmoothingType="LCD" layoutX="25.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pallets" textAlignment="RIGHT" wrappingWidth="210.0">
                            <font>
                               <Font name="Monospaced Regular" size="20.0" />
@@ -380,7 +426,7 @@
                               <Font size="21.0" />
                            </font>
                         </Button>
-                        <Button layoutX="164.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#refresh" text="Refresh" />
+                        <Button layoutX="157.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#refresh" text="Refresh" />
                         <TextArea fx:id="palletDescBox" layoutX="19.0" layoutY="262.0" prefHeight="80.0" prefWidth="195.0" promptText="Description of Goods" style="-fx-text-fill: white; -fx-background-color: black; -fx-border-color: white;" stylesheets="@css/textarea.css" />
                         <Text fill="WHITE" layoutX="20.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
                         <TextField fx:id="palletValueBox" layoutX="19.0" layoutY="208.0" prefHeight="31.0" prefWidth="87.0" promptText="Value" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
