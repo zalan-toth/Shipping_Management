@@ -137,7 +137,10 @@ public class CustomList<F> implements Iterable<F>, List<F> {
 	}
 
 	public F getContents() {
-		return first.getContents();
+		if (first != null) {
+			return first.getContents();
+		}
+		return null;
 	}
 
 	public boolean isValidIndex(int index) {
@@ -146,7 +149,7 @@ public class CustomList<F> implements Iterable<F>, List<F> {
 
 	@Override
 	public F get(int index) {
-		if (isValidIndex(index)) {
+		/*if (isValidIndex(index)) {
 			int position = 0;
 			for (int i = 0; i < size; i++) { //Object o : this
 				if (position == index) {
@@ -156,7 +159,18 @@ public class CustomList<F> implements Iterable<F>, List<F> {
 			}
 
 		}
-		return null;
+		return null;*/
+		if (!isValidIndex(index)) {
+			return null;
+		}
+
+		CustomNode<F> current = first;
+		for (int i = 0; i < index; i++) {
+			current = current.next;
+		}
+
+		// Return the contents of the current node
+		return current.getContents();
 	}
 
 	@Override

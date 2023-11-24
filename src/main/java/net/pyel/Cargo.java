@@ -17,6 +17,105 @@ public class Cargo {
 		this.countries = countries;
 	}
 
+
+	public CustomList<String> returnShips() {
+		CustomList<String> shipsToReturn = new CustomList<>();
+		for (Port port : ports) {
+			shipsToReturn.add("[PORT] " + port.toString());
+			System.out.println(port.toString());
+			CustomList<ContainerShip> ships = port.getShips();
+			if (ships != null) {
+				for (ContainerShip ship : ships) {
+					shipsToReturn.add("    > [SHIP] " + ship);
+				}
+			}
+		}
+
+		shipsToReturn.add("[SEA] Sailing across the narrow sea...");
+		for (ContainerShip ship : shipsOnSea) {
+			shipsToReturn.add("    > [SHIP] " + ship.toString());
+		}
+		shipsToReturn.add("[EOL] End of structured listing");
+		return shipsToReturn;
+	}
+
+	public CustomList<String> returnGoods() {
+		CustomList<String> goodsToReturn = new CustomList<>();
+		for (Port port : ports) {
+
+			goodsToReturn.add("[PORT] " + port.toString());
+
+			//CONTAINERS BEGIN
+			CustomList<Container> cntrs = port.getContainers();
+			if (cntrs != null) {
+				for (Container cntr : cntrs) {
+					goodsToReturn.add("    > [CNTR] " + cntr);
+					CustomList<Pallet> currentPallets = cntr.getPallets();
+					if (currentPallets != null) {
+						for (int j = 0; j < currentPallets.size(); j++) {
+							Pallet p = currentPallets.get(j);
+							goodsToReturn.add("          > [PLLT] " + p);
+							goodsToReturn.add("                > (GOODS) Size:" + p.getSize() + ", Weight:" + p.getTotalWeight());
+							goodsToReturn.add("                          Quantity:" + p.getQuantity() + ", Unit Value:" + p.getUnitValue());
+							goodsToReturn.add("                          Description:" + p.getDescription());
+
+						}
+					}
+
+				}
+
+			}
+
+			//SHIPS BEGIN
+			CustomList<ContainerShip> ships = port.getShips();
+			if (ships != null) {
+				for (ContainerShip ship : ships) {
+					goodsToReturn.add("    > [SHIP] " + ship);
+					CustomList<Container> cntrs2 = ship.getContainers();
+					for (Container cntr2 : cntrs2) {
+						goodsToReturn.add("          > [CNTR] " + cntr2);
+						CustomList<Pallet> currentPallets = cntr2.getPallets();
+						if (currentPallets != null) {
+							for (int j = 0; j < currentPallets.size(); j++) {
+								goodsToReturn.add("                > [PLLT] " + currentPallets.get(j));
+
+							}
+						}
+
+					}
+
+				}
+
+			}
+		}
+
+		goodsToReturn.add("[SEA] Sailing across the narrow seas...");
+		for (ContainerShip seaShip : shipsOnSea) {
+
+			goodsToReturn.add("    > [SHIP] " + seaShip.toString());
+
+			//CONTAINERS BEGIN
+			CustomList<Container> cntrs = seaShip.getContainers();
+			if (cntrs != null) {
+				for (Container cntr : cntrs) {
+					goodsToReturn.add("          > [CNTR] " + cntr);
+					CustomList<Pallet> currentPallets = cntr.getPallets();
+					if (currentPallets != null) {
+						for (int j = 0; j < currentPallets.size(); j++) {
+							goodsToReturn.add("                > [PLLT] " + currentPallets.get(j));
+
+						}
+					}
+
+				}
+
+			}
+
+		}
+		goodsToReturn.add("[EOL] End of structured listing");
+		return goodsToReturn;
+	}
+
 	private CustomList<ContainerShip> shipsOnSea = new CustomList<>();
 
 	private CustomList<Port> ports = new CustomList<>();

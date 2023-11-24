@@ -154,26 +154,7 @@ public class BaseController implements Initializable {
 				log.getItems().clear();
 				return;
 			} else if (input.toLowerCase().substring(0, 5).equals("ships")) {
-
-				log.getItems().clear();
-				terminalOutHelp("----------------------------------------");
-				terminalOutHelp("VIEW ALL SHIPS IN STRUCTURED VIEW");
-				terminalOutHelp("----------------------------------------");
-				for (Port port : ports) {
-					terminalReverse(port.toString());
-					System.out.println(port.toString());
-					CustomList<ContainerShip> ships = port.getShips();
-					if (ships != null) {
-						for (ContainerShip ship : ships) {
-							terminalReverse("  > " + ship);
-						}
-					}
-				}
-
-				viewFacility.getItems().add("Ships on sea: ");
-				for (ContainerShip ship : shipsOnSea) {
-					viewFacility.getItems().add(ship.toString());
-				}
+				viewAllShipsInTerminal();
 				return;
 			} else if (input.toLowerCase().substring(0, 5).equals("reset")) {
 				log.getItems().clear();
@@ -185,7 +166,7 @@ public class BaseController implements Initializable {
 				}
 				return;
 			} else if (input.toLowerCase().substring(0, 5).equals("goods")) {
-				terminalOut("GOODS executed");
+				viewAllGoodsInTerminal();
 				return;
 			} else if (input.toLowerCase().substring(0, 5).equals("value")) {
 				terminalOut("VALUE executed");
@@ -251,6 +232,27 @@ public class BaseController implements Initializable {
 		} else {
 			terminalOutError("Invalid command in log prompt. Type \"help\" for help.");
 		}
+	}
+
+	public void viewAllShipsInTerminal() {
+		log.getItems().clear();
+		terminalOutHelp("----------------------------------------");
+		terminalOutHelp("VIEW ALL SHIPS IN STRUCTURED VIEW");
+		terminalOutHelp("----------------------------------------");
+		for (String str : cargoAPI.cargo.returnShips()) {
+			log.getItems().add(str);
+		}
+	}
+
+	public void viewAllGoodsInTerminal() {
+		log.getItems().clear();
+		terminalOutHelp("----------------------------------------");
+		terminalOutHelp("VIEW ALL GOODS IN STRUCTURED VIEW");
+		terminalOutHelp("----------------------------------------");
+		for (String str : cargoAPI.cargo.returnGoods()) {
+			log.getItems().add(str);
+		}
+
 	}
 
 	public void terminalReverse(String out) {
@@ -719,7 +721,7 @@ public class BaseController implements Initializable {
 
 	@FXML
 	private void unDockShipFromPort() {
-		if (selectedShipOnSea != null) {
+		if (selectedShip != null) {
 			ContainerShip shipToUndock = selectedShip;
 			shipsOnSea.add(shipToUndock);
 			selectedPort.removeShip(shipToUndock);
