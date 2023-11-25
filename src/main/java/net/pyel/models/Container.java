@@ -34,6 +34,17 @@ public class Container {
 		}
 	}
 
+	public float getValue() {
+		float val = 0;
+		CustomList<Pallet> p = this.getPallets();
+		if (p != null) {
+			for (int i = 0; i < p.getSize(); i++) {
+				val = p.get(i).getValue();
+			}
+		}
+		return val;
+	}
+
 	public CustomList<Pallet> getPallets() {
 		return pallets;
 	}
@@ -43,7 +54,13 @@ public class Container {
 	}
 
 	public void addPallet(Pallet pallet) {
-		pallets.add(pallet);
+		int totalSize = 0;
+		for (Pallet p : pallets) {
+			totalSize += p.getSize();
+		}
+		if (totalSize + pallet.getSize() <= this.getSize()) {
+			pallets.add(pallet);
+		}
 	}
 
 	public void removePalletByIndex(int index) {

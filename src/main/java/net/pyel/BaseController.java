@@ -134,8 +134,11 @@ public class BaseController implements Initializable {
 				terminalOutHelp("-------------------------------------");
 				terminalOutHelp("reset - Resets the program, erases loaded data");
 				terminalOutHelp("value - Structured valuation of all goods");
+				terminalOutHelp("currency [value] - Change display currency (currently " + cargoAPI.cargo.getCurrency() + ")");
+				terminalOutHelp("debug - Switch debug mode (current: " + cargoAPI.cargo.isDebugMode() + ")");
 				terminalOutHelp("goods - Structured ciew of all goods");
 				terminalOutHelp("ships - Structured view of all ships");
+				terminalOutHelp("findall [mark] - Find all goods by given Mark part");
 				terminalOutHelp("search [mark] - Search for goods by Mark");
 				terminalOutHelp("--------------FACILITIES-------------");
 				terminalOutHelp("clear - Clear terminal");
@@ -156,6 +159,9 @@ public class BaseController implements Initializable {
 			} else if (input.toLowerCase().substring(0, 5).equals("ships")) {
 				viewAllShipsInTerminal();
 				return;
+			} else if (input.toLowerCase().substring(0, 5).equals("debug")) {
+				switchDebugMode();
+				return;
 			} else if (input.toLowerCase().substring(0, 5).equals("reset")) {
 				log.getItems().clear();
 				terminalOut("RESET executed");
@@ -169,7 +175,7 @@ public class BaseController implements Initializable {
 				viewAllGoodsInTerminal();
 				return;
 			} else if (input.toLowerCase().substring(0, 5).equals("value")) {
-				terminalOut("VALUE executed");
+				structuredValuationOfGoods();
 				return;
 			}
 		}
@@ -180,10 +186,26 @@ public class BaseController implements Initializable {
 			}
 		}
 
+		if (input.length() == 8 || input.length() == 9) {
+			if (input.toLowerCase().substring(0, 8).equals("currency")) {
+				terminalOutError("Usage: currency [currency]");
+				return;
+			}
+		}
+
+		if (input.length() > 9) {
+			if (input.toLowerCase().substring(0, 9).equals("currency ")) {
+				String currency = input.substring(9);
+				cargoAPI.cargo.setCurrency(currency);
+				terminalOut("Currency changed to " + currency);
+				return;
+			}
+		}
 		if (input.length() > 7) {
 			if (input.toLowerCase().substring(0, 7).equals("search ")) {
 				String mark = input.substring(7);
-				terminalOut("Looking for " + mark + "...");
+				searchForGoods(mark);
+
 				return;
 			}
 		}
@@ -193,12 +215,22 @@ public class BaseController implements Initializable {
 				terminalOutError("Usage: handler [name]");
 				return;
 			}
+			if (input.toLowerCase().substring(0, 7).equals("findall")) {
+				terminalOutError("Usage: findall [mark part]");
+				return;
+			}
 		}
 		if (input.length() > 7) {
 			if (input.toLowerCase().substring(0, 8).equals("handler ")) {
 				String name = input.substring(8);
 				cargoAPI.currentHandler = name;
 				terminalOut("Look at me! I'm Mr. Meeseeks!");
+				return;
+			}
+			if (input.toLowerCase().substring(0, 8).equals("findall ")) {
+				String mark = input.substring(8);
+				findAllGoods(mark);
+
 				return;
 			}
 		}
@@ -234,6 +266,32 @@ public class BaseController implements Initializable {
 		}
 	}
 
+	public void searchForGoods(String mark) {
+		log.getItems().clear();
+		terminalOut("Looking for a pallet that has the mark " + mark + "...");
+		for (String str : cargoAPI.cargo.searchForGood(mark)) {
+			log.getItems().add(str);
+		}
+	}
+
+	public void findAllGoods(String mark) {
+		log.getItems().clear();
+		terminalOut("Looking for pallets that has the part \"" + mark + "\" in their mark...");
+		for (String str : cargoAPI.cargo.findAllGoods(mark)) {
+			log.getItems().add(str);
+		}
+	}
+
+	public void switchDebugMode() {
+		boolean current = cargoAPI.cargo.isDebugMode();
+		if (current) {
+			cargoAPI.cargo.setDebugMode(false);
+		} else {
+			cargoAPI.cargo.setDebugMode(true);
+		}
+		terminalOut("Set DEBUG mode to " + cargoAPI.cargo.isDebugMode());
+	}
+
 	public void viewAllShipsInTerminal() {
 		log.getItems().clear();
 		terminalOutHelp("----------------------------------------");
@@ -250,6 +308,18 @@ public class BaseController implements Initializable {
 		terminalOutHelp("VIEW ALL GOODS IN STRUCTURED VIEW");
 		terminalOutHelp("----------------------------------------");
 		for (String str : cargoAPI.cargo.returnGoods()) {
+			log.getItems().add(str);
+		}
+
+	}
+
+	public void structuredValuationOfGoods() {
+		log.getItems().clear();
+		terminalOutHelp("----------------------------------------");
+		terminalOutHelp("=Value on each level showed at the end =");
+		terminalOutHelp("STRUCTURED VALUATION OF ALL GOODS");
+		terminalOutHelp("----------------------------------------");
+		for (String str : cargoAPI.cargo.returnValues()) {
 			log.getItems().add(str);
 		}
 

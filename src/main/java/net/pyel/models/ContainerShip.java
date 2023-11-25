@@ -34,6 +34,17 @@ public class ContainerShip {
 	}
 
 
+	public float getValue() {
+		float val = 0;
+		CustomList<Container> c = this.getContainers();
+		if (c != null) {
+			for (int i = 0; i < c.getSize(); i++) {
+				val = c.get(i).getValue();
+			}
+		}
+		return val;
+	}
+
 	public String getName() {
 		return name;
 	}

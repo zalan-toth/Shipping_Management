@@ -116,6 +116,23 @@ public class Port {
 		//containers.update(index);
 	}
 
+	public float getValue() {
+		float val = 0;
+		CustomList<Container> c = this.getContainers();
+		if (c != null) {
+			for (int i = 0; i < c.getSize(); i++) {
+				val = c.get(i).getValue();
+			}
+		}
+		CustomList<ContainerShip> s = this.getShips();
+		if (s != null) {
+			for (int i = 0; i < s.getSize(); i++) {
+				val = s.get(i).getValue();
+			}
+		}
+		return val;
+	}
+
 	@Override
 	public String toString() {
 		return getCountry() + getCode() + " - " + getName();

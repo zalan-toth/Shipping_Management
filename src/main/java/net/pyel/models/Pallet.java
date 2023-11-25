@@ -30,6 +30,10 @@ public class Pallet {
 		this.internationalMark = internationalMark;
 	}
 
+	public float getValue() {
+		return unitValue * size;
+	}
+
 	public String getDescription() {
 		return description;
 	}
