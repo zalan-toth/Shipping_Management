@@ -255,7 +255,7 @@
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="popUpAddAddButton11" layoutX="18.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff;" text="Add">
+                        <Button layoutX="18.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPort" prefHeight="40.0" prefWidth="74.0" style="-fx-background-color: #8ad3ff;" text="Add">
                            <font>
                               <Font size="21.0" />
                            </font>

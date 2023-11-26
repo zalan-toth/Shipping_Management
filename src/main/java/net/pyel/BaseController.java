@@ -491,7 +491,7 @@ public class BaseController implements Initializable {
 	private TextField palletAmountBox = new TextField();
 	@FXML
 	private TextArea palletDescBox = new TextArea();
-	private int containerLengthValue;
+	private int containerLengthValue = 20;
 	@FXML
 	private Label testLabel;
 	private Port selectedPort;
@@ -636,24 +636,25 @@ public class BaseController implements Initializable {
 		deselectShip();
 	}
 
-	@FXML
-	private void addAPort() {
-		ContainerShip newShip = new ContainerShip("name", "11", "HU", "http:sadads", null);
-		CustomList<ContainerShip> newList = new CustomList<>();
-		newList.add(newShip);
-		ports.add(new Port("Waterford", 67, "IE", newList, null));
+	/*
+		@FXML
+		private void addAPort() {
+			ContainerShip newShip = new ContainerShip("name", "11", "HU", "http:sadads", null);
+			CustomList<ContainerShip> newList = new CustomList<>();
+			newList.add(newShip);
+			ports.add(new Port("Waterford", 67, "IE", newList, null));
 
-		shipsOnSea.add(newShip);
-		shipsOnSea.add(newShip);
-		shipsOnSea.add(newShip);
-		initialize(null, null);
-	}
-
+			shipsOnSea.add(newShip);
+			shipsOnSea.add(newShip);
+			shipsOnSea.add(newShip);
+			initialize(null, null);
+		}
+	*/
 	@FXML
 	private void addPort() {
 		if (!portNameBox.getText().isEmpty() && !portIDBox.getText().isEmpty()) {
 			Port newPort = new Port(portNameBox.getText(), Integer.parseInt(portIDBox.getText()), portCountryBox.getText(), null, null);
-			ports.add(newPort);
+			cargoAPI.cargo.addPort(newPort);
 			terminalOut(newPort + " added.");
 			refresh();
 		}
@@ -661,7 +662,7 @@ public class BaseController implements Initializable {
 
 	@FXML
 	private void removePort() {
-		ports.remove(selectedPort);
+		cargoAPI.cargo.removePort(selectedPort);
 		selectedPort = null;
 		deselectPort();
 		refresh();
@@ -669,7 +670,7 @@ public class BaseController implements Initializable {
 
 	@FXML
 	private void removeShipFromPort() {
-		selectedPort.getShips().remove(selectedShip);
+		selectedPort.removeShipFromPort(selectedShip);
 		selectedShip = null;
 		deselectShip();
 		refresh();
@@ -677,7 +678,7 @@ public class BaseController implements Initializable {
 
 	@FXML
 	private void removeShipFromSea() {
-		shipsOnSea.remove(selectedShipOnSea);
+		cargoAPI.cargo.removeShipFromSea(selectedShipOnSea);
 		selectedShipOnSea = null;
 		deselectShip();
 		refresh();
@@ -722,15 +723,15 @@ public class BaseController implements Initializable {
 		if (toggleShipButton.isSelected()) {
 			if (selectedContainer != null && selectedShipOnSea != null) {
 				Container containerToLoad = selectedContainer;
-				selectedShipOnSea.addContainer(containerToLoad);
 				selectedPort.removeContainer(selectedContainer);
+				selectedShipOnSea.addContainer(containerToLoad);
 				selectedContainer = null;
 			}
 		} else if (!toggleShipButton.isSelected()) {
 			if (selectedContainer != null && selectedShip != null) {
 				Container containerToLoad = selectedContainer;
-				selectedShip.addContainer(containerToLoad);
 				selectedPort.removeContainer(selectedContainer);
+				selectedShip.addContainer(containerToLoad);
 				selectedContainer = null;
 			}
 		}
@@ -763,8 +764,8 @@ public class BaseController implements Initializable {
 	private void dockShipToPort() {
 		if (selectedPort != null) {
 			ContainerShip shipToDock = selectedShipOnSea;
+			cargoAPI.cargo.removeShipFromSea(selectedShipOnSea);
 			selectedPort.addContainerShip(shipToDock);
-			shipsOnSea.remove(selectedShipOnSea);
 			selectedShipOnSea = null;
 			deselectShip();
 			refresh();
@@ -775,8 +776,8 @@ public class BaseController implements Initializable {
 	private void unDockShipFromPort() {
 		if (selectedShip != null) {
 			ContainerShip shipToUndock = selectedShip;
-			shipsOnSea.add(shipToUndock);
 			selectedPort.removeShip(shipToUndock);
+			cargoAPI.cargo.addShipToSea(shipToUndock);
 			selectedShip = null;
 			deselectShip();
 			refresh();
@@ -785,10 +786,10 @@ public class BaseController implements Initializable {
 
 	@FXML
 	private void addShip() {
-		if (selectedPort != null) {
+		if (selectedPort == null) {
 			return;
 		}
-		if (selectedPort != null && !shipNameBox.getText().isEmpty() && !shipIDBox.getText().isEmpty() && !shipCountryBox.getText().isEmpty()) {
+		if (!shipNameBox.getText().isEmpty() && !shipIDBox.getText().isEmpty() && !shipCountryBox.getText().isEmpty()) {
 			ContainerShip newShip = new ContainerShip(shipNameBox.getText(), shipIDBox.getText(), shipCountryBox.getText(), shipURLBox.getText(), new CustomList<>());
 			if (selectedPort.getShips() == null) {
 				selectedPort.setShips(new CustomList<>());
@@ -803,7 +804,7 @@ public class BaseController implements Initializable {
 	private void addShipToSea() {
 		if (!shipNameBox.getText().isEmpty() && !shipIDBox.getText().isEmpty() && !shipCountryBox.getText().isEmpty()) {
 			ContainerShip newShip = new ContainerShip(shipNameBox.getText(), shipIDBox.getText(), shipCountryBox.getText(), shipURLBox.getText(), new CustomList<>());
-			shipsOnSea.add(newShip);
+			cargoAPI.cargo.addShipToSea(newShip);
 			terminalOut(newShip + " added to sea.");
 			//updateOnlyFromContainerLevel();
 			refresh();
@@ -840,7 +841,7 @@ public class BaseController implements Initializable {
 	@FXML
 	private void addPallet() {
 		smartAddReturn.setText("");
-		if (selectedContainer != null && selectedContainerOnShip != null) {
+		if (selectedContainer == null && selectedContainerOnShip == null) {
 			return;
 		}
 		if (!palletIDBox.getText().isEmpty() && !palletAmountBox.getText().isEmpty() && !palletValueBox.getText().isEmpty() && !palletSizeBox.getText().isEmpty() && !palletWeightBox.getText().isEmpty()) {
@@ -889,7 +890,7 @@ public class BaseController implements Initializable {
 
 	@FXML
 	private void addContainerOnShore() {
-		if (selectedPort != null && selectedContainer != null && !containerIDBox.getText().isEmpty() && containerLengthValue != 0) {
+		if (selectedPort != null && !containerIDBox.getText().isEmpty() && containerLengthValue != 0) {
 			if (selectedPort.getContainers() == null) {
 				selectedPort.setContainers(new CustomList<>());
 			}

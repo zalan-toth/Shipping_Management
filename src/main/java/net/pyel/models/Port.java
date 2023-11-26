@@ -1,5 +1,6 @@
 package net.pyel.models;
 
+import net.pyel.BackgroundController;
 import net.pyel.utils.CustomList;
 
 public class Port {
@@ -103,15 +104,21 @@ public class Port {
 	}
 
 	public void addContainerShip(ContainerShip containerShip) {
-		if (containerShip.getID() == "") {
+		if (containerShip.getID().equals("")) {
 			return;
 		}
-		for (ContainerShip s : ships) {
-			if (containerShip.getID() == s.getID()) {
+		for (String checkID : BackgroundController.getCargo().getShipID()) {
+			if (containerShip.getID().equals(checkID)) {
 				return;
 			}
 		}
+		BackgroundController.getCargo().getShipID().add(containerShip.getID());
 		ships.add(containerShip);
+	}
+
+	public void removeShipFromPort(ContainerShip ship) {
+		BackgroundController.getCargo().getShipID().remove(ship.getID());
+		ships.remove(ship);
 	}
 
 	public void removeContainerShipByIndex(int index) {
@@ -126,11 +133,12 @@ public class Port {
 		if (container.getID() == -1) {
 			return;
 		}
-		for (Container c : containers) {
-			if (container.getID() == c.getID()) {
+		for (Integer checkID : BackgroundController.getCargo().getContainerID()) {
+			if (checkID.equals(container.getID())) {
 				return;
 			}
 		}
+		BackgroundController.getCargo().getContainerID().add(container.getID());
 		containers.add(container);
 	}
 
@@ -139,11 +147,12 @@ public class Port {
 	}
 
 	public void removeContainer(Container c) {
+		BackgroundController.getCargo().getContainerID().remove((Integer) c.getID());
 		containers.remove(c);
 	}
 
 	public void removeShip(ContainerShip s) {
-		ships.remove(s);
+		removeShipFromPort(s);
 	}
 
 	public void updateContainerByIndex(int index) {

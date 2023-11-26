@@ -1,5 +1,6 @@
 package net.pyel.models;
 
+import net.pyel.BackgroundController;
 import net.pyel.utils.CustomList;
 
 public class ContainerShip {
@@ -96,11 +97,12 @@ public class ContainerShip {
 		if (container.getID() == -1) {
 			return;
 		}
-		for (Container c : containers) {
-			if (container.getID() == c.getID()) {
+		for (Integer checkID : BackgroundController.getCargo().getContainerID()) {
+			if (checkID.equals(container.getID())) {
 				return;
 			}
 		}
+		BackgroundController.getCargo().getContainerID().add(container.getID());
 		containers.add(container);
 	}
 
@@ -118,10 +120,18 @@ public class ContainerShip {
 	}
 
 	public void removeContainer(Container c) {
+		BackgroundController.getCargo().getContainerID().remove((Integer) c.getID());
 		containers.remove(c);
 	}
 
 	public void update(String name, String ID, String country, String URL) {
+		for (String checkID : BackgroundController.getCargo().getShipID()) {
+			if (ID.equals(checkID)) {
+				return;
+			}
+		}
+		BackgroundController.getCargo().getShipID().remove(this.ID);
+		BackgroundController.getCargo().getShipID().add(ID);
 		setName(name);
 		setID(ID);
 		setCountry(country);

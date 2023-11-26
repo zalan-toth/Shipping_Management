@@ -10,6 +10,41 @@ import net.pyel.utils.StringSimilarity;
 import java.util.Objects;
 
 public class Cargo {
+
+	private CustomList<ContainerShip> shipsOnSea = new CustomList<>();
+
+	private CustomList<Port> ports = new CustomList<>();
+	private String currency = "€";
+	private boolean debugMode = false;
+	private CustomList<String> countries = new CustomList<>();
+	private CustomList<Integer> containerID = new CustomList<>();
+	private CustomList<String> shipID = new CustomList<>();
+	private CustomList<String> palletIM = new CustomList<>();
+
+	public CustomList<Integer> getContainerID() {
+		return containerID;
+	}
+
+	public void setContainerID(CustomList<Integer> containerID) {
+		this.containerID = containerID;
+	}
+
+	public CustomList<String> getShipID() {
+		return shipID;
+	}
+
+	public void setShipID(CustomList<String> shipID) {
+		this.shipID = shipID;
+	}
+
+	public CustomList<String> getPalletIM() {
+		return palletIM;
+	}
+
+	public void setPalletIM(CustomList<String> palletIM) {
+		this.palletIM = palletIM;
+	}
+
 	public Cargo(CustomList<ContainerShip> shipsOnSea, CustomList<Port> ports, CustomList<String> countries) {
 		if (shipsOnSea == null) {
 			this.shipsOnSea = new CustomList<>();
@@ -445,12 +480,6 @@ public class Cargo {
 		return goodsToReturn;
 	}
 
-	private CustomList<ContainerShip> shipsOnSea = new CustomList<>();
-
-	private CustomList<Port> ports = new CustomList<>();
-	private String currency = "€";
-	private boolean debugMode = false;
-	private CustomList<String> countries = new CustomList<>();
 
 	public String getCurrency() {
 		return currency;
@@ -559,8 +588,13 @@ public class Cargo {
 		ports.add(port);
 	}
 
-	public void removePort(int index) {
-		ports.remove(index);
+	public void removeShipFromSea(ContainerShip ship) {
+		BackgroundController.getCargo().getShipID().remove(ship.getID());
+		shipsOnSea.remove(ship);
+	}
+
+	public void removePort(Port port) {
+		ports.remove(port);
 	}
 
 	public void updateShipByIndex(int index) {
@@ -568,7 +602,7 @@ public class Cargo {
 	}
 
 	public void updateSeaShip(ContainerShip seaShipToBeUpdated, String name, String ID, String country, String URL) {
-		for (ContainerShip s : shipsOnSea) {
+		/*for (ContainerShip s : shipsOnSea) {
 			if (s.getID() == ID && !s.equals(seaShipToBeUpdated)) {
 				return;
 			}
@@ -579,7 +613,7 @@ public class Cargo {
 					return;
 				}
 			}
-		}
+		}*/
 		seaShipToBeUpdated.update(name, ID, country, URL);
 	}
 
@@ -609,11 +643,12 @@ public class Cargo {
 		if (containerShip.getID() == "") {
 			return;
 		}
-		for (ContainerShip s : shipsOnSea) {
-			if (containerShip.getID() == s.getID()) {
+		for (String checkID : BackgroundController.getCargo().getShipID()) {
+			if (containerShip.getID().equals(checkID)) {
 				return;
 			}
 		}
+		BackgroundController.getCargo().getShipID().add(containerShip.getID());
 		shipsOnSea.add(containerShip);
 	}
 

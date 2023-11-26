@@ -1,9 +1,11 @@
+import net.pyel.BackgroundController;
 import net.pyel.Cargo;
 import net.pyel.models.Container;
 import net.pyel.models.ContainerShip;
 import net.pyel.models.Pallet;
 import net.pyel.models.Port;
 import net.pyel.utils.CustomList;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,6 +17,7 @@ class MainTests {
 	Container container1, container2, container3, container4;
 	Pallet pallet1, pallet2, pallet3, pallet4, pallet5, pallet6, pallet7, pallet8, pallet9, pallet10, pallet11, pallet12;*/
 	Cargo cargo = new Cargo(new CustomList<>(), new CustomList<>(), new CustomList<>());
+
 
 	Port port1 = new Port("Budapest", 2133, "HU", new CustomList<>(), new CustomList<>());
 	Port port2 = new Port("Dunaújváros", 2133, "HU", new CustomList<>(), new CustomList<>());
@@ -55,6 +58,12 @@ class MainTests {
 		public void tearDown() throws Exception {
 		}
 	*/
+	@BeforeEach
+	void before() {
+		BackgroundController.setCargo(new Cargo(new CustomList<>(), new CustomList<>(), new CustomList<>()));
+		cargo = BackgroundController.getCargo();
+	}
+
 	@Test
 	void addingPortToSystemTestingForUniqueCode() {
 		cargo.addPort(port1); //Should add

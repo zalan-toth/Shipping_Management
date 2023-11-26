@@ -3,496 +3,191 @@
     <shipsOnSea>
       <first>
         <next>
+          <contents class="net.pyel.models.ContainerShip">
+            <name>asdsad</name>
+            <ID>123</ID>
+            <country>HU</country>
+            <photoURL></photoURL>
+            <containers>
+              <first>
+                <next>
+                  <contents class="net.pyel.models.Container">
+                    <ID>12333</ID>
+                    <size>20</size>
+                  </contents>
+                </next>
+                <contents class="net.pyel.models.Container">
+                  <ID>1233</ID>
+                  <size>20</size>
+                </contents>
+              </first>
+              <last reference="../first/next"/>
+              <size>2</size>
+            </containers>
+          </contents>
+        </next>
+        <contents class="net.pyel.models.ContainerShip">
+          <name>asdsad</name>
+          <ID>1313</ID>
+          <country>HU</country>
+          <photoURL>213132</photoURL>
+          <containers>
+            <size>0</size>
+          </containers>
+        </contents>
+      </first>
+      <last reference="../first/next"/>
+      <size>2</size>
+    </shipsOnSea>
+    <ports>
+      <first>
+        <next>
           <next>
-            <next>
-              <next>
+            <contents class="net.pyel.models.Port">
+              <name>Tree</name>
+              <code>1211222</code>
+              <country>IT</country>
+            </contents>
+          </next>
+          <contents class="net.pyel.models.Port">
+            <name>Tree</name>
+            <code>121122</code>
+            <country>IT</country>
+            <containers>
+              <first>
+                <next>
+                  <next>
+                    <next>
+                      <next>
+                        <contents class="net.pyel.models.Container">
+                          <ID>12332</ID>
+                          <size>20</size>
+                        </contents>
+                      </next>
+                      <contents class="net.pyel.models.Container">
+                        <ID>21312</ID>
+                        <size>20</size>
+                      </contents>
+                    </next>
+                    <contents class="net.pyel.models.Container">
+                      <ID>1321310</ID>
+                      <size>20</size>
+                    </contents>
+                  </next>
+                  <contents class="net.pyel.models.Container">
+                    <ID>13213223</ID>
+                    <size>40</size>
+                  </contents>
+                </next>
+                <contents class="net.pyel.models.Container">
+                  <ID>132132</ID>
+                  <size>20</size>
+                </contents>
+              </first>
+              <last reference="../first/next/next/next/next"/>
+              <size>5</size>
+            </containers>
+            <ships>
+              <first>
                 <next>
                   <contents class="net.pyel.models.ContainerShip">
-                    <name>Álomhajó</name>
-                    <ID>213132</ID>
+                    <name>asdsad</name>
+                    <ID>13132</ID>
                     <country>HU</country>
-                    <photoURL>asdasddsa</photoURL>
+                    <photoURL></photoURL>
                     <containers>
                       <size>0</size>
                     </containers>
                   </contents>
                 </next>
                 <contents class="net.pyel.models.ContainerShip">
-                  <name>Álomhajó</name>
-                  <ID>213132</ID>
+                  <name>asdsad</name>
+                  <ID>1232</ID>
                   <country>HU</country>
-                  <photoURL>asdasddsa</photoURL>
+                  <photoURL></photoURL>
                   <containers>
-                    <size>0</size>
+                    <first>
+                      <contents class="net.pyel.models.Container">
+                        <ID>213122</ID>
+                        <size>20</size>
+                      </contents>
+                    </first>
+                    <last reference="../first"/>
+                    <size>1</size>
                   </containers>
                 </contents>
-              </next>
-              <contents class="net.pyel.models.ContainerShip">
-                <name>Álomhajó</name>
-                <ID>213132</ID>
-                <country>HU</country>
-                <photoURL>asdasddsa</photoURL>
-                <containers>
-                  <first>
-                    <next>
-                      <next>
-                        <next>
-                          <next>
-                            <next>
-                              <contents class="net.pyel.models.Container">
-                                <ID>55</ID>
-                                <size>5</size>
-                              </contents>
-                            </next>
-                            <contents class="net.pyel.models.Container">
-                              <ID>55</ID>
-                              <size>5</size>
-                              <pallets>
-                                <first>
-                                  <next>
-                                    <next>
-                                      <next>
-                                        <next>
-                                          <next>
-                                            <contents class="net.pyel.models.Pallet">
-                                              <description>desc</description>
-                                              <quantity>5</quantity>
-                                              <unitValue>0.0</unitValue>
-                                              <totalWeight>0.0</totalWeight>
-                                              <size>0</size>
-                                            </contents>
-                                          </next>
-                                          <contents class="net.pyel.models.Pallet">
-                                            <description>desc</description>
-                                            <quantity>5</quantity>
-                                            <unitValue>0.0</unitValue>
-                                            <totalWeight>0.0</totalWeight>
-                                            <size>0</size>
-                                          </contents>
-                                        </next>
-                                        <contents class="net.pyel.models.Pallet">
-                                          <description>desc</description>
-                                          <quantity>5</quantity>
-                                          <unitValue>0.0</unitValue>
-                                          <totalWeight>0.0</totalWeight>
-                                          <size>0</size>
-                                        </contents>
-                                      </next>
-                                      <contents class="net.pyel.models.Pallet">
-                                        <description>desc</description>
-                                        <quantity>5</quantity>
-                                        <unitValue>0.0</unitValue>
-                                        <totalWeight>0.0</totalWeight>
-                                        <size>0</size>
-                                      </contents>
-                                    </next>
-                                    <contents class="net.pyel.models.Pallet">
-                                      <description>desc</description>
-                                      <quantity>5</quantity>
-                                      <unitValue>0.0</unitValue>
-                                      <totalWeight>0.0</totalWeight>
-                                      <size>0</size>
-                                    </contents>
-                                  </next>
-                                  <contents class="net.pyel.models.Pallet">
-                                    <description>desc</description>
-                                    <quantity>5</quantity>
-                                    <unitValue>0.0</unitValue>
-                                    <totalWeight>0.0</totalWeight>
-                                    <size>0</size>
-                                  </contents>
-                                </first>
-                                <last reference="../first/next/next/next/next/next"/>
-                                <size>6</size>
-                              </pallets>
-                            </contents>
-                          </next>
-                          <contents class="net.pyel.models.Container">
-                            <ID>55</ID>
-                            <size>5</size>
-                          </contents>
-                        </next>
-                        <contents class="net.pyel.models.Container">
-                          <ID>55</ID>
-                          <size>5</size>
-                        </contents>
-                      </next>
-                      <contents class="net.pyel.models.Container">
-                        <ID>55</ID>
-                        <size>5</size>
-                      </contents>
-                    </next>
-                    <contents class="net.pyel.models.Container">
-                      <ID>55</ID>
-                      <size>5</size>
-                    </contents>
-                  </first>
-                  <last reference="../first/next/next/next/next/next"/>
-                  <size>6</size>
-                </containers>
-              </contents>
-            </next>
-            <contents class="net.pyel.models.ContainerShip">
-              <name>Álomhajó</name>
-              <ID>213132</ID>
-              <country>HU</country>
-              <photoURL>asdasddsa</photoURL>
-              <containers>
-                <first>
-                  <contents class="net.pyel.models.Container">
-                    <ID>55</ID>
-                    <size>5</size>
-                  </contents>
-                </first>
-                <last reference="../first"/>
-                <size>1</size>
-              </containers>
-            </contents>
-          </next>
-          <contents class="net.pyel.models.ContainerShip">
-            <name>Álomhajó</name>
-            <ID>213132</ID>
-            <country>HU</country>
-            <photoURL>asdasddsa</photoURL>
-            <containers>
-              <size>0</size>
-            </containers>
-          </contents>
-        </next>
-        <contents class="net.pyel.models.ContainerShip">
-          <name>Álomhajó</name>
-          <ID>213132</ID>
-          <country>HU</country>
-          <photoURL>asdasddsa</photoURL>
-          <containers>
-            <size>0</size>
-          </containers>
-        </contents>
-      </first>
-      <last reference="../first/next/next/next/next/next"/>
-      <size>6</size>
-    </shipsOnSea>
-    <ports>
-      <first>
-        <next>
-          <next>
-            <next>
-              <next>
-                <contents class="net.pyel.models.Port">
-                  <name>Dublin</name>
-                  <code>3343</code>
-                  <country>IE</country>
-                </contents>
-              </next>
-              <contents class="net.pyel.models.Port">
-                <name>Waterford</name>
-                <code>3343</code>
-                <country>IE</country>
-                <containers>
-                  <first>
-                    <next>
-                      <next>
-                        <next>
-                          <next>
-                            <next>
-                              <next>
-                                <next>
-                                  <next>
-                                    <next>
-                                      <next>
-                                        <next>
-                                          <next>
-                                            <next>
-                                              <next>
-                                                <contents class="net.pyel.models.Container">
-                                                  <ID>55132312</ID>
-                                                  <size>20</size>
-                                                </contents>
-                                              </next>
-                                              <contents class="net.pyel.models.Container">
-                                                <ID>5523</ID>
-                                                <size>40</size>
-                                              </contents>
-                                            </next>
-                                            <contents class="net.pyel.models.Container">
-                                              <ID>21</ID>
-                                              <size>20</size>
-                                            </contents>
-                                          </next>
-                                          <contents class="net.pyel.models.Container">
-                                            <ID>11</ID>
-                                            <size>10</size>
-                                          </contents>
-                                        </next>
-                                        <contents class="net.pyel.models.Container">
-                                          <ID>5511</ID>
-                                          <size>10</size>
-                                        </contents>
-                                      </next>
-                                      <contents class="net.pyel.models.Container">
-                                        <ID>55222</ID>
-                                        <size>40</size>
-                                      </contents>
-                                    </next>
-                                    <contents class="net.pyel.models.Container">
-                                      <ID>5522</ID>
-                                      <size>40</size>
-                                    </contents>
-                                  </next>
-                                  <contents class="net.pyel.models.Container">
-                                    <ID>551</ID>
-                                    <size>40</size>
-                                  </contents>
-                                </next>
-                                <contents class="net.pyel.models.Container">
-                                  <ID>552</ID>
-                                  <size>40</size>
-                                  <pallets>
-                                    <first>
-                                      <contents class="net.pyel.models.Pallet">
-                                        <description>Deeeee</description>
-                                        <quantity>3</quantity>
-                                        <unitValue>11.0</unitValue>
-                                        <totalWeight>14.0</totalWeight>
-                                        <internationalMark>FGGF</internationalMark>
-                                        <size>10</size>
-                                      </contents>
-                                    </first>
-                                    <last reference="../first"/>
-                                    <size>1</size>
-                                  </pallets>
-                                </contents>
-                              </next>
-                              <contents class="net.pyel.models.Container">
-                                <ID>55</ID>
-                                <size>5</size>
-                              </contents>
-                            </next>
-                            <contents class="net.pyel.models.Container">
-                              <ID>55</ID>
-                              <size>5</size>
-                            </contents>
-                          </next>
-                          <contents class="net.pyel.models.Container">
-                            <ID>55</ID>
-                            <size>5</size>
-                            <pallets>
-                              <first>
-                                <next>
-                                  <next>
-                                    <next>
-                                      <next>
-                                        <next>
-                                          <contents class="net.pyel.models.Pallet">
-                                            <description>desc</description>
-                                            <quantity>5</quantity>
-                                            <unitValue>0.0</unitValue>
-                                            <totalWeight>0.0</totalWeight>
-                                            <internationalMark>GB-FC0001</internationalMark>
-                                            <size>0</size>
-                                          </contents>
-                                        </next>
-                                        <contents class="net.pyel.models.Pallet">
-                                          <description>desc</description>
-                                          <quantity>5</quantity>
-                                          <unitValue>0.0</unitValue>
-                                          <totalWeight>0.0</totalWeight>
-                                          <size>0</size>
-                                        </contents>
-                                      </next>
-                                      <contents class="net.pyel.models.Pallet">
-                                        <description>desc</description>
-                                        <quantity>5</quantity>
-                                        <unitValue>21.5</unitValue>
-                                        <totalWeight>0.0</totalWeight>
-                                        <internationalMark>FC1221</internationalMark>
-                                        <size>50</size>
-                                      </contents>
-                                    </next>
-                                    <contents class="net.pyel.models.Pallet">
-                                      <description>desc</description>
-                                      <quantity>5</quantity>
-                                      <unitValue>0.0</unitValue>
-                                      <totalWeight>0.0</totalWeight>
-                                      <size>0</size>
-                                    </contents>
-                                  </next>
-                                  <contents class="net.pyel.models.Pallet">
-                                    <description>desc</description>
-                                    <quantity>5</quantity>
-                                    <unitValue>0.0</unitValue>
-                                    <totalWeight>0.0</totalWeight>
-                                    <size>0</size>
-                                  </contents>
-                                </next>
-                                <contents class="net.pyel.models.Pallet">
-                                  <description>desc</description>
-                                  <quantity>5</quantity>
-                                  <unitValue>0.0</unitValue>
-                                  <totalWeight>0.0</totalWeight>
-                                  <size>0</size>
-                                </contents>
-                              </first>
-                              <last reference="../first/next/next/next/next/next"/>
-                              <size>6</size>
-                            </pallets>
-                          </contents>
-                        </next>
-                        <contents class="net.pyel.models.Container">
-                          <ID>55</ID>
-                          <size>5</size>
-                        </contents>
-                      </next>
-                      <contents class="net.pyel.models.Container">
-                        <ID>55</ID>
-                        <size>5</size>
-                      </contents>
-                    </next>
-                    <contents class="net.pyel.models.Container">
-                      <ID>55</ID>
-                      <size>5</size>
-                    </contents>
-                  </first>
-                  <last reference="../first/next/next/next/next/next/next/next/next/next/next/next/next/next/next"/>
-                  <size>15</size>
-                </containers>
-                <ships>
-                  <first>
-                    <next>
-                      <next>
-                        <next>
-                          <contents class="net.pyel.models.ContainerShip">
-                            <name>Álomhajó</name>
-                            <ID>213132</ID>
-                            <country>IE</country>
-                            <photoURL>ppppp</photoURL>
-                            <containers>
-                              <size>0</size>
-                            </containers>
-                          </contents>
-                        </next>
-                        <contents class="net.pyel.models.ContainerShip">
-                          <name>Álomhajó</name>
-                          <ID>213132</ID>
-                          <country>HU</country>
-                          <photoURL>asdasddsa</photoURL>
-                          <containers>
-                            <first>
-                              <next>
-                                <next>
-                                  <next>
-                                    <next>
-                                      <contents class="net.pyel.models.Container">
-                                        <ID>551</ID>
-                                        <size>20</size>
-                                      </contents>
-                                    </next>
-                                    <contents class="net.pyel.models.Container">
-                                      <ID>55</ID>
-                                      <size>5</size>
-                                    </contents>
-                                  </next>
-                                  <contents class="net.pyel.models.Container">
-                                    <ID>55</ID>
-                                    <size>5</size>
-                                    <pallets>
-                                      <first>
-                                        <next>
-                                          <next>
-                                            <contents class="net.pyel.models.Pallet">
-                                              <description>desc</description>
-                                              <quantity>5</quantity>
-                                              <unitValue>0.0</unitValue>
-                                              <totalWeight>0.0</totalWeight>
-                                              <size>0</size>
-                                            </contents>
-                                          </next>
-                                          <contents class="net.pyel.models.Pallet">
-                                            <description>desc</description>
-                                            <quantity>5</quantity>
-                                            <unitValue>0.0</unitValue>
-                                            <totalWeight>0.0</totalWeight>
-                                            <size>0</size>
-                                          </contents>
-                                        </next>
-                                        <contents class="net.pyel.models.Pallet">
-                                          <description>desc</description>
-                                          <quantity>5</quantity>
-                                          <unitValue>0.0</unitValue>
-                                          <totalWeight>0.0</totalWeight>
-                                          <size>0</size>
-                                        </contents>
-                                      </first>
-                                      <last reference="../first/next/next"/>
-                                      <size>3</size>
-                                    </pallets>
-                                  </contents>
-                                </next>
-                                <contents class="net.pyel.models.Container">
-                                  <ID>55</ID>
-                                  <size>5</size>
-                                </contents>
-                              </next>
-                              <contents class="net.pyel.models.Container">
-                                <ID>55</ID>
-                                <size>5</size>
-                              </contents>
-                            </first>
-                            <last reference="../first/next/next/next/next"/>
-                            <size>5</size>
-                          </containers>
-                        </contents>
-                      </next>
-                      <contents class="net.pyel.models.ContainerShip">
-                        <name>Álomhajó</name>
-                        <ID>213132</ID>
-                        <country>HU</country>
-                        <photoURL></photoURL>
-                        <containers>
-                          <size>0</size>
-                        </containers>
-                      </contents>
-                    </next>
-                    <contents class="net.pyel.models.ContainerShip">
-                      <name>Álomhajó</name>
-                      <ID>213132</ID>
-                      <country>HU</country>
-                      <photoURL></photoURL>
-                      <containers>
-                        <size>0</size>
-                      </containers>
-                    </contents>
-                  </first>
-                  <last reference="../first/next/next/next"/>
-                  <size>4</size>
-                </ships>
-              </contents>
-            </next>
-            <contents class="net.pyel.models.Port">
-              <name>Sopron</name>
-              <code>7654</code>
-              <country>HU</country>
-            </contents>
-          </next>
-          <contents class="net.pyel.models.Port">
-            <name>Gödöllő</name>
-            <code>12432</code>
-            <country>HU</country>
+              </first>
+              <last reference="../first/next"/>
+              <size>2</size>
+            </ships>
           </contents>
         </next>
         <contents class="net.pyel.models.Port">
-          <name>Aszód</name>
-          <code>21332</code>
-          <country>HU</country>
+          <name>Tree</name>
+          <code>12112</code>
+          <country>IT</country>
         </contents>
       </first>
-      <last reference="../first/next/next/next/next"/>
-      <size>5</size>
+      <last reference="../first/next/next"/>
+      <size>3</size>
     </ports>
     <currency>€</currency>
     <debugMode>false</debugMode>
     <countries>
       <size>0</size>
     </countries>
+    <containerID>
+      <first>
+        <next>
+          <next>
+            <next>
+              <next>
+                <next>
+                  <next>
+                    <next>
+                      <next>
+                        <next>
+                          <contents class="int">12332</contents>
+                        </next>
+                        <contents class="int">12333</contents>
+                      </next>
+                      <contents class="int">1233</contents>
+                    </next>
+                    <contents class="int">21312</contents>
+                  </next>
+                  <contents class="int">123</contents>
+                </next>
+                <contents class="int">1321310</contents>
+              </next>
+              <contents class="int">13213223</contents>
+            </next>
+            <contents class="int">132132</contents>
+          </next>
+          <contents class="int">2131222</contents>
+        </next>
+        <contents class="int">213122</contents>
+      </first>
+      <last reference="../first/next/next/next/next/next/next/next/next/next"/>
+      <size>10</size>
+    </containerID>
+    <shipID>
+      <first>
+        <next>
+          <next>
+            <next>
+              <contents class="string">123</contents>
+            </next>
+            <contents class="string">13132</contents>
+          </next>
+          <contents class="string">1232</contents>
+        </next>
+        <contents class="string">1313</contents>
+      </first>
+      <last reference="../first/next/next/next"/>
+      <size>4</size>
+    </shipID>
+    <palletIM>
+      <size>0</size>
+    </palletIM>
   </net.pyel.Cargo>
 </object-stream>

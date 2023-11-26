@@ -1,5 +1,7 @@
 package net.pyel.models;
 
+import net.pyel.BackgroundController;
+
 public class Pallet {
 	private String description;
 	private int quantity;
@@ -31,6 +33,13 @@ public class Pallet {
 	}
 
 	public void update(String internationalMark, String description, int quantity, float unitValue, float totalWeight, int size) {
+		for (String checkID : BackgroundController.getCargo().getPalletIM()) {
+			if (checkID.equals(internationalMark)) {
+				return;
+			}
+		}
+		BackgroundController.getCargo().getPalletIM().remove(this.internationalMark);
+		BackgroundController.getCargo().getPalletIM().add(internationalMark);
 		setInternationalMark(internationalMark);
 		setDescription(description);
 		setQuantity(quantity);

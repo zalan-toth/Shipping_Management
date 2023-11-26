@@ -13,6 +13,19 @@ public class BackgroundController {
 
 	}
 
+	public static Cargo getCargo() {
+		return cargoAPI.cargo;
+
+
+	}
+
+
+	public static void setCargo(Cargo cargo) {
+		cargoAPI.cargo = cargo;
+
+
+	}
+
 	public static void setCargoAPI(CargoAPI newCargoAPI) {
 		cargoAPI = newCargoAPI;
 

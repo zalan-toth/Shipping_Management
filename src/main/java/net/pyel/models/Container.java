@@ -1,6 +1,9 @@
 package net.pyel.models;
 
+import net.pyel.BackgroundController;
 import net.pyel.utils.CustomList;
+
+import java.util.Objects;
 
 public class Container {
 	private int ID = -1;
@@ -40,6 +43,9 @@ public class Container {
 
 	public int getCurrentTakenSize() {
 		int s = 0;
+		if (pallets == null) {
+			return s;
+		}
 		for (Pallet p : pallets) {
 			s += p.getSize();
 		}
@@ -67,11 +73,11 @@ public class Container {
 
 	public boolean addPallet(Pallet pallet) {
 
-		if (pallet.getInternationalMark() == "") {
+		if (pallet.getInternationalMark().equals("")) {
 			return false;
 		}
-		for (Pallet p : pallets) {
-			if (pallet.getInternationalMark() == p.getInternationalMark()) {
+		for (String checkIM : BackgroundController.getCargo().getPalletIM()) {
+			if (Objects.equals(pallet.getInternationalMark(), checkIM)) {
 				return false;
 			}
 		}
@@ -81,6 +87,7 @@ public class Container {
 			totalSize += p.getSize();
 		}
 		if (totalSize + pallet.getSize() <= this.getTotalSize()) {
+			BackgroundController.getCargo().getPalletIM().add(pallet.getInternationalMark());
 			pallets.add(pallet);
 			return true;
 		}
@@ -92,6 +99,7 @@ public class Container {
 	}
 
 	public void removePallet(Pallet p) {
+		BackgroundController.getCargo().getPalletIM().remove(p.getInternationalMark());
 		pallets.remove(p);
 	}
 
@@ -115,6 +123,13 @@ public class Container {
 	}
 
 	public void update(int ID, int size) {
+		for (Integer checkID : BackgroundController.getCargo().getContainerID()) {
+			if (checkID.equals((Integer) ID)) {
+				return;
+			}
+		}
+		BackgroundController.getCargo().getContainerID().remove((Integer) this.ID);
+		BackgroundController.getCargo().getContainerID().add((Integer) ID);
 		setID(ID);
 		setSize(size);
 	}
@@ -131,6 +146,6 @@ public class Container {
 
 	@Override
 	public String toString() {
-		return "#" + ID + " [" + size + "]";
+		return "#" + ID + " [" + getCurrentTakenSize() + "/" + getTotalSize() + "]";
 	}
 }
