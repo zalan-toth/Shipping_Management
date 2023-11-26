@@ -3,6 +3,8 @@ package net.pyel.models;
 import net.pyel.BackgroundController;
 import net.pyel.utils.CustomList;
 
+import java.util.Objects;
+
 public class Port {
 	private String name;
 	private int code = -1; //TODO unique
@@ -35,19 +37,27 @@ public class Port {
 	}
 
 	public void updateContainer(Container containerToBeUpdated, int ID, int size) {
-		for (Container c : containers) {
-			if (c.getID() == ID && !c.equals(containerToBeUpdated)) {
-				return;
-			}
+		if ((containerToBeUpdated.getCurrentTakenSize()) > (size * 8 * 8)) {
+			return;
 		}
+		if (containerToBeUpdated.getID() == ID) {
+			containerToBeUpdated.updateWithoutID(size);
+		}
+		/*for (Container c : containers) {
+			if (c != containerToBeUpdated) {
+				System.out.println(c + "=" + containerToBeUpdated);
+				if (c.getID() == ID) {
+					return;
+				}
+			}
+		}*/
 		containerToBeUpdated.update(ID, size);
 	}
 
 	public void updateShip(ContainerShip shipToBeUpdated, String name, String ID, String country, String URL) {
-		for (ContainerShip s : ships) {
-			if (s.getID() == ID && !s.equals(shipToBeUpdated)) {
-				return;
-			}
+
+		if (Objects.equals(shipToBeUpdated.getID(), ID)) {
+			shipToBeUpdated.updateWithoutID(name, country, URL);
 		}
 		shipToBeUpdated.update(name, ID, country, URL);
 	}
@@ -113,6 +123,9 @@ public class Port {
 			}
 		}
 		BackgroundController.getCargo().getShipID().add(containerShip.getID());
+		if (ships == null) {
+			ships = new CustomList<>();
+		}
 		ships.add(containerShip);
 	}
 
@@ -139,6 +152,9 @@ public class Port {
 			}
 		}
 		BackgroundController.getCargo().getContainerID().add(container.getID());
+		if (containers == null) {
+			containers = new CustomList<>();
+		}
 		containers.add(container);
 	}
 

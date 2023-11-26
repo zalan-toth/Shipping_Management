@@ -107,10 +107,11 @@ public class ContainerShip {
 	}
 
 	public void updateContainer(Container containerToBeUpdated, int ID, int size) {
-		for (Container c : containers) {
-			if (c.getID() == ID && !c.equals(containerToBeUpdated)) {
-				return;
-			}
+		if ((containerToBeUpdated.getCurrentTakenSize()) > (size * 8 * 8)) {
+			return;
+		}
+		if (containerToBeUpdated.getID() == ID) {
+			containerToBeUpdated.updateWithoutID(size);
 		}
 		containerToBeUpdated.update(ID, size);
 	}
@@ -122,6 +123,12 @@ public class ContainerShip {
 	public void removeContainer(Container c) {
 		BackgroundController.getCargo().getContainerID().remove((Integer) c.getID());
 		containers.remove(c);
+	}
+
+	public void updateWithoutID(String name, String country, String URL) {
+		setName(name);
+		setCountry(country);
+		setPhotoURL(URL);
 	}
 
 	public void update(String name, String ID, String country, String URL) {

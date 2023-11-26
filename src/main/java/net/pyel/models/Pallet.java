@@ -32,6 +32,14 @@ public class Pallet {
 		this.internationalMark = internationalMark;
 	}
 
+	public void updateWithoutID(String description, int quantity, float unitValue, float totalWeight, int size) {
+		setDescription(description);
+		setQuantity(quantity);
+		setUnitValue(unitValue);
+		setTotalWeight(totalWeight);
+		setSize(size);
+	}
+
 	public void update(String internationalMark, String description, int quantity, float unitValue, float totalWeight, int size) {
 		for (String checkID : BackgroundController.getCargo().getPalletIM()) {
 			if (checkID.equals(internationalMark)) {

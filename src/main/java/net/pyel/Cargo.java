@@ -165,12 +165,25 @@ public class Cargo {
 		return goodsToReturn;
 	}
 
+	private float getSystemValuation() {
+		float totalValuation = 0;
+		if (ports == null) {
+			return totalValuation;
+		}
+		for (Port port : ports) {
+			totalValuation += port.getValue();
+		}
+		return totalValuation;
+	}
+
 	private String formattedValue(float val) {
 		return " {" + currency + val + "}";
 	}
 
 	public CustomList<String> returnValues() {
 		CustomList<String> goodsToReturn = new CustomList<>();
+		goodsToReturn.add("TOTAL VALUATION OF THE SYSTEM: " + formattedValue(getSystemValuation()));
+		goodsToReturn.add("");
 		for (Port port : ports) {
 
 			goodsToReturn.add("[PORT] " + port.toString() + formattedValue(port.getValue()));
@@ -614,6 +627,10 @@ public class Cargo {
 				}
 			}
 		}*/
+
+		if (Objects.equals(seaShipToBeUpdated.getID(), ID)) {
+			seaShipToBeUpdated.updateWithoutID(name, country, URL);
+		}
 		seaShipToBeUpdated.update(name, ID, country, URL);
 	}
 

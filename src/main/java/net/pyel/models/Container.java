@@ -118,8 +118,16 @@ public class Container {
 			totalSize += p.getSize();
 		}
 		if (totalSize + size - palletToBeUpdated.getSize() <= this.getTotalSize()) {
+
+			if (Objects.equals(palletToBeUpdated.getInternationalMark(), internationalMark)) {
+				palletToBeUpdated.updateWithoutID(description, quantity, unitValue, totalWeight, size);
+			}
 			palletToBeUpdated.update(internationalMark, description, quantity, unitValue, totalWeight, size);
 		}
+	}
+
+	public void updateWithoutID(int size) {
+		setSize(size);
 	}
 
 	public void update(int ID, int size) {
@@ -140,6 +148,7 @@ public class Container {
 			totalSize += p.getSize();
 		}
 		if (totalSize + pallet.getSize() <= this.getTotalSize()) {
+
 			pallet.update(pallet.getInternationalMark(), pallet.getDescription(), pallet.getQuantity(), pallet.getUnitValue(), pallet.getTotalWeight(), pallet.getSize());
 		}
 	}
