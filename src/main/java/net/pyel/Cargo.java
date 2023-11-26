@@ -5,6 +5,9 @@ import net.pyel.models.ContainerShip;
 import net.pyel.models.Pallet;
 import net.pyel.models.Port;
 import net.pyel.utils.CustomList;
+import net.pyel.utils.StringSimilarity;
+
+import java.util.Objects;
 
 public class Cargo {
 	public Cargo(CustomList<ContainerShip> shipsOnSea, CustomList<Port> ports, CustomList<String> countries) {
@@ -231,7 +234,7 @@ public class Cargo {
 							}
 							if (p.getInternationalMark() != null && name != null) {
 								if (p.getInternationalMark().contains(name)) {
-									goodsToReturn.add("Found " + name);
+									goodsToReturn.add("Found " + name + " in " + p.getInternationalMark());
 									goodsToReturn.add("  - PALLET - ");
 									goodsToReturn.add("International Mark:" + p.getInternationalMark());
 									goodsToReturn.add("Size:" + p.getSize() + ", Weight:" + p.getTotalWeight());
@@ -266,7 +269,7 @@ public class Cargo {
 								}
 								if (p.getInternationalMark() != null && name != null) {
 									if (p.getInternationalMark().contains(name)) {
-										goodsToReturn.add("Found " + name);
+										goodsToReturn.add("Found " + name + " in " + p.getInternationalMark());
 										goodsToReturn.add("  - PALLET - ");
 										goodsToReturn.add("International Mark:" + p.getInternationalMark());
 										goodsToReturn.add("Size:" + p.getSize() + ", Weight:" + p.getTotalWeight());
@@ -461,7 +464,98 @@ public class Cargo {
 		this.debugMode = debugMode;
 	}
 
+	public CustomList<String> smartAdd(Pallet pallet) {
+		CustomList<String> listToReturn = new CustomList<>();
+		if (ports != null) {
+			for (Port po1 : ports) {
+				if (po1.getShips() != null) {
+					for (ContainerShip sh1 : po1.getShips()) {
+						if (sh1.getContainers() != null) {
+							for (Container co1 : sh1.getContainers()) {
+								if (co1.getPallets() != null) {
+									for (Pallet pa1 : co1.getPallets()) {
+										if (pa1.getInternationalMark() != null && !Objects.equals(pa1.getInternationalMark(), pallet.getInternationalMark())) {
+											if (StringSimilarity.findSimilarity(pa1.getInternationalMark(), pallet.getInternationalMark()) > 0.7) {
+												if (co1.addPallet(pallet)) {
+													listToReturn.add("Found a suitable location for pallet " + pallet.getInternationalMark());
+													listToReturn.add("based on International Mark similarity. (" + StringSimilarity.findSimilarity(pa1.getInternationalMark(), pallet.getInternationalMark()) * 100 + "%)");
+													listToReturn.add("The location:");
+													listToReturn.add("In Port " + po1);
+													listToReturn.add("  In Ship " + sh1);
+													listToReturn.add("    In Container " + co1);
+													return listToReturn;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				if (po1.getContainers() != null) {
+					for (Container co2 : po1.getContainers()) {
+						if (co2.getPallets() != null) {
+							for (Pallet pa2 : co2.getPallets()) {
+								if (pa2.getInternationalMark() != null && !Objects.equals(pa2.getInternationalMark(), pallet.getInternationalMark())) {
+									if (StringSimilarity.findSimilarity(pa2.getInternationalMark(), pallet.getInternationalMark()) > 0.7) {
+										if (co2.addPallet(pallet)) {
+											listToReturn.add("Found a suitable location for pallet " + pallet.getInternationalMark());
+											listToReturn.add("based on International Mark similarity. (" + StringSimilarity.findSimilarity(pa2.getInternationalMark(), pallet.getInternationalMark()) * 100 + "%)");
+											listToReturn.add("The location:");
+											listToReturn.add("In Port " + po1);
+											listToReturn.add("  In Container " + co2);
+											return listToReturn;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+			}
+		}
+		if (shipsOnSea != null) {
+			for (ContainerShip sh2 : shipsOnSea) {
+				if (sh2.getContainers() != null) {
+					for (Container co3 : sh2.getContainers()) {
+						if (co3.getPallets() != null) {
+							for (Pallet pa3 : co3.getPallets()) {
+								if (pa3.getInternationalMark() != null && !Objects.equals(pa3.getInternationalMark(), pallet.getInternationalMark())) {
+									if (StringSimilarity.findSimilarity(pa3.getInternationalMark(), pallet.getInternationalMark()) > 0.7) {
+										if (co3.addPallet(pallet)) {
+											listToReturn.add("Found a suitable location for pallet " + pallet.getInternationalMark());
+											listToReturn.add("based on International Mark similarity. (" + StringSimilarity.findSimilarity(pa3.getInternationalMark(), pallet.getInternationalMark()) * 100 + "%)");
+											listToReturn.add("The location:");
+											listToReturn.add("In Ship on sea " + sh2);
+											listToReturn.add("  In Container " + co3);
+											return listToReturn;
+										}
+									}
+								}
+							}
+						}
+
+					}
+				}
+
+			}
+		}
+
+		listToReturn.add("No suitable container found for " + pallet.getInternationalMark());
+		return listToReturn;
+	}
+
 	public void addPort(Port port) {
+		if (port.getCode() == -1) {
+			return;
+		}
+		for (Port p : ports) {
+			if (port.getCode() == p.getCode()) {
+				return;
+			}
+		}
 		ports.add(port);
 	}
 
@@ -470,6 +564,36 @@ public class Cargo {
 	}
 
 	public void updateShipByIndex(int index) {
+		//ships.update(index);
+	}
+
+	public void updateSeaShip(ContainerShip seaShipToBeUpdated, String name, String ID, String country, String URL) {
+		for (ContainerShip s : shipsOnSea) {
+			if (s.getID() == ID && !s.equals(seaShipToBeUpdated)) {
+				return;
+			}
+		}
+		for (Port p : ports) {
+			for (ContainerShip s : p.getShips()) {
+				if (s.getID() == ID && !s.equals(seaShipToBeUpdated)) {
+					return;
+				}
+			}
+		}
+		seaShipToBeUpdated.update(name, ID, country, URL);
+	}
+
+	public void updatePort(Port portToBeUpdated, String name, int code, String country) {
+		for (Port p : ports) {
+			if (p.getCode() == code && !p.equals(portToBeUpdated)) {
+				// Found a different port with the same code, so do not update
+				return;
+			}
+		}
+		portToBeUpdated.update(name, code, country);
+	}
+
+	public void updateShipOnSea(ContainerShip shipToUpdate) {
 		//ships.update(index);
 	}
 
@@ -482,6 +606,14 @@ public class Cargo {
 	}
 
 	public void addShipToSea(ContainerShip containerShip) {
+		if (containerShip.getID() == "") {
+			return;
+		}
+		for (ContainerShip s : shipsOnSea) {
+			if (containerShip.getID() == s.getID()) {
+				return;
+			}
+		}
 		shipsOnSea.add(containerShip);
 	}
 

@@ -93,7 +93,7 @@
                <children>
                   <AnchorPane layoutX="318.0" layoutY="560.0" prefHeight="860.0" prefWidth="461.0" style="-fx-background-color: #1c2640;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ListView fx:id="dockedShipListView" layoutX="241.0" layoutY="237.0" prefHeight="458.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="241.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="385.0">
+                        <ListView fx:id="dockedShipListView" layoutX="241.0" layoutY="237.0" prefHeight="462.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="241.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="385.0">
                            <contextMenu>
                               <ContextMenu>
                                 <items>
@@ -118,7 +118,7 @@
                               <Image url="@img/shipping.png" />
                            </image>
                         </ImageView>
-                        <ListView fx:id="shipListView" disable="true" layoutX="14.0" layoutY="385.0" prefHeight="458.0" prefWidth="214.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="237.0" AnchorPane.topAnchor="385.0">
+                        <ListView fx:id="shipListView" disable="true" layoutX="14.0" layoutY="385.0" prefHeight="462.0" prefWidth="214.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="237.0" AnchorPane.topAnchor="385.0">
                            <contextMenu>
                               <ContextMenu>
                                 <items>
@@ -202,7 +202,7 @@
                   </AnchorPane>
                   <AnchorPane layoutX="1170.0" layoutY="92.0" prefHeight="860.0" prefWidth="230.0" style="-fx-background-color: #253357;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1170.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ListView fx:id="portListView" layoutX="-9.0" layoutY="385.0" prefHeight="458.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <ListView fx:id="portListView" layoutX="-9.0" layoutY="385.0" prefHeight="462.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                            <contextMenu>
                               <ContextMenu>
                                 <items>
@@ -278,7 +278,7 @@
                   </AnchorPane>
                   <AnchorPane layoutX="249.0" prefHeight="860.0" prefWidth="461.0" style="-fx-background-color: #182036;">
                      <children>
-                        <ListView fx:id="containerListView" disable="true" layoutX="-9.0" layoutY="385.0" prefHeight="458.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="241.0">
+                        <ListView fx:id="containerListView" disable="true" layoutX="-9.0" layoutY="385.0" prefHeight="302.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="173.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="241.0">
                            <contextMenu>
                               <ContextMenu>
                                 <items>
@@ -323,7 +323,7 @@
                               <Font size="21.0" />
                            </font>
                         </Button>
-                        <ListView fx:id="dockedContainerListView" layoutX="237.0" layoutY="385.0" prefHeight="458.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css">
+                        <ListView fx:id="dockedContainerListView" layoutX="237.0" layoutY="385.0" prefHeight="302.0" prefWidth="210.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css">
                            <contextMenu>
                               <ContextMenu>
                                 <items>
@@ -359,7 +359,7 @@
                            </font>
                         </TextField>
                         <Text fill="WHITE" layoutX="18.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Container ID*" />
-                        <Text fill="WHITE" layoutX="18.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Length" />
+                        <Text fill="WHITE" layoutX="18.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Length*" />
                         <ToggleButton fx:id="length10toggle" layoutX="18.0" layoutY="157.0" mnemonicParsing="false" onMouseClicked="#length10Toggle" stylesheets="@css/toggle.css" text="10" textFill="WHITE" />
                         <ToggleButton fx:id="length20toggle" layoutX="54.0" layoutY="157.0" mnemonicParsing="false" onMouseClicked="#length20Toggle" selected="true" stylesheets="@css/toggle.css" text="20" textFill="WHITE" />
                         <ToggleButton fx:id="length40toggle" layoutX="90.0" layoutY="157.0" mnemonicParsing="false" onMouseClicked="#length40Toggle" stylesheets="@css/toggle.css" text="40" textFill="WHITE" />
@@ -379,9 +379,34 @@
                            </font>
                         </TextField>
                         <Text fill="WHITE" layoutX="307.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current size" textAlignment="RIGHT" />
+                        <AnchorPane layoutX="1.0" layoutY="689.0" prefHeight="171.0" prefWidth="461.0" style="-fx-background-color: black;">
+                           <children>
+                              <ListView fx:id="log" layoutY="22.0" prefHeight="128.0" prefWidth="461.0" style="-fx-background-color: black;" stylesheets="@css/terminal.css">
+                                 <contextMenu>
+                                    <ContextMenu>
+                                       <items>
+                                          <MenuItem mnemonicParsing="false" onAction="#clearOutputTerminal" text="Clear" />
+                                          <SeparatorMenuItem mnemonicParsing="false" />
+                                          <MenuItem mnemonicParsing="false" onAction="#logTerminal" text="Open command prompt" />
+                                       </items>
+                                    </ContextMenu>
+                                 </contextMenu>
+                              </ListView>
+                              <Text fill="WHITE" layoutX="14.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Always on output Terminal">
+                                 <font>
+                                    <Font name="Ubuntu Mono" size="19.0" />
+                                 </font>
+                              </Text>
+                              <Button layoutX="298.0" mnemonicParsing="false" onMouseClicked="#logTerminal" prefHeight="0.0" prefWidth="163.0" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;" text="Open command prompt">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="860.0" prefWidth="249.0" style="-fx-background-color: #111726;">
+                  <AnchorPane prefHeight="860.0" prefWidth="251.0" style="-fx-background-color: #111726;">
                      <children>
                         <ListView fx:id="palletListView" layoutX="-9.0" layoutY="385.0" prefHeight="328.0" prefWidth="229.0" style="-fx-background-color: #6589eb;" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                            <contextMenu>
@@ -416,7 +441,7 @@
                               <Font size="21.0" />
                            </font>
                         </Button>
-                        <Button layoutX="150.0" layoutY="420.0" mnemonicParsing="false" onMouseClicked="#deselectPallet" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
+                        <Button layoutX="150.0" layoutY="466.0" mnemonicParsing="false" onMouseClicked="#deselectPallet" prefHeight="20.0" prefWidth="82.0" style="-fx-background-color: #8ad3ff;" text="Deselect">
                            <font>
                               <Font name="Monospaced Regular" size="13.0" />
                            </font>
@@ -426,7 +451,6 @@
                               <Font size="21.0" />
                            </font>
                         </Button>
-                        <Button layoutX="157.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#refresh" text="Refresh" />
                         <TextArea fx:id="palletDescBox" layoutX="19.0" layoutY="262.0" prefHeight="80.0" prefWidth="195.0" promptText="Description of Goods" style="-fx-text-fill: white; -fx-background-color: black; -fx-border-color: white;" stylesheets="@css/textarea.css" />
                         <Text fill="WHITE" layoutX="20.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
                         <TextField fx:id="palletValueBox" layoutX="19.0" layoutY="208.0" prefHeight="31.0" prefWidth="87.0" promptText="Value" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
@@ -434,13 +458,13 @@
                               <Font name="Monospaced Regular" size="15.0" />
                            </font>
                         </TextField>
-                        <Text fill="WHITE" layoutX="19.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unit Value" />
+                        <Text fill="WHITE" layoutX="19.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unit Value*" />
                         <TextField fx:id="palletSizeBox" layoutX="19.0" layoutY="155.0" prefHeight="31.0" prefWidth="87.0" promptText="Size" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
                            <font>
                               <Font name="Monospaced Regular" size="15.0" />
                            </font>
                         </TextField>
-                        <Text fill="WHITE" layoutX="19.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Size" />
+                        <Text fill="WHITE" layoutX="19.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Size*" />
                         <TextField fx:id="palletIDBox" layoutX="19.0" layoutY="101.0" prefHeight="0.0" prefWidth="195.0" promptText="Pallet Mark" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: orange;">
                            <font>
                               <Font name="Monospaced Regular" size="15.0" />
@@ -452,13 +476,19 @@
                               <Font name="Monospaced Regular" size="15.0" />
                            </font>
                         </TextField>
-                        <Text fill="WHITE" layoutX="121.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity" />
+                        <Text fill="WHITE" layoutX="121.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity*" />
                         <TextField fx:id="palletWeightBox" layoutX="121.0" layoutY="156.0" prefHeight="31.0" prefWidth="87.0" promptText="Weight" style="-fx-background-color: black; -fx-border-color: white; -fx-text-fill: white;">
                            <font>
                               <Font name="Monospaced Regular" size="15.0" />
                            </font>
                         </TextField>
-                        <Text fill="WHITE" layoutX="121.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight" />
+                        <Text fill="WHITE" layoutX="121.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight*" />
+                        <Button layoutX="116.0" layoutY="423.0" mnemonicParsing="false" onMouseClicked="#smartAdd" prefHeight="30.0" prefWidth="116.0" style="-fx-background-color: #ffea4a;" text="Smart Add">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Text fx:id="smartAddReturn" fill="#ffea4a" layoutX="18.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                      </children>
                   </AnchorPane>
                </children>

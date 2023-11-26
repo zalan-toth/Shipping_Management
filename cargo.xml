@@ -195,6 +195,74 @@
                         <next>
                           <next>
                             <next>
+                              <next>
+                                <next>
+                                  <next>
+                                    <next>
+                                      <next>
+                                        <next>
+                                          <next>
+                                            <next>
+                                              <next>
+                                                <contents class="net.pyel.models.Container">
+                                                  <ID>55132312</ID>
+                                                  <size>20</size>
+                                                </contents>
+                                              </next>
+                                              <contents class="net.pyel.models.Container">
+                                                <ID>5523</ID>
+                                                <size>40</size>
+                                              </contents>
+                                            </next>
+                                            <contents class="net.pyel.models.Container">
+                                              <ID>21</ID>
+                                              <size>20</size>
+                                            </contents>
+                                          </next>
+                                          <contents class="net.pyel.models.Container">
+                                            <ID>11</ID>
+                                            <size>10</size>
+                                          </contents>
+                                        </next>
+                                        <contents class="net.pyel.models.Container">
+                                          <ID>5511</ID>
+                                          <size>10</size>
+                                        </contents>
+                                      </next>
+                                      <contents class="net.pyel.models.Container">
+                                        <ID>55222</ID>
+                                        <size>40</size>
+                                      </contents>
+                                    </next>
+                                    <contents class="net.pyel.models.Container">
+                                      <ID>5522</ID>
+                                      <size>40</size>
+                                    </contents>
+                                  </next>
+                                  <contents class="net.pyel.models.Container">
+                                    <ID>551</ID>
+                                    <size>40</size>
+                                  </contents>
+                                </next>
+                                <contents class="net.pyel.models.Container">
+                                  <ID>552</ID>
+                                  <size>40</size>
+                                  <pallets>
+                                    <first>
+                                      <contents class="net.pyel.models.Pallet">
+                                        <description>Deeeee</description>
+                                        <quantity>3</quantity>
+                                        <unitValue>11.0</unitValue>
+                                        <totalWeight>14.0</totalWeight>
+                                        <internationalMark>FGGF</internationalMark>
+                                        <size>10</size>
+                                      </contents>
+                                    </first>
+                                    <last reference="../first"/>
+                                    <size>1</size>
+                                  </pallets>
+                                </contents>
+                              </next>
                               <contents class="net.pyel.models.Container">
                                 <ID>55</ID>
                                 <size>5</size>
@@ -235,9 +303,10 @@
                                       <contents class="net.pyel.models.Pallet">
                                         <description>desc</description>
                                         <quantity>5</quantity>
-                                        <unitValue>0.0</unitValue>
+                                        <unitValue>21.5</unitValue>
                                         <totalWeight>0.0</totalWeight>
-                                        <size>0</size>
+                                        <internationalMark>FC1221</internationalMark>
+                                        <size>50</size>
                                       </contents>
                                     </next>
                                     <contents class="net.pyel.models.Pallet">
@@ -284,8 +353,8 @@
                       <size>5</size>
                     </contents>
                   </first>
-                  <last reference="../first/next/next/next/next/next"/>
-                  <size>6</size>
+                  <last reference="../first/next/next/next/next/next/next/next/next/next/next/next/next/next/next"/>
+                  <size>15</size>
                 </containers>
                 <ships>
                   <first>
@@ -312,6 +381,12 @@
                               <next>
                                 <next>
                                   <next>
+                                    <next>
+                                      <contents class="net.pyel.models.Container">
+                                        <ID>551</ID>
+                                        <size>20</size>
+                                      </contents>
+                                    </next>
                                     <contents class="net.pyel.models.Container">
                                       <ID>55</ID>
                                       <size>5</size>
@@ -363,8 +438,8 @@
                                 <size>5</size>
                               </contents>
                             </first>
-                            <last reference="../first/next/next/next"/>
-                            <size>4</size>
+                            <last reference="../first/next/next/next/next"/>
+                            <size>5</size>
                           </containers>
                         </contents>
                       </next>
@@ -414,6 +489,8 @@
       <last reference="../first/next/next/next/next"/>
       <size>5</size>
     </ports>
+    <currency>€</currency>
+    <debugMode>false</debugMode>
     <countries>
       <size>0</size>
     </countries>

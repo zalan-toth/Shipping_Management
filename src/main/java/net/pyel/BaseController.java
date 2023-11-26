@@ -51,38 +51,19 @@ public class BaseController implements Initializable {
 	}
 
 	@FXML
-	private void searchFacility() throws IOException {
+	private void smartAddFacility(CustomList<String> list) throws IOException {
 		facilityRoot = FXMLLoader.load(getClass().getResource("facility.fxml"));
-		facilityWindow();
+		facilityScene = new Scene(facilityRoot);
+		facilityStage.setScene(facilityScene);
+		facilityStage.setResizable(false);
+		facilityStage.initModality(Modality.APPLICATION_MODAL);
 		facilityStage.setTitle("Shipping Management Panel | Facility");
-		facilityStage.show();
-	}
-
-	@FXML
-	private void shipViewFacility() throws IOException {
-		facilityRoot = FXMLLoader.load(getClass().getResource("facility.fxml"));
-		facilityWindow();
-		facilityStage.setTitle("Shipping Management Panel | Shipview facility");
-		facilityStage.show();
-		viewFacility.getItems().clear();
-		for (Port port : ports) {
-			viewFacility.getItems().add(port.toString());
-			System.out.println(port.toString());
-			CustomList<ContainerShip> ships = port.getShips();
-			if (ships != null) {
-				for (ContainerShip ship : ships) {
-					viewFacility.getItems().add("  > " + ship);
-					System.out.println("  > " + ship);
-				}
-			}
+		for (String str : list) {
+			System.out.println(str);
+			viewFacility.getItems().add(str);
 		}
-
-		viewFacility.getItems().add("Ships on sea: ");
-		for (ContainerShip ship : shipsOnSea) {
-			viewFacility.getItems().add(ship.toString());
-		}
-		viewFacility.getItems().add("Hello");
 		initialize(null, null);
+		facilityStage.show();
 
 	}
 
@@ -548,6 +529,7 @@ public class BaseController implements Initializable {
 
 	@FXML
 	private void deselectPallet() {
+		smartAddReturn.setText("");
 		palletListView.getSelectionModel().clearSelection();
 		palletIDInfo.setText("-");
 		palletIDBox.setText("");
@@ -803,6 +785,9 @@ public class BaseController implements Initializable {
 
 	@FXML
 	private void addShip() {
+		if (selectedPort != null) {
+			return;
+		}
 		if (selectedPort != null && !shipNameBox.getText().isEmpty() && !shipIDBox.getText().isEmpty() && !shipCountryBox.getText().isEmpty()) {
 			ContainerShip newShip = new ContainerShip(shipNameBox.getText(), shipIDBox.getText(), shipCountryBox.getText(), shipURLBox.getText(), new CustomList<>());
 			if (selectedPort.getShips() == null) {
@@ -826,75 +811,134 @@ public class BaseController implements Initializable {
 	}
 
 	@FXML
-	private void addPallet() {
-		Pallet newPallet = new Pallet("desc", "GB-FC0001", 5, 0, 0, 0);
-		if (!toggleContainerButton.isSelected()) {
-			if (selectedContainer.getPallets() == null) {
-				selectedContainer.setPallets(new CustomList<>());
-			}
-			selectedContainer.addPallet(newPallet);
-		} else if (toggleContainerButton.isSelected()) {
+	Text smartAddReturn = new Text();
 
-			if (selectedContainerOnShip.getPallets() == null) {
-				selectedContainerOnShip.setPallets(new CustomList<>());
+	@FXML
+	private void clearOutputTerminal() {
+		log.getItems().clear();
+
+
+	}
+
+	@FXML
+	private void smartAdd() {
+		if (!palletIDBox.getText().isEmpty() && !palletAmountBox.getText().isEmpty() && !palletValueBox.getText().isEmpty() && !palletSizeBox.getText().isEmpty() && !palletWeightBox.getText().isEmpty()) {
+			Pallet newPallet = new Pallet(palletDescBox.getText(), palletIDBox.getText(), Integer.parseInt(palletAmountBox.getText()), Float.parseFloat(palletValueBox.getText()), Float.parseFloat(palletWeightBox.getText()), Integer.parseInt(palletSizeBox.getText()));
+
+			CustomList<String> list = cargoAPI.cargo.smartAdd(newPallet);
+			smartAddReturn.setText("Smart Add executed.");
+			log.getItems().clear();
+			for (String str : list) {
+				terminalReverse(str);
 			}
-			selectedContainerOnShip.addPallet(newPallet);
+			refresh();
 		}
-		terminalOut(newPallet + " added.");
-		refresh();
+
+
+	}
+
+	@FXML
+	private void addPallet() {
+		smartAddReturn.setText("");
+		if (selectedContainer != null && selectedContainerOnShip != null) {
+			return;
+		}
+		if (!palletIDBox.getText().isEmpty() && !palletAmountBox.getText().isEmpty() && !palletValueBox.getText().isEmpty() && !palletSizeBox.getText().isEmpty() && !palletWeightBox.getText().isEmpty()) {
+			Pallet newPallet = new Pallet(palletDescBox.getText(), palletIDBox.getText(), Integer.parseInt(palletAmountBox.getText()), Float.parseFloat(palletValueBox.getText()), Float.parseFloat(palletWeightBox.getText()), Integer.parseInt(palletSizeBox.getText()));
+			if (!toggleContainerButton.isSelected()) {
+				if (selectedContainer.getPallets() == null) {
+					selectedContainer.setPallets(new CustomList<>());
+				}
+				selectedContainer.addPallet(newPallet);
+			} else if (toggleContainerButton.isSelected()) {
+
+				if (selectedContainerOnShip.getPallets() == null) {
+					selectedContainerOnShip.setPallets(new CustomList<>());
+				}
+				selectedContainerOnShip.addPallet(newPallet);
+			}
+			refresh();
+		}
+
 
 	}
 
 	@FXML
 	private void addContainer() {
-		if (!containerIDBox.getText().isEmpty()) {
-			Container newContainer = new Container(Integer.parseInt(containerIDBox.getText()), containerLengthValue, null);
+		if (selectedShip != null && selectedShipOnSea != null) {
+			return;
+		}
+		if (!containerIDBox.getText().isEmpty() && containerLengthValue != 0) {
+			Container c = new Container(Integer.parseInt(containerIDBox.getText()), containerLengthValue, null);
 			if (!toggleShipButton.isSelected()) {
 				if (selectedShip.getContainers() == null) {
 					selectedShip.setContainers(new CustomList<>());
 				}
-				selectedShip.addContainer(newContainer);
+				selectedShip.addContainer(c);
 			} else if (toggleShipButton.isSelected()) {
 
 				if (selectedShipOnSea.getContainers() == null) {
 					selectedShipOnSea.setContainers(new CustomList<>());
 				}
-				selectedShipOnSea.addContainer(newContainer);
+				selectedShipOnSea.addContainer(c);
 			}
-			terminalOut(newContainer + " added.");
+			terminalOut(c + " added.");
 			refresh();
 		}
 	}
 
 	@FXML
 	private void addContainerOnShore() {
-
-		Container newContainer = new Container(55, 20, null);
-		if (selectedPort.getContainers() == null) {
-			selectedPort.setContainers(new CustomList<>());
+		if (selectedPort != null && selectedContainer != null && !containerIDBox.getText().isEmpty() && containerLengthValue != 0) {
+			if (selectedPort.getContainers() == null) {
+				selectedPort.setContainers(new CustomList<>());
+			}
+			Container c = new Container(Integer.parseInt(containerIDBox.getText()), containerLengthValue, null);
+			selectedPort.addContainer(c);
 		}
-		selectedPort.addContainer(newContainer);
-		terminalOut(newContainer + " added.");
 		updateData();
 
 	}
 
 	@FXML
 	private void updateContainer() {
+		if (!toggleContainerButton.isSelected() && selectedPort != null && selectedContainer != null && !containerIDBox.getText().isEmpty() && containerLengthValue != 0) {
+			selectedPort.updateContainer(selectedContainer, Integer.parseInt(containerIDBox.getText()), containerLengthValue);
+		} else if (toggleContainerButton.isSelected() && selectedContainerOnShip != null && !containerIDBox.getText().isEmpty() && containerLengthValue != 0) {
+			if (selectedShip != null) {
+				selectedShip.updateContainer(selectedContainerOnShip, Integer.parseInt(containerIDBox.getText()), containerLengthValue);
+			} else if (selectedShipOnSea != null) {
+				selectedShipOnSea.updateContainer(selectedContainerOnShip, Integer.parseInt(containerIDBox.getText()), containerLengthValue);
+			}
+		}
+		refresh();
 	}
 
 	@FXML
 	private void updateShip() {
+		if (selectedShip != null && !shipNameBox.getText().isEmpty() && !shipIDBox.getText().isEmpty() && !shipCountryBox.getText().isEmpty()) {
+			selectedPort.updateShip(selectedShip, shipNameBox.getText(), shipIDBox.getText(), shipCountryBox.getText(), shipURLBox.getText());
+		} else if (selectedShipOnSea != null && !shipNameBox.getText().isEmpty() && !shipIDBox.getText().isEmpty() && !shipCountryBox.getText().isEmpty()) {
+			cargoAPI.cargo.updateSeaShip(selectedShipOnSea, shipNameBox.getText(), shipIDBox.getText(), shipCountryBox.getText(), shipURLBox.getText());
+		}
+		refresh();
 	}
 
 	@FXML
 	private void updatePallet() {
+		smartAddReturn.setText("");
+		if (selectedContainer != null && !palletIDBox.getText().isEmpty() && !palletAmountBox.getText().isEmpty() && !palletValueBox.getText().isEmpty() && !palletSizeBox.getText().isEmpty() && !palletWeightBox.getText().isEmpty()) {
+			selectedContainer.updatePallet(selectedPallet, palletIDBox.getText(), palletDescBox.getText(), Integer.parseInt(palletAmountBox.getText()), Float.parseFloat(palletValueBox.getText()), Float.parseFloat(palletWeightBox.getText()), Integer.parseInt(palletSizeBox.getText()));
+		} else if (selectedContainerOnShip != null && !palletIDBox.getText().isEmpty() && !palletAmountBox.getText().isEmpty() && !palletValueBox.getText().isEmpty() && !palletSizeBox.getText().isEmpty() && !palletWeightBox.getText().isEmpty()) {
+			selectedContainerOnShip.updatePallet(selectedPallet, palletIDBox.getText(), palletDescBox.getText(), Integer.parseInt(palletAmountBox.getText()), Float.parseFloat(palletValueBox.getText()), Float.parseFloat(palletWeightBox.getText()), Integer.parseInt(palletSizeBox.getText()));
+		}
+		refresh();
 	}
 
 	@FXML
 	private void updatePort() {
 		if (selectedPort != null && !portNameBox.getText().isEmpty() && !portIDBox.getText().isEmpty() && !portCountryBox.getText().isEmpty()) {
-			selectedPort.update(portNameBox.getText(), Integer.parseInt(portIDBox.getText()), portCountryBox.getText());
+			cargoAPI.cargo.updatePort(selectedPort, portNameBox.getText(), Integer.parseInt(portIDBox.getText()), portCountryBox.getText());
 			terminalOut(selectedPort + " updated.");
 			refresh();
 		}
@@ -980,7 +1024,7 @@ public class BaseController implements Initializable {
 		viewFacility.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			// This will be called whenever the user selects a different item in the list
 			if (newValue != null) {
-				updateData();
+				refresh();
 			}
 		});
 		logInput.setOnKeyPressed(event -> {
@@ -1099,7 +1143,7 @@ public class BaseController implements Initializable {
 				if (selectedContainer.getPallets() != null) {
 					CustomList<Pallet> palletsInContainer = selectedContainer.getPallets();
 					for (Pallet p : palletsInContainer) {
-						fullSize = p.getSize();
+						fullSize += p.getSize();
 					}
 				}
 				containerSizeBox.setText("" + fullSize);
@@ -1136,7 +1180,7 @@ public class BaseController implements Initializable {
 				if (selectedContainerOnShip.getPallets() != null) {
 					CustomList<Pallet> palletsInContainer = selectedContainerOnShip.getPallets();
 					for (Pallet p : palletsInContainer) {
-						fullSize = p.getSize();
+						fullSize += p.getSize();
 					}
 				}
 				containerSizeBox.setText("" + fullSize);

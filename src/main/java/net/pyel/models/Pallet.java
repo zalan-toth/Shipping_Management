@@ -5,7 +5,7 @@ public class Pallet {
 	private int quantity;
 	private float unitValue;
 	private float totalWeight;
-	private String internationalMark;
+	private String internationalMark = "";
 	private int size; //in cubic feet
 
 	/*TODO Note that you should not allow more pallets in a container than it could hold based
@@ -30,8 +30,17 @@ public class Pallet {
 		this.internationalMark = internationalMark;
 	}
 
+	public void update(String internationalMark, String description, int quantity, float unitValue, float totalWeight, int size) {
+		setInternationalMark(internationalMark);
+		setDescription(description);
+		setQuantity(quantity);
+		setUnitValue(unitValue);
+		setTotalWeight(totalWeight);
+		setSize(size);
+	}
+
 	public float getValue() {
-		return unitValue * size;
+		return unitValue * quantity;
 	}
 
 	public String getDescription() {

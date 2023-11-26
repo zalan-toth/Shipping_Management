@@ -4,7 +4,7 @@ import net.pyel.utils.CustomList;
 
 public class Port {
 	private String name;
-	private int code; //TODO unique
+	private int code = -1; //TODO unique
 	private String country;
 	private CustomList<Container> containers = new CustomList<>();
 	private CustomList<ContainerShip> ships = new CustomList<>();
@@ -33,6 +33,24 @@ public class Port {
 		this.containers = containers;
 	}
 
+	public void updateContainer(Container containerToBeUpdated, int ID, int size) {
+		for (Container c : containers) {
+			if (c.getID() == ID && !c.equals(containerToBeUpdated)) {
+				return;
+			}
+		}
+		containerToBeUpdated.update(ID, size);
+	}
+
+	public void updateShip(ContainerShip shipToBeUpdated, String name, String ID, String country, String URL) {
+		for (ContainerShip s : ships) {
+			if (s.getID() == ID && !s.equals(shipToBeUpdated)) {
+				return;
+			}
+		}
+		shipToBeUpdated.update(name, ID, country, URL);
+	}
+
 	public void update(String name, int code, String country) {
 		setName(name);
 		setCode(code);
@@ -51,8 +69,8 @@ public class Port {
 	}
 
 	public void setName(String name) {
-		if (country.length() <= 160) {
-			this.country = country;
+		if (name.length() <= 160) {
+			this.name = name;
 		}
 	}
 
@@ -85,6 +103,14 @@ public class Port {
 	}
 
 	public void addContainerShip(ContainerShip containerShip) {
+		if (containerShip.getID() == "") {
+			return;
+		}
+		for (ContainerShip s : ships) {
+			if (containerShip.getID() == s.getID()) {
+				return;
+			}
+		}
 		ships.add(containerShip);
 	}
 
@@ -97,6 +123,14 @@ public class Port {
 	}
 
 	public void addContainer(Container container) {
+		if (container.getID() == -1) {
+			return;
+		}
+		for (Container c : containers) {
+			if (container.getID() == c.getID()) {
+				return;
+			}
+		}
 		containers.add(container);
 	}
 
@@ -121,13 +155,13 @@ public class Port {
 		CustomList<Container> c = this.getContainers();
 		if (c != null) {
 			for (int i = 0; i < c.getSize(); i++) {
-				val = c.get(i).getValue();
+				val += c.get(i).getValue();
 			}
 		}
 		CustomList<ContainerShip> s = this.getShips();
 		if (s != null) {
 			for (int i = 0; i < s.getSize(); i++) {
-				val = s.get(i).getValue();
+				val += s.get(i).getValue();
 			}
 		}
 		return val;

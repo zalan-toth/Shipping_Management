@@ -4,7 +4,7 @@ import net.pyel.utils.CustomList;
 
 public class ContainerShip {
 	private String name;
-	private String ID;
+	private String ID = "";
 	private String country; //flagStatus
 	private String photoURL;
 	//TODO list of on board storage of containers
@@ -39,7 +39,7 @@ public class ContainerShip {
 		CustomList<Container> c = this.getContainers();
 		if (c != null) {
 			for (int i = 0; i < c.getSize(); i++) {
-				val = c.get(i).getValue();
+				val += c.get(i).getValue();
 			}
 		}
 		return val;
@@ -93,7 +93,24 @@ public class ContainerShip {
 
 
 	public void addContainer(Container container) {
+		if (container.getID() == -1) {
+			return;
+		}
+		for (Container c : containers) {
+			if (container.getID() == c.getID()) {
+				return;
+			}
+		}
 		containers.add(container);
+	}
+
+	public void updateContainer(Container containerToBeUpdated, int ID, int size) {
+		for (Container c : containers) {
+			if (c.getID() == ID && !c.equals(containerToBeUpdated)) {
+				return;
+			}
+		}
+		containerToBeUpdated.update(ID, size);
 	}
 
 	public void removeContainerByIndex(int index) {
@@ -104,8 +121,11 @@ public class ContainerShip {
 		containers.remove(c);
 	}
 
-	public void updateContainerByIndex(int index) {
-		//containers.update(index);
+	public void update(String name, String ID, String country, String URL) {
+		setName(name);
+		setID(ID);
+		setCountry(country);
+		setPhotoURL(URL);
 	}
 
 	public void addPalletToContainers(int containerIndex, Pallet pallet) {
