@@ -418,6 +418,26 @@
                                     <next>
                                       <next>
                                         <next>
+                                          <next>
+                                            <next>
+                                              <contents class="net.pyel.models.Pallet">
+                                                <description>Clothes</description>
+                                                <quantity>150</quantity>
+                                                <unitValue>3.5</unitValue>
+                                                <totalWeight>160.0</totalWeight>
+                                                <internationalMark>IE-FC0015</internationalMark>
+                                                <size>100</size>
+                                              </contents>
+                                            </next>
+                                            <contents class="net.pyel.models.Pallet">
+                                              <description>Clothes</description>
+                                              <quantity>150</quantity>
+                                              <unitValue>3.5</unitValue>
+                                              <totalWeight>160.0</totalWeight>
+                                              <internationalMark>IE-FC0005</internationalMark>
+                                              <size>100</size>
+                                            </contents>
+                                          </next>
                                           <contents class="net.pyel.models.Pallet">
                                             <description>Clothes</description>
                                             <quantity>150</quantity>
@@ -454,8 +474,8 @@
                                       <size>100</size>
                                     </contents>
                                   </first>
-                                  <last reference="../first/next/next/next"/>
-                                  <size>4</size>
+                                  <last reference="../first/next/next/next/next/next"/>
+                                  <size>6</size>
                                 </pallets>
                               </contents>
                             </next>
@@ -1204,6 +1224,12 @@
                               <next>
                                 <next>
                                   <next>
+                                    <next>
+                                      <next>
+                                        <contents class="string">IE-FC0015</contents>
+                                      </next>
+                                      <contents class="string">IE-FC0005</contents>
+                                    </next>
                                     <contents class="string">IE-FC0004</contents>
                                   </next>
                                   <contents class="string">IE-FC0003</contents>
@@ -1234,8 +1260,8 @@
         </next>
         <contents class="string">HU-PL0001</contents>
       </first>
-      <last reference="../first/next/next/next/next/next/next/next/next/next/next/next/next/next/next"/>
-      <size>15</size>
+      <last reference="../first/next/next/next/next/next/next/next/next/next/next/next/next/next/next/next/next"/>
+      <size>17</size>
     </palletIM>
   </net.pyel.Cargo>
 </object-stream>
