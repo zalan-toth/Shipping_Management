@@ -726,6 +726,7 @@ public class BaseController implements Initializable {
 				selectedPort.removeContainer(selectedContainer);
 				selectedShipOnSea.addContainer(containerToLoad);
 				selectedContainer = null;
+				terminalOut(containerToLoad + " loaded to Ship " + selectedShipOnSea);
 			}
 		} else if (!toggleShipButton.isSelected()) {
 			if (selectedContainer != null && selectedShip != null) {
@@ -733,6 +734,7 @@ public class BaseController implements Initializable {
 				selectedPort.removeContainer(selectedContainer);
 				selectedShip.addContainer(containerToLoad);
 				selectedContainer = null;
+				terminalOut(containerToLoad + " loaded to Ship " + selectedShip);
 			}
 		}
 		deselectContainer();
@@ -747,6 +749,7 @@ public class BaseController implements Initializable {
 				selectedShipOnSea.removeContainer(containerToUnload);
 				selectedPort.addContainer(selectedContainerOnShip);
 				selectedContainerOnShip = null;
+				terminalOut(containerToUnload + " loaded to Port " + selectedPort);
 			}
 		} else if (!toggleShipButton.isSelected()) {
 			if (selectedContainerOnShip != null && selectedShip != null) {
@@ -754,6 +757,7 @@ public class BaseController implements Initializable {
 				selectedShip.removeContainer(containerToUnload);
 				selectedPort.addContainer(selectedContainerOnShip);
 				selectedContainerOnShip = null;
+				terminalOut(containerToUnload + " loaded to Port " + selectedPort);
 			}
 		}
 		deselectContainer();
@@ -767,6 +771,7 @@ public class BaseController implements Initializable {
 			cargoAPI.cargo.removeShipFromSea(selectedShipOnSea);
 			selectedPort.addContainerShip(shipToDock);
 			selectedShipOnSea = null;
+			terminalOut(shipToDock + " docked to Port " + selectedPort);
 			deselectShip();
 			refresh();
 		}
@@ -779,6 +784,7 @@ public class BaseController implements Initializable {
 			selectedPort.removeShip(shipToUndock);
 			cargoAPI.cargo.addShipToSea(shipToUndock);
 			selectedShip = null;
+			terminalOut(shipToUndock + " launched to sea.");
 			deselectShip();
 			refresh();
 		}
