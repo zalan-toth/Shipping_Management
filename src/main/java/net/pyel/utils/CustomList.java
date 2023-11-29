@@ -23,7 +23,7 @@ public class CustomList<F> implements Iterable<F>, List<F> {
 			first = last = data;
 		else {
 			last.next = data;
-			last = data;
+			last = data; //connect
 		}
 		size++;
 		return false;
@@ -74,7 +74,7 @@ public class CustomList<F> implements Iterable<F>, List<F> {
 	@Override
 	public int indexOf(Object o) {
 		int index = 0;
-		for (Object current : this) {
+		for (F current : this) {
 			if (o.equals(current)) {
 				return index;
 			}
@@ -115,8 +115,6 @@ public class CustomList<F> implements Iterable<F>, List<F> {
 
 	protected F doSet(int index, F element) {
 		F oldVal = this.get(index);
-		// Implement set in CustomList if required.
-		// For now, this will just remove and add.
 		this.remove(index);
 		this.add(index, element);
 		return oldVal;
@@ -169,7 +167,6 @@ public class CustomList<F> implements Iterable<F>, List<F> {
 			current = current.next;
 		}
 
-		// Return the contents of the current node
 		return current.getContents();
 	}
 
@@ -200,7 +197,6 @@ public class CustomList<F> implements Iterable<F>, List<F> {
 			return false;
 		}
 
-		// If the object to be removed is at the beginning of the list
 		if (o.equals(first.getContents())) {
 			first = first.next;
 			if (first == null) { // If list becomes empty
