@@ -645,7 +645,7 @@ public class Cargo {
 			listToReturn.add("No suitable container found for " + pallet.getInternationalMark());
 		} else if (area == 1) {
 			bestContainerSoFar.addPallet(pallet);
-			listToReturn.add("Checked  " + possibleElements + " possible elements.");
+			listToReturn.add("Checked  " + possibleElements + " elements.");
 			listToReturn.add("Best location for pallet is " + pallet.getInternationalMark());
 			listToReturn.add("based on International Mark similarity. (" + StringSimilarity.findSimilarity(bestPalletSoFar.getInternationalMark(), pallet.getInternationalMark()) * 100 + "%)");
 			listToReturn.add("The location:");
@@ -654,7 +654,7 @@ public class Cargo {
 			listToReturn.add("    In Container " + bestContainerSoFar);
 		} else if (area == 2) {
 			bestContainerSoFar.addPallet(pallet);
-			listToReturn.add("Checked  " + possibleElements + " possible elements.");
+			listToReturn.add("Checked  " + possibleElements + " elements.");
 			listToReturn.add("Best location for pallet is " + pallet.getInternationalMark());
 			listToReturn.add("based on International Mark similarity. (" + StringSimilarity.findSimilarity(bestPalletSoFar.getInternationalMark(), pallet.getInternationalMark()) * 100 + "%)");
 			listToReturn.add("The location:");
@@ -662,7 +662,7 @@ public class Cargo {
 			listToReturn.add("  In Container " + bestContainerSoFar);
 		} else if (area == 3) {
 			bestContainerSoFar.addPallet(pallet);
-			listToReturn.add("Checked  " + possibleElements + " possible elements.");
+			listToReturn.add("Checked  " + possibleElements + " elements.");
 			listToReturn.add("Best location for pallet is " + pallet.getInternationalMark());
 			listToReturn.add("based on International Mark similarity. (" + StringSimilarity.findSimilarity(bestPalletSoFar.getInternationalMark(), pallet.getInternationalMark()) * 100 + "%)");
 			listToReturn.add("The location:");
