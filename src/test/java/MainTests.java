@@ -47,6 +47,7 @@ class MainTests {
 	Pallet pallet10 = new Pallet("Hot sandwich grater", "HU-FC0002", 100, (float) 40, 1000, 500);
 	Pallet pallet11 = new Pallet("Indicator buoy sharpener", "CH-FC2323", 2, (float) 800, 2000, 640);
 	Pallet pallet12 = new Pallet("Indicator buoy sharpener", "CH-FC6543", 2, (float) 800, 2000, 640);
+	Pallet pallet13 = new Pallet("Electronics", "GB-FC0001", 5, (float) 17.99, 500, 50);
 
 	/*
 		@Before
@@ -68,7 +69,7 @@ class MainTests {
 	void addingPortToSystemTestingForUniqueCode() {
 		cargo.addPort(port1); //Should add
 		cargo.addPort(port2); //Should not add
-		assertEquals(null, cargo.getPorts().get(1));
+		assertNull(cargo.getPorts().get(1));
 		cargo.addPort(port3); //Should add
 		cargo.addPort(port4); //Should add
 		cargo.addPort(port5); //Should add
@@ -154,6 +155,80 @@ class MainTests {
 
 		container1.addPallet(pallet1); //Should add (+50=520 <640)
 		assertEquals(550, container1.getCurrentTakenSize());
+
+	}
+
+
+	@Test
+	void palletAddAndRemoveChangesSizeProperlyInContainer() {
+		//CHECKING THE LIST ITSELF
+		container1.addPallet(pallet9); //Should add (+500=500 <640)
+		container1.addPallet(pallet10); //Should not add (+500=1000 !<640)
+		assertEquals(1, container1.getPallets().getSize());
+		container1.addPallet(pallet1); //Should add
+		container1.addPallet(pallet13); //Should add
+		assertEquals(3, container1.getPallets().getSize());
+		container1.removePallet(pallet1); //Should remove
+		assertEquals(2, container1.getPallets().getSize());
+		container1.removePallet(pallet9); //Should remove
+		assertEquals(1, container1.getPallets().getSize());
+		container1.removePallet(pallet13); //Should remove
+		assertEquals(0, container1.getPallets().getSize());
+
+
+		//CHECKING THE CONTAINER SIZE ITSELF container1 has the capacity of 640 (10*8*8)
+		container1.addPallet(pallet9); //Should add (+500=500 <640)
+		assertEquals(500, container1.getCurrentTakenSize());
+		container1.addPallet(pallet10); //Should not add (+500=1000 !<640)
+		assertEquals(500, container1.getCurrentTakenSize());
+		container1.addPallet(pallet1); //Should add
+		assertEquals(550, container1.getCurrentTakenSize());
+		container1.addPallet(pallet13); //Should add
+		assertEquals(600, container1.getCurrentTakenSize());
+		container1.removePallet(pallet1); //Should remove
+		assertEquals(550, container1.getCurrentTakenSize());
+		container1.removePallet(pallet9); //Should remove
+		assertEquals(50, container1.getCurrentTakenSize());
+		container1.removePallet(pallet13); //Should remove
+		assertEquals(0, container1.getCurrentTakenSize());
+	}
+
+	@Test
+	void removingAndAddingContainerWithSizeCheck() {
+		ship2.addContainer(container3);
+		assertEquals(1, ship2.getContainers().getSize());
+		ship2.addContainer(container4);
+		assertEquals(2, ship2.getContainers().getSize());
+		ship2.addContainer(container1);
+		assertEquals(3, ship2.getContainers().getSize());
+		ship2.addContainer(container1); //SHOULD NOT ADD, SAME ID
+		assertEquals(3, ship2.getContainers().getSize());
+		ship2.removeContainer(container4);
+		assertEquals(2, ship2.getContainers().getSize());
+		ship2.removeContainerByIndex(0);
+		ship2.removeContainerByIndex(0);
+		assertEquals(0, ship2.getContainers().getSize());
+
+	}
+
+	@Test
+	void updatingContainerSizeWhileCheckingCapacity() {
+		ship2.addContainer(container3);
+		assertEquals(1280, ship2.getContainers().get(0).getTotalSize()); //length 20
+		ship2.updateContainer(container3, 7721, 10);
+		assertEquals(640, ship2.getContainers().get(0).getTotalSize()); //length 10
+		ship2.updateContainer(container3, 7721, 20);
+		assertEquals(1280, ship2.getContainers().get(0).getTotalSize()); //length 20
+		ship2.getContainers().get(0).addPallet(pallet9); //500 in size SHOULD ADD
+		ship2.getContainers().get(0).addPallet(pallet10); //500 in size SHOULD ADD
+		assertEquals(1280, ship2.getContainers().get(0).getTotalSize());
+		assertEquals(1000, ship2.getContainers().get(0).getCurrentTakenSize());
+		ship2.updateContainer(container3, 7721, 10); //SHOULD NOT UPDATE AS CONTENTS ARE BIGGER THEN THE CAPACITY SIZE - capacity would be 640 while size is 1000
+		assertEquals(1280, ship2.getContainers().get(0).getTotalSize()); //length 20
+		ship2.getContainers().get(0).removePallet(pallet10);
+		ship2.updateContainer(container3, 7721, 10); //SHOULD UPDATE AS CONTENTS ARE SMALLER THAN THE CAPACITY WOULD BE
+		assertEquals(640, ship2.getContainers().get(0).getTotalSize()); //length 10
+
 
 	}
 }

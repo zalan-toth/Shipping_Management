@@ -508,6 +508,172 @@ public class Cargo {
 
 	public CustomList<String> smartAdd(Pallet pallet) {
 		CustomList<String> listToReturn = new CustomList<>();
+		double bestResultSoFar = 0;
+		int area = 0;
+		int possibleElements = 0;
+		double defaultSimilarityValue = 0.5;
+		Port bestPortSoFar = null;
+		ContainerShip bestShipSoFar = null;
+		Container bestContainerSoFar = null;
+		Pallet bestPalletSoFar = null;
+		if (ports != null) {
+			for (Port po1 : ports) {
+				if (po1.getShips() != null) {
+					for (ContainerShip sh1 : po1.getShips()) {
+						if (sh1.getContainers() != null) {
+							for (Container co1 : sh1.getContainers()) {
+								if (co1.getPallets() != null) {
+									for (Pallet pa1 : co1.getPallets()) {
+										if (pa1.getInternationalMark() != null && !Objects.equals(pa1.getInternationalMark(), pallet.getInternationalMark())) {
+											double currentSimilarity = StringSimilarity.findSimilarity(pa1.getInternationalMark(), pallet.getInternationalMark());
+											if (currentSimilarity > defaultSimilarityValue && currentSimilarity > bestResultSoFar) {
+												if (debugMode) {
+													listToReturn.add("FOUND POSSIBLE LOCATION> " + "@ " + pa1 + " [" + currentSimilarity * 100 + "%]");
+												}
+												possibleElements++;
+												if (co1.addPallet(pallet)) {
+													if (debugMode) {
+														listToReturn.add("  - ADD SUCCESS, STORING LOCATION");
+													}
+													area = 1;
+													bestResultSoFar = currentSimilarity;
+													bestPortSoFar = po1;
+													bestShipSoFar = sh1;
+													bestContainerSoFar = co1;
+													bestPalletSoFar = pa1;
+													co1.removePallet(pallet);
+												} else {
+													if (debugMode) {
+														listToReturn.add("  - ADD FAILED, DROPPING LOCATION");
+													}
+
+												}
+												if (debugMode) {
+													listToReturn.add("");
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				if (po1.getContainers() != null) {
+					for (Container co2 : po1.getContainers()) {
+						if (co2.getPallets() != null) {
+							for (Pallet pa2 : co2.getPallets()) {
+								if (pa2.getInternationalMark() != null && !Objects.equals(pa2.getInternationalMark(), pallet.getInternationalMark())) {
+									double currentSimilarity = StringSimilarity.findSimilarity(pa2.getInternationalMark(), pallet.getInternationalMark());
+									if (currentSimilarity > defaultSimilarityValue && currentSimilarity > bestResultSoFar) {
+										if (debugMode) {
+											listToReturn.add("FOUND POSSIBLE LOCATION> " + "@ " + pa2 + " [" + currentSimilarity * 100 + "%]");
+										}
+										possibleElements++;
+										if (co2.addPallet(pallet)) {
+											if (debugMode) {
+												listToReturn.add("  - ADD SUCCESS, STORING LOCATION");
+											}
+											area = 2;
+											bestResultSoFar = currentSimilarity;
+											bestPortSoFar = po1;
+											bestContainerSoFar = co2;
+											bestPalletSoFar = pa2;
+											co2.removePallet(pallet);
+										} else {
+											if (debugMode) {
+												listToReturn.add("  - ADD FAILED, DROPPING LOCATION");
+											}
+
+										}
+										if (debugMode) {
+											listToReturn.add("");
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+			}
+		}
+		if (shipsOnSea != null) {
+			for (ContainerShip sh2 : shipsOnSea) {
+				if (sh2.getContainers() != null) {
+					for (Container co3 : sh2.getContainers()) {
+						if (co3.getPallets() != null) {
+							for (Pallet pa3 : co3.getPallets()) {
+								if (pa3.getInternationalMark() != null && !Objects.equals(pa3.getInternationalMark(), pallet.getInternationalMark())) {
+									double currentSimilarity = StringSimilarity.findSimilarity(pa3.getInternationalMark(), pallet.getInternationalMark());
+									if (currentSimilarity > defaultSimilarityValue && currentSimilarity > bestResultSoFar) {
+										if (debugMode) {
+											listToReturn.add("FOUND POSSIBLE LOCATION> " + "@ " + pa3 + " [" + currentSimilarity * 100 + "%]");
+										}
+										possibleElements++;
+										if (co3.addPallet(pallet)) {
+											if (debugMode) {
+												listToReturn.add("  - ADD SUCCESS, STORING LOCATION");
+											}
+											area = 1;
+											bestResultSoFar = currentSimilarity;
+											bestShipSoFar = sh2;
+											bestContainerSoFar = co3;
+											bestPalletSoFar = pa3;
+											co3.removePallet(pallet);
+										} else {
+											if (debugMode) {
+												listToReturn.add("  - ADD FAILED, DROPPING LOCATION");
+											}
+
+										}
+										if (debugMode) {
+											listToReturn.add("");
+										}
+									}
+								}
+							}
+						}
+
+					}
+				}
+
+			}
+		}
+
+		if (area == 0) {
+			listToReturn.add("No suitable container found for " + pallet.getInternationalMark());
+		} else if (area == 1) {
+			bestContainerSoFar.addPallet(pallet);
+			listToReturn.add("Checked  " + possibleElements + " possible elements.");
+			listToReturn.add("Best location for pallet is " + pallet.getInternationalMark());
+			listToReturn.add("based on International Mark similarity. (" + StringSimilarity.findSimilarity(bestPalletSoFar.getInternationalMark(), pallet.getInternationalMark()) * 100 + "%)");
+			listToReturn.add("The location:");
+			listToReturn.add("In Port " + bestPortSoFar);
+			listToReturn.add("  In Ship " + bestShipSoFar);
+			listToReturn.add("    In Container " + bestContainerSoFar);
+		} else if (area == 2) {
+			bestContainerSoFar.addPallet(pallet);
+			listToReturn.add("Checked  " + possibleElements + " possible elements.");
+			listToReturn.add("Best location for pallet is " + pallet.getInternationalMark());
+			listToReturn.add("based on International Mark similarity. (" + StringSimilarity.findSimilarity(bestPalletSoFar.getInternationalMark(), pallet.getInternationalMark()) * 100 + "%)");
+			listToReturn.add("The location:");
+			listToReturn.add("In Port " + bestPortSoFar);
+			listToReturn.add("  In Container " + bestContainerSoFar);
+		} else if (area == 3) {
+			bestContainerSoFar.addPallet(pallet);
+			listToReturn.add("Checked  " + possibleElements + " possible elements.");
+			listToReturn.add("Best location for pallet is " + pallet.getInternationalMark());
+			listToReturn.add("based on International Mark similarity. (" + StringSimilarity.findSimilarity(bestPalletSoFar.getInternationalMark(), pallet.getInternationalMark()) * 100 + "%)");
+			listToReturn.add("The location:");
+			listToReturn.add("In Ship on sea " + bestShipSoFar);
+			listToReturn.add("  In Container " + bestContainerSoFar);
+		}
+		return listToReturn;
+	}
+
+	public CustomList<String> smartAddFastMethod(Pallet pallet) { //OLD CODE FOR SMARTADD
+		CustomList<String> listToReturn = new CustomList<>();
 		if (ports != null) {
 			for (Port po1 : ports) {
 				if (po1.getShips() != null) {

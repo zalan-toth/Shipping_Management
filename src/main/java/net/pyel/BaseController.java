@@ -397,6 +397,7 @@ public class BaseController implements Initializable {
 	@FXML
 	private void openHelpMenu() throws IOException {
 		popuproot = FXMLLoader.load(getClass().getResource("help.fxml"));
+		popupstage.setResizable(false);
 		popupstage.setTitle("Shipping Management Panel | About & Help Centre");
 		popupScene = new Scene(popuproot);
 		popupstage.setScene(popupScene);
