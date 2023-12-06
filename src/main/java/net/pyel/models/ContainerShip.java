@@ -3,6 +3,11 @@ package net.pyel.models;
 import net.pyel.BackgroundController;
 import net.pyel.utils.CustomList;
 
+/**
+ * Ship class
+ *
+ * @author Zalán Tóth
+ */
 public class ContainerShip {
 	private String name;
 	private String ID = "";

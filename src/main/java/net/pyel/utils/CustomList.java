@@ -3,6 +3,11 @@ package net.pyel.utils;
 import java.util.*;
 import java.util.function.UnaryOperator;
 
+/**
+ * Custom List
+ *
+ * @author Zalán Tóth
+ */
 public class CustomList<F> implements Iterable<F>, List<F> {
 	public CustomNode<F> first = null;
 	public CustomNode<F> last = null;

@@ -1,6 +1,11 @@
 package net.pyel.utils;
 
-/*https://www.techiedelight.com/calculate-string-similarity-java/*/
+/**
+ * Checks String Similarity
+ * Code got from: https://www.techiedelight.com/calculate-string-similarity-java/
+ *
+ * @author Vivek Srivastava
+ */
 public class StringSimilarity {
 	public static int getLevenshteinDistance(String X, String Y) {
 		int m = X.length();

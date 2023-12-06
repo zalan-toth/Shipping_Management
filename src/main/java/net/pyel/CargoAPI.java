@@ -11,13 +11,18 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Objects;
 
+/**
+ * CargoAPI, API for Cargo, save and load happens here, utilized by backgroundcontroller
+ *
+ * @author Zalán Tóth
+ */
 public class CargoAPI {
 
 	Cargo cargo = new Cargo(new CustomList<>(), new CustomList<>(), new CustomList<>()); //center of data
 	private CustomList<Integer> test;
 
 	public String currentHandler = "";
-	
+
 
 	public CargoAPI(String handler) {
 		currentHandler = handler;

@@ -11,6 +11,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+/**
+ * JUnit - some useful tests for the app
+ *
+ * @author Zalán Tóth
+ */
 class MainTests {
 	/*Port port1, port2, port3, port4, port5, port6;
 	ContainerShip ship1, ship2;

@@ -23,6 +23,11 @@ import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+/**
+ * Base Controller - Manages all windows with fxml
+ *
+ * @author Zalán Tóth
+ */
 public class BaseController implements Initializable {
 	private static CargoAPI cargoAPI = new CargoAPI(null);
 	private CustomList<Port> ports;

@@ -3,6 +3,11 @@ package net.pyel;
 import net.pyel.models.Port;
 import net.pyel.utils.CustomList;
 
+/**
+ * Manages saves and loads in the background mainly
+ *
+ * @author Zalán Tóth
+ */
 public class BackgroundController {
 	private static CargoAPI cargoAPI = new CargoAPI("");
 	private CustomList<Port> ports = cargoAPI.cargo.getPorts();

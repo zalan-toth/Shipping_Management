@@ -2,6 +2,11 @@ package net.pyel.utils;
 
 import java.util.Iterator;
 
+/**
+ * Custom Iterator
+ *
+ * @author Zalán Tóth
+ */
 public class CustomIterator<K> implements Iterator {
 	private CustomNode<K> position;
 

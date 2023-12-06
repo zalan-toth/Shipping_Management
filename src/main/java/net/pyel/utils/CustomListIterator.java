@@ -3,7 +3,12 @@ package net.pyel.utils;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
-//TODO DEMO CODE
+/**
+ * Custom List Iterator - was needed to syncronize data between the background (custom linked list) and javafx (listview)
+ * ListIterator interface was used
+ *
+ * @author Zalán Tóth
+ */
 public class CustomListIterator<F> implements ListIterator<F> {
 	private CustomNode<F> position;
 	private CustomNode<F> lastReturned = null;

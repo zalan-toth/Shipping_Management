@@ -9,6 +9,11 @@ import net.pyel.utils.StringSimilarity;
 
 import java.util.Objects;
 
+/**
+ * Cargo - Every cargo data can be found in Cargo, the object of this class is saved and loaded, it includes algorithms for functions
+ *
+ * @author Zalán Tóth
+ */
 public class Cargo {
 
 	private CustomList<ContainerShip> shipsOnSea = new CustomList<>();

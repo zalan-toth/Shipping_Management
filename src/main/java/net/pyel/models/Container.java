@@ -5,6 +5,11 @@ import net.pyel.utils.CustomList;
 
 import java.util.Objects;
 
+/**
+ * Container class
+ *
+ * @author Zalán Tóth
+ */
 public class Container {
 	private int ID = -1;
 	private int size; //container size (10, 20 or 40 feet long; assume 8 feet width and height).

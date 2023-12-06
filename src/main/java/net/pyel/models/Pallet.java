@@ -2,6 +2,11 @@ package net.pyel.models;
 
 import net.pyel.BackgroundController;
 
+/**
+ * Pallet class
+ *
+ * @author Zalán Tóth
+ */
 public class Pallet {
 	private String description;
 	private int quantity;
@@ -10,10 +15,6 @@ public class Pallet {
 	private String internationalMark = "";
 	private int size; //in cubic feet
 
-	/*TODO Note that you should not allow more pallets in a container than it could hold based
-	on the container’s size. For example, a 10 foot-long container can hold 8x8x10=640
-	cubic feet in total, so don’t allow a combination of pallets that exceeds this (ignore
-	the shape, etc. of goods/cargo).*/
 
 	public Pallet(String description, String internationalMark, int quantity, float unitValue, float totalWeight, int size) {
 		this.description = description;

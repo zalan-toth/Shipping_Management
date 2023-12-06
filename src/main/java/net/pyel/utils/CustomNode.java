@@ -1,5 +1,10 @@
 package net.pyel.utils;
 
+/**
+ * Custom Node
+ *
+ * @author Zalán Tóth
+ */
 public class CustomNode<N> {
 	public CustomNode<N> next = null;
 	public CustomNode<N> previous = null;

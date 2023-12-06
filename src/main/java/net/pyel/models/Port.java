@@ -5,6 +5,11 @@ import net.pyel.utils.CustomList;
 
 import java.util.Objects;
 
+/**
+ * Port class
+ *
+ * @author Zalán Tóth
+ */
 public class Port {
 	private String name;
 	private int code = -1; //TODO unique
