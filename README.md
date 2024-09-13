@@ -1,2 +1,3 @@
-# Game_Machines
+# Shipping Management Panel
  
+Assignment for Programming - Management for ships
